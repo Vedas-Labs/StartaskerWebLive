@@ -1,0 +1,39 @@
+<div class="text-center bg-light p-3">
+    <h5 class="">StarTasker Coupons<span class="float-right hover text-right" (click)="closeTab()">
+      <img width="40" style="border-radius: 50%; padding: 10px;"
+        src="../../../assets/Iconmetro-cancel.png">
+    </span></h5>
+</div>
+<form class="px-2">
+    <div class="input-group mb-3" style="border-bottom: 1px solid #fa0e0e;">
+        <input type="text" class="form-control border-0" [(ngModel)]="coupounCode" name="coupenCode"  placeholder="Enter Coupon Code">
+        <div class="input-group-append">
+          <span class="input-group-text bg-white border-0 text-red f-18 hover" (click)="applyCoupon(coupounCode)">Apply</span>
+        </div>
+      </div>
+</form>
+<div class="container-fluid scroll" style="max-height: 75vh; overflow-y: auto;">
+  
+    <div class="bg-light mt-2">
+        <h6 class="p-2">Coupons Available</h6>
+    </div>
+    <div class="row rewards p-2">
+            <div  class="position-relative w-100 box" *ngFor="let coupon of coupons;let i = index;">
+                <div class="d-flex w-100">
+                    <div>
+                        <div class="text-white p-2" (click)="selectCoupon(coupon)" [ngStyle]="{'background-color' : getColors(i)}" style="line-height: 10px;">
+                            <h6> RM {{coupon.couponAmount}} Off</h6>
+                            <span class="f-14">On All services</span>
+                         </div>
+                         <div>
+                            <small>Coupon Code :</small><span class="f-15">{{coupon.couponCode}}</span>
+                        </div>
+                    </div>
+                    <span style="flex: 1 1 auto;"></span>
+                    <div class="align-self-center mr-2" (click)="confirmCoupon(coupon)">
+                        <span class="f-15 text-red">Apply <img src="../../../assets/ic_right_red.png"></span>
+                    </div>
+                </div>
+            </div>
+    </div>
+</div>

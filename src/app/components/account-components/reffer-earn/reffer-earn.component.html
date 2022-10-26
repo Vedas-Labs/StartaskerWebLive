@@ -1,0 +1,230 @@
+<div
+  class="container-fluid bg-white scroll"
+  style="max-height: 75vh; overflow-y: auto"
+>
+  <h4>Reffer & Earn</h4>
+  <hr />
+  <div class="p-3" style="background-color: #fcf9f9; font-size: 22px">
+    <div class="d-flex justify-content-between">
+      <p>Star Tasker Credits(RM)</p>
+      <p class="text-danger">{{ totalEarned.toFixed(2) }}</p>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-10">
+      <div class="container-fluid border mt-3">
+        <div class="row p-0 bg-light">
+          <div class="col-md-12">
+            <div>
+              <img
+                src="../../../../assets/reffer-earn.jpeg"
+                class="img-fluid"
+              />
+            </div>
+          </div>
+        </div>
+        <br />
+        <div class="row justify-content-center">
+          <div class="col-11" style="font-weight: 500">
+            <p style="font-weight: 500">Use your refferal code</p>
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text bg-white border-right-0">ST</span>
+              </div>
+              <input
+                type="text"
+                class="form-control bg-white border-left-0"
+                readonly
+                [(ngModel)]="refferalCode"
+                aria-label="Amount (to the nearest dollar)"
+              />
+            </div>
+          </div>
+        </div>
+        <!-- <div class="d-flex justify-content-end" >
+                    <span class="mr-4 hover" (click)="editRefferal()" style="font-size: 14px; font-weight: 500;">Edit Refferal code</span>
+                </div> -->
+        <div class="row justify-content-center mb-3">
+          <div class="col-md-11 d-flex justify-content-start">
+            <span class="mr-2">Share this on</span>
+            <span class="mx-2">
+              <a (click)="shareOnTwiter()" href="javascript:void">
+                <img src="../../../../assets/twitter.png" width="32"
+              /></a>
+            </span>
+            <span class="mx-2">
+              <a (click)="shareOnFaceBook()" href="javascript:void">
+                <img src="../../../../assets/facebook.png" width="32" /> </a
+            ></span>
+            <span class="mx-2">
+              <a (click)="shareOnLinkedIn()" href="javascript:void">
+                <img src="../../../../assets/linkedin.png"
+              /></a>
+            </span>
+            <span class="mx-2">
+              <a (click)="shareOnWhatsApp()" href="javascript:void">
+                <img src="../../../../assets/whatsapp.png" width="32"
+              /></a>
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br />
+  <div class="row">
+    <div class="col-md-10">
+      <div class="container-fluid border p-2">
+        <div class="p-2">
+          <span class="f-18" style="font-weight: 600"
+            >Friends Bring You Joy (and lots of perks)</span
+          >
+        </div>
+        <div class="p-2 font-weight-bold">
+          <p>1. Refer your friend, in return you will get RM 5 cashback.</p>
+          <p>2. Your friend will get up to RM 25 promo codes.</p>
+          <p>
+            3. If your friend completes a booking, you will get 10% from the
+            task, max is capped at RM 100.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row mt-2">
+    <div class="col-md-10">
+      <div class="bg-light p-2" *ngIf="referralUsers && referralUsers.length">
+        <h6>Active Affiliates</h6>
+      </div>
+      <table
+        class="table table-bordered text-center shadow mt-2"
+        *ngIf="referralUsers && referralUsers.length"
+      >
+        <thead class="thead-light">
+          <tr>
+            <th scope="col">Name</th>
+            <th scope="col">Registration Date</th>
+            <th scope="col">Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            class="hover"
+            *ngFor="let refferals of referralUsers; let i = index"
+          >
+            <td>
+              <div class="d-flex flex-wrap">
+                <div class="px-2">
+                  <span class="pr-2">{{ i + 1 }}</span>
+                  <img
+                    src="{{ baseUrl + refferals.profilePic }}"
+                    width="40"
+                    height="40"
+                    class="rounded-circle"
+                  />
+                </div>
+                <span class="align-self-center m-auto">{{
+                  refferals.firstName
+                }}</span>
+              </div>
+            </td>
+            <td>{{ refferals.register_time | date }}</td>
+            <td>
+              <img
+                *ngIf="refferals.isFirstTaskDone"
+                src="../../../../assets/checkbox_on.png"
+                width="17"
+              />
+              <img
+                *ngIf="!refferals.isFirstTaskDone"
+                src="../../../../assets/checkbox_off.png"
+                width="17"
+              />
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="bg-light p-2 d-flex justify-content-between">
+        <h6 class="align-self-center hover" [matMenuTriggerFor]="menu">
+          {{ earnMsg }}
+          <img src="../../../../assets/down-arrow.png" />
+        </h6>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item (click)="setAll()">All</button>
+          <button mat-menu-item (click)="setMonthly()">Monthly Earned</button>
+        </mat-menu>
+        <div class="form-group" *ngIf="showDateRange">
+          <input
+            class="form-control"
+            type="month"
+            min="2020-02"
+            [max]="maxDate"
+            [(ngModel)]="selectedMonth"
+            (change)="monthSelected($event)"
+          />
+        </div>
+      </div>
+      <table
+        class="table table-bordered text-center shadow mt-2"
+        *ngIf="earningsData && filterEarnData.length"
+      >
+        <thead class="thead-light">
+          <tr>
+            <th scope="col">Task Title</th>
+            <th scope="col">Amount</th>
+            <th scope="col">Commision 10%</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let data of filterEarnData" class="hover">
+            <td (click)="editRefferal(data)">
+              {{ data.taskTitle }}
+            </td>
+            <td (click)="editRefferal(data)">{{ data.bookingAmount }}</td>
+            <td (click)="editRefferal(data)">
+              <span class="text-red" *ngIf="data.isTransferStatus">{{
+                data.earnAmount
+              }}</span>
+              <span
+                class="text-muted"
+                *ngIf="!data.isTransferStatus && data.isRequestedStatus"
+                >{{ data.earnAmount }}</span
+              >
+              <span
+                class="text-success"
+                *ngIf="!data.isTransferStatus && !data.isRequestedStatus"
+                >{{ data.earnAmount }}</span
+              >
+            </td>
+          </tr>
+        </tbody>
+      </table>
+      <div class="d-flex justify-content-between mb-4">
+        <div class="d-flex flex-column">
+          <span class="f-18">
+            Total Earned : RM {{ totalEarned.toFixed(2) }}</span
+          >
+          <span class="f-18 text-red">
+            Total Settled : RM {{ totalSettled.toFixed(2) }}</span
+          >
+          <span class="f-18 text-muted">
+            Total Inprogress : RM {{ totalInProgress.toFixed(2) }}</span
+          >
+          <span class="f-18 text-success"
+            >Total Due : RM {{ totalDue.toFixed(2) }}</span
+          >
+        </div>
+        <div>
+          <button
+            mat-raised-button
+            class="btn-bg rounded-pill"
+            *ngIf="totalDue >= minWithdrawAmnt"
+            (click)="withDrawAmount()"
+          >
+            Withdraw Amount
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,23 @@
+h4 {
+    width: 100%; 
+    text-align: center; 
+    border-bottom: 2px solid #FA0E0E; 
+    line-height: 0.1em;
+    margin: 20px auto; 
+    width: 95%; 
+ } 
+ h4 span { 
+    background:#fff; 
+    padding:0 10px; 
+}
+p{
+    text-align: justify;
+    color: rgb(75, 70, 70);
+    width: 85%;
+    font-size: 15px;
+    line-height: 24px;
+}
+h6{
+    width: 85%;
+    color: #FA0E0E;
+}

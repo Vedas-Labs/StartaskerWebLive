@@ -1,0 +1,122 @@
+<div class="container-fluid bg-white">
+    <h4 class="d-block">Account Verification </h4>
+    <hr>
+    <div class="row">
+        <div class="col-md-12">
+            <div class="mt-2">
+                <p style=" font-weight: 400;">
+                    Help us to complete your account verification and get cash reward from StarTasker
+                </p>
+                <p style=" font-weight: 400;">Don't Panic, Your personal info is safe with us.</p>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-7">
+            <div>
+                <label style="margin-left: 0.6rem;">Nationality</label>
+                <div class="d-flex justify-content-start nationality">
+                    <div (click)="isMalasiayan = true" [ngClass]="{'custom-border':isMalasiayan}" class="border hover py-2">Malasia</div>
+                    <div class="border hover py-2" (click)="isMalasiayan = false" [ngClass]="{'custom-border':!isMalasiayan}">Foreigner</div>
+                </div>
+            </div>
+            <div class="form-start">
+                <form [formGroup]="accountVerificationForm">
+                    <ng-container formGroupName="verificationData">
+                        <div class="mb-3">
+                            <label for="exampleFormControlInput1">Select ID Type*</label>
+                            <select class="custom-select  form-control bg-white border-success" formControlName="IDType">
+                              <option *ngFor="let id of category" [ngValue]="id">{{id}}</option>
+                            </select>
+                            <!-- <small class="text-danger" *ngIf="postTaskForm.get('category.categoryName').touched  && postTaskForm.get('category.categoryName').hasError('required')">Select category..</small> -->
+                          </div> 
+                          <div>
+                              <div class="d-flex identity-img">
+                                <input type="file" class="form-control d-none" name="file" #idCard accept=".png, .jpg, .jpeg"
+                                (change)="takeID($event)">
+                                <input type="file" class="form-control d-none" name="file" #selfiePic accept=".png, .jpg, .jpeg"
+                                (change)="takeSelfie($event)">
+                                  <div class="border text-center position-relative" [ngClass]="{'border-success':isIDUploaded}">
+                                    <span class="position-absolute" *ngIf="isIDUploaded" style="top: 0;right: 0; margin-top: -10px;margin-right: -5px;">
+                                        <img src="../../../assets/check.png" width="20">
+                                        </span> 
+                                    <div class="mt-3">Upload ID Photo</div>
+                                      <div>
+                                        <img class="img-fluid hover" style="height: 5rem;" [src]="id" (click)="idCard.click()">
+                                      </div>
+                                  </div>
+                                  <div class="border text-center position-relative" [ngClass]="{'border-success':isSelfieUploaded}">
+                                    <span class="position-absolute" *ngIf="isSelfieUploaded" style="top: 0;right: 0; margin-top: -10px;margin-right: -5px;">
+                                        <img src="../../../assets/check.png" width="20">
+                                        </span>
+                                    <div class="mt-3">Upload Your Selfie</div>
+                                    <div>
+                                        <img class="img-fluid hover" style="height: 5rem;" [src]="selfie" (click)="selfiePic.click()">
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="form-row my-3">
+                            <div class="col position-relative">
+                                <label>First Name</label>
+                                <span class="position-absolute"  style="top: 0;right: 0;margin-top: 0.9rem;margin-right: -5px;">
+                                    <img src="../../../assets/check.png" width="20">
+                                    </span>
+                              <input type="text" class="form-control bg-white border-success" readonly formControlName="firstName" placeholder="First name">
+                            </div>
+                            <div class="col position-relative">
+                                <label>Last Name</label>
+                                <span class="position-absolute"  style="top: 0;right: 0;margin-top: 0.9rem;margin-right: -5px;">
+                                    <img src="../../../assets/check.png" width="20">
+                                    </span>
+                              <input type="text" class="form-control bg-white border-success" readonly formControlName="lastName" placeholder="Last name">
+                            </div>
+                          </div>
+                          <div class="form-group position-relative">
+                            <label>
+                                Email
+                            </label>
+                            <span class="position-absolute"  style="top: 0;right: 0;margin-top: 0.9rem;margin-right: -5px;">
+                                <img src="../../../assets/check.png" width="20">
+                                </span>
+                            <input class="form-control bg-white border-success" formControlName="Email" readonly>
+                          </div>
+                          <div class="form-group position-relative">
+                            <label>
+                                Phone Number
+                            </label>
+                            <span class="position-absolute"  style="top: 0;right: 0;margin-top: 0.9rem;margin-right: -5px;">
+                                <img src="../../../assets/check.png" width="20">
+                                </span>
+                            <input class="form-control bg-white border-success" formControlName="phoneNumber" readonly>
+                            <span class="position-absolute"  style="top: 0;right: 0;margin-top: 0.9rem;margin-right: -5px;">
+                                <img src="../../../assets/check.png" width="20">
+                                </span> 
+                          </div>
+                          <div class="form-group position-relative">
+                            <label>
+                                Date of Birth
+                            </label>
+                            <span class="position-absolute"  style="top: 0;right: 0;margin-top: 0.9rem;margin-right: -5px;">
+                                <img src="../../../assets/check.png" width="20">
+                                </span>
+                            <input class="form-control bg-white border-success" formControlName="DOB" readonly>
+                          </div>
+                    </ng-container>
+                    <section class="example-section">
+                        <mat-checkbox class="example-margin f-14" formControlName="isCheck">I agree to the 
+                            <a [routerLink]="['/term']" target="_blank" class="text-dark">Terms & Conditions</a>, and 
+                            <a class="text-dark" style="font-weight: 400;" target="_blank" [routerLink]="['/privacy']">Privacy Policy</a></mat-checkbox>
+                      </section>
+                      <div class="d-flex">
+                          <img src="../../../../assets/sheild.png" style="width: 2rem;height: 2rem;">
+                          <span class="f-14 align-self-center ml-2">Rest assured that your transactions and data are kept secure and confidential</span>
+                      </div>
+                </form>
+                <div class="text-center mb-3">
+                    <button mat-raised-button class="btn-bg rounded-pill" *ngIf="!isSubmited" (click)="verify()">Submit for Review</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

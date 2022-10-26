@@ -1,0 +1,14 @@
+::ng-deep .mat-dialog-container {
+  padding: 0 !important;
+}
+.form-control:focus {
+  border: 1px solid lightgrey;
+}
+::ng-deep .otp-input {
+  border: none !important;
+  outline: none !important;
+  box-shadow: 0 0px 6px rgba(0, 0, 0, 0.5);
+  height: 3rem !important;
+  font-size: 26px !important;
+  width: 3rem !important;
+}

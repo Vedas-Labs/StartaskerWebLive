@@ -1,0 +1,199 @@
+<div class="container-fluid border-top">
+  <div class="row" style="outline: none !important">
+    <div class="col-md-12 p-0">
+      <div class="container-fluid">
+        <div class="d-block d-md-none">
+          <img
+            src="../../../assets/responsive/open-menu.png"
+            (click)="openSideNav()"
+          />
+        </div>
+        <div class="row">
+          <div
+            class="col-md-3 p-0 border-right side"
+            [ngStyle]="{ width: isSideNavOpen ? '100%' : '0' }"
+          >
+            <div class="sidebar">
+              <header class="text-center">
+                <div
+                  class="float-right d-block d-md-none"
+                  (click)="openSideNav()"
+                >
+                  <img
+                    src="../../../assets/Iconmetro-cancel.png"
+                    width="40"
+                    style="
+                      border-radius: 50%;
+                      padding: 10px;
+                      position: absolute;
+                      top: 0;
+                      right: 0;
+                    "
+                  />
+                </div>
+                <div class="position-relative m-auto user-pic">
+                  <img
+                    [src]="previewUrl"
+                    width="100px"
+                    style="height: 100px !important; border: 1px solid #fa0e0e"
+                    class="rounded-circle img-fluid"
+                  />
+                  <div
+                    class="edit-icon hover"
+                    (click)="openSideNav()"
+                    [routerLink]="['/my-account/profileSetting']"
+                  >
+                    <img src="../../../assets/edit.png" width="30px" />
+                  </div>
+                </div>
+              </header>
+              <ul class="list-unstyled m-0 bg-white">
+                <li (click)="openSideNav()">
+                  <a
+                    routerLinkActive="active"
+                    class="hover text-decoration-none"
+                    [routerLink]="['/home']"
+                    >Home</a
+                  >
+                </li>
+                <li (click)="openSideNav()">
+                  <a
+                    routerLinkActive="active"
+                    [routerLink]="['/profile', user._id]"
+                    class="hover text-decoration-none"
+                  >
+                    Profile</a
+                  >
+                </li>
+                <li (click)="openSideNav()">
+                  <a
+                    routerLinkActive="active"
+                    [routerLink]="['/my-account/account_verification']"
+                    class="hover"
+                  >
+                    Account Verification</a
+                  >
+                </li>
+                <li (click)="openSideNav()">
+                  <a
+                    routerLinkActive="active"
+                    [routerLink]="['/my-account/reffer-earn']"
+                    class="hover"
+                    >Refer & Earn
+                  </a>
+                </li>
+                <li (click)="openSideNav()">
+                  <a (click)="addEmergencyContacts()" class="hover">
+                    Emergency Contacts</a
+                  >
+                </li>
+                <li (click)="openSideNav()">
+                  <a
+                    routerLinkActive="active"
+                    [routerLink]="['/my-account/inbox']"
+                    class="hover"
+                  >
+                    Inbox</a
+                  >
+                </li>
+                <li class="hover">
+                  <div class="d-flex justify-content-around">
+                    <a
+                      routerLinkActive="active"
+                      (click)="showHelpCenter = !showHelpCenter"
+                      >Help Center</a
+                    >
+                    <!-- <span  style="background-color: #FCF9F9;border-top: 1px solid  rgba(0, 0, 0, 0.1);"><img src="../../../assets/right.png"  class="pr-3 mt-2"></span> -->
+                  </div>
+                  <ul
+                    class="list-unstyled pl-2 sub-menu1"
+                    [ngClass]="{ 'auto-height1': showHelpCenter }"
+                  >
+                    <li (click)="openSideNav()">
+                      <a
+                        [routerLink]="['/term']"
+                        class="hover"
+                        routerLinkActive="active"
+                        >Terms & Conditions</a
+                      >
+                    </li>
+                    <li (click)="openSideNav()">
+                      <a
+                        class="hover"
+                        routerLinkActive="active"
+                        [routerLink]="['/privacy']"
+                        >Privacy Policy</a
+                      >
+                    </li>
+                    <li (click)="openSideNav()">
+                      <a class="hover" href="mailto:enquiry@startasker.com"
+                        >Contact Us</a
+                      >
+                    </li>
+                  </ul>
+                </li>
+                <li class="hover">
+                  <div class="d-flex justify-content-around">
+                    <a
+                      routerLinkActive="active"
+                      (click)="showSettingsSubMenu = !showSettingsSubMenu"
+                      >Settings</a
+                    >
+                    <!-- <span  style="background-color: #FCF9F9;border-top: 1px solid  rgba(0, 0, 0, 0.1);"><img src="../../../assets/right.png"  class="pr-3 mt-2"></span> -->
+                  </div>
+                  <ul
+                    class="list-unstyled pl-2 sub-menu"
+                    [ngClass]="{ 'auto-height': showSettingsSubMenu }"
+                  >
+                    <li (click)="openSideNav()">
+                      <a
+                        [routerLink]="['/my-account/skills']"
+                        class="hover"
+                        routerLinkActive="active"
+                        >Skills</a
+                      >
+                    </li>
+                    <li (click)="openSideNav()">
+                      <a
+                        class="hover"
+                        routerLinkActive="active"
+                        [routerLink]="['/my-account/alerts']"
+                        >Task Alert Settings</a
+                      >
+                    </li>
+                    <li (click)="openSideNav()">
+                      <a
+                        class="hover"
+                        routerLinkActive="active"
+                        [routerLink]="['/my-account/notifications']"
+                        >Notification Settings</a
+                      >
+                    </li>
+                    <li (click)="openSideNav()" class="hover">
+                      <a (click)="changePassword()">Change Password</a>
+                    </li>
+                    <li (click)="openSideNav()" class="hover">
+                      <a (click)="mobileVerification()">Mobile Verification</a>
+                    </li>
+                    <li (click)="openSideNav()" class="hover">
+                      <a (click)="addBankDetails()">Add Bank Details</a>
+                    </li>
+                  </ul>
+                </li>
+                <li (click)="openSideNav()">
+                  <a (click)="deleteAccount()" class="hover"> Delete Account</a>
+                </li>
+
+                <!-- <li class="hover" routerLinkActive="active" [routerLink]="['/my-account/scheduler']">
+                                    <a> Shedule</a> </li> -->
+              </ul>
+            </div>
+          </div>
+          <div class="col-md-9 mt-4">
+            <router-outlet></router-outlet>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

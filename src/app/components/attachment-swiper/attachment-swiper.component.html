@@ -1,0 +1,17 @@
+<div class="container-fluid my-auto">
+    <div class="row">
+        <div class="col-md-12 p-0">
+            <ngb-carousel  data-interval="false">
+                <ng-template ngbSlide *ngFor="let media of imageArray">
+                  <div class="picsum-img-wrapper text-center p-3" style="outline: none !important;">
+                    <img *ngIf="media.isImage" class="img-fluid " style="min-height: 40vh;object-fit: contain;"  src="{{media.path}}" alt="Random first slide">
+                    <video *ngIf="!media.isImage" width="320" height="240" poster="{{media.thumbNail}}" controls>
+                        <source src="{{media.path}}" type="video/mp4">
+                        Your browser does not support the video tag.
+                     </video>
+                  </div>
+                </ng-template>
+                </ngb-carousel>
+        </div>
+    </div>
+</div>

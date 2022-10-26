@@ -1,0 +1,82 @@
+
+<div class="text-center bg-light p-3">
+    <h5 class="">Payment required<span class="float-right hover text-right" (click)="closeTab()">
+      <img width="40" style="border-radius: 50%; padding: 10px;"
+        src="../../../assets/Iconmetro-cancel.png">
+    </span></h5>
+    
+</div>
+<div class="container scroll" style="max-height: 85vh; overflow-y: auto;">
+    <div class="row py-2  m-0" *ngFor="let offer of offers;let i = index">
+        <img src="{{baseUrl+offer.authorProfilePic}}" width="40" height="40" class="rounded-circle">
+        <div class="align-self-center pl-3">
+            <span style="font-weight: 600; font-size: 16px;">{{offer.authorName}}</span><br>
+            <span style="font-weight: 500; font-size: 14px;">{{data.taskTitle}}</span>
+        </div>
+        <span style="flex: 1 1 auto;"></span>
+        <div class="align-self-center" style="font-weight: 600;">
+            <span>RM {{offer.budget}}</span><br>
+            <small  style="color: #FA0e0e;" class="hover" (click)="removeOffer(i)">Remove</small>
+        </div>
+    </div>
+    <hr>
+    <div class="row m-0" style="font-size: 15px;">
+        <form>
+            <div class="form-group" *ngIf="!isCouponApplied">
+                <span style="color: #FA0e0e; font-weight: 500; font-size: 15px;" (click)="showCoupons()">
+                Apply Coupon
+                </span>
+                <br>
+                <div>
+                    <input class="form-control bg-white hover"   readonly (click)="showCoupons()" style="border: 1px dashed gray;font-size: 15px;" placeholder="Enter Coupon Code">
+                </div>
+            </div>
+            <div class="input-group mb-3" *ngIf="isCouponApplied" style="border: 1px dashed gray;">
+                <input type="text" class="form-control border-0 bg-white" readonly [(ngModel)]="couponCode.couponCode" name="coupenCode"  placeholder="Enter Coupon Code">
+                <div class="input-group-append">
+                  <span class="input-group-text bg-white border-0 text-red f-18 hover" (click)="removeCoupon(couponCode.couponCode)">Remove Coupon</span>
+                </div>
+              </div>
+        </form>
+        <h5 class="d-block w-100">Summary</h5>
+        <div class="d-flex w-100 justify-content-between" style="font-weight: 500;">
+            <div>
+                <span>
+                    Task Price
+                </span>
+            </div>
+            <div>
+                <span>RM {{taskPrice}}</span>
+            </div>
+        </div>
+        <div class="d-flex w-100 justify-content-between" style="font-weight: 500;">
+            <div>
+                <span class="f-18 font-weight-bold">
+                    Total
+                </span>
+            </div>
+            <div>
+                <span class="f-18 font-weight-bold">RM {{total}}</span>
+            </div>
+        </div>
+    </div>
+<!--     
+    <div class="mt-3">
+        <h5>Payment Options</h5>
+        <div>
+            <img src="../../../assets/Icon-awesome-credit-card.png">
+            <span class="pl-3" style="font-weight: 500;font-size: 15px;">Add Credit Card</span>
+        </div>
+    </div> -->
+    <hr>
+    <div class="text-center my-2">
+        <div class="w-75 m-auto" style="font-size: 15px; font-weight: 500;">
+            Payment will be secured inside Startasker. Pay untill you're happy the task has been completed.
+            View <a target="_blank" class="text-decoration-none  text-red" [routerLink]="['/term']">Terms & Conditions</a>
+        </div>
+    </div>
+    <div class="mt-2 text-center">
+        <button mat-raised-button class="text-white rounded-pill" (click)="submit()" style="background-color: #FA0e0e;">Securely Hold Payment</button>
+    </div>
+    <br>
+</div>

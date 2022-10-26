@@ -1,0 +1,452 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12 p-0">
+      <div class="hide-arrow" [ngClass]="{ showDetails: !isSelected }">
+        <img
+          src="../../../assets/left-arrow.png"
+          (click)="navigateToBack()"
+          class="ml-2"
+          width="24"
+        />
+      </div>
+      <mat-toolbar [ngClass]="{ showDetails: isSelected }">
+        <mat-toolbar-row>
+          <mat-form-field
+            [ngClass]="{ showDetails: isSelected }"
+            class="hide-arrow example-full-width"
+            style="width: 45%"
+          >
+            <input
+              matInput
+              style="font-size: 14px !important"
+              class="text-lowercase"
+              readonly
+              [value]="myTaskType"
+            />
+            <button
+              mat-button
+              matSuffix
+              mat-icon-button
+              aria-label="Clear"
+              #r="matMenuTrigger"
+              mat-icon-button
+              [matMenuTriggerFor]="typeMenu"
+            >
+              <img src="../../../assets/interface.png" (click)="open(r)" />
+            </button>
+          </mat-form-field>
+          &nbsp;
+          <mat-form-field
+            [ngClass]="{ showDetails: isSelected }"
+            class="hide-arrow example-full-width text-center"
+            style="width: 45%"
+          >
+            <input
+              matInput
+              style="font-size: 14px"
+              readonly
+              [value]="taskStatus"
+            />
+            <button
+              mat-button
+              matSuffix
+              mat-icon-button
+              aria-label="Clear"
+              #r="matMenuTrigger"
+              mat-icon-button
+              [matMenuTriggerFor]="menu"
+            >
+              <img src="../../../assets/interface.png" (click)="open(r)" />
+            </button>
+          </mat-form-field>
+          <mat-menu
+            #menu="matMenu"
+            class="mobile-menu"
+            [overlapTrigger]="false"
+          >
+            <a
+              mat-menu-item
+              (click)="allTaskFilter()"
+              [ngClass]="{ 'text-success': taskStatus == 'All' }"
+              class="text-decoration-none header-text"
+            >
+              ALL TASKS
+            </a>
+            <a
+              mat-menu-item
+              class="text-decoration-none header-text"
+              [ngClass]="{ 'text-success': taskStatus == 'Open' }"
+              (click)="openTasksFilter()"
+            >
+              OPEN
+            </a>
+            <a
+              mat-menu-item
+              class="text-decoration-none header-text"
+              [ngClass]="{ 'text-success': taskStatus == 'Draft' }"
+              (click)="draftTasksFilter()"
+            >
+              DRAFTS
+            </a>
+            <a
+              mat-menu-item
+              class="text-decoration-none header-text"
+              [ngClass]="{ 'text-success': taskStatus == 'Assigned' }"
+              (click)="assignedTasksFilter()"
+            >
+              ASSIGNED
+            </a>
+
+            <a
+              mat-menu-item
+              (click)="filterExpired()"
+              [ngClass]="{ 'text-success': taskStatus == 'expired' }"
+              class="text-decoration-none header-text"
+            >
+              EXPIRED
+            </a>
+            <!-- <a mat-menu-item  class="text-decoration-none header-text" (click)="showOffered()" [ngClass]="{'text-success': taskStatus == 'Applied'}">
+                      APPLIED
+                  </a> -->
+            <a
+              mat-menu-item
+              class="text-decoration-none header-text"
+              (click)="filterCompleted()"
+              [ngClass]="{ 'text-success': taskStatus == 'completed' }"
+            >
+              COMPLETED
+            </a>
+            <a
+              mat-menu-item
+              class="text-decoration-none header-text"
+              (click)="filterCanceled()"
+              [ngClass]="{ 'text-success': taskStatus == 'completed' }"
+            >
+              CANCELLED
+            </a>
+          </mat-menu>
+          <div
+            class="toolbar-text text-dark d-none d-md-block"
+            style="margin-left: 5rem"
+            fxShow="true"
+            fxHide.lt-md
+          >
+            <a
+              mat-button
+              [matMenuTriggerFor]="typeMenu"
+              class="text-decoration-none border-bottom header-text"
+            >
+              {{ myTaskType }} <img src="../../../assets/interface.png" />
+            </a>
+            <mat-menu #typeMenu="matMenu" [overlapTrigger]="false">
+              <a
+                mat-menu-item
+                (click)="postedTasks()"
+                [ngClass]="{ 'text-success': taskStatus == 'All' }"
+                class="text-decoration-none header-text"
+              >
+                Posted tasks
+              </a>
+              <a
+                mat-menu-item
+                (click)="showOffered()"
+                [ngClass]="{ 'text-success': taskStatus == 'Applied' }"
+                class="text-decoration-none header-text"
+              >
+                Offered tasks
+              </a>
+            </mat-menu>
+            <a
+              mat-button
+              (click)="allTaskFilter()"
+              [ngClass]="{ 'text-success': taskStatus == 'All' }"
+              class="text-decoration-none header-text"
+            >
+              ALL TASKS
+            </a>
+            <a
+              mat-button
+              class="text-decoration-none header-text"
+              [ngClass]="{ 'text-success': taskStatus == 'Open' }"
+              (click)="openTasksFilter()"
+            >
+              OPEN
+            </a>
+            <a
+              mat-button
+              class="text-decoration-none header-text"
+              *ngIf="!isOfferedJobs"
+              [ngClass]="{ 'text-success': taskStatus == 'Draft' }"
+              (click)="draftTasksFilter()"
+            >
+              DRAFTS
+            </a>
+            <a
+              mat-button
+              class="text-decoration-none header-text"
+              [ngClass]="{ 'text-success': taskStatus == 'Assigned' }"
+              (click)="assignedTasksFilter()"
+            >
+              ASSIGNED
+            </a>
+            <a
+              mat-button
+              (click)="filterExpired()"
+              [ngClass]="{ 'text-success': taskStatus == 'expired' }"
+              class="text-decoration-none header-text"
+            >
+              EXPIRED
+            </a>
+            <!-- <a mat-button   class="text-decoration-none header-text" (click)="showOffered()" [ngClass]="{'text-success': taskStatus == 'Applied'}">
+                      OFFERED
+                  </a> -->
+            <a
+              mat-button
+              class="text-decoration-none header-text"
+              (click)="filterCompleted()"
+              [ngClass]="{ 'text-success': taskStatus == 'completed' }"
+            >
+              COMPLETED
+            </a>
+            <a
+              mat-button
+              class="text-decoration-none header-text"
+              *ngIf="!isOfferedJobs"
+              (click)="filterCanceled()"
+              [ngClass]="{ 'text-success': taskStatus == 'Cancel' }"
+            >
+              CANCELLED
+            </a>
+          </div>
+          <span style="flex: 1 1 auto"></span>
+          <div class="d-none d-md-block">
+            <div
+              class="input-group pl-4"
+              [ngClass]="{ showDetails: isSelected }"
+            >
+              <div class="input-group-prepend search-icon">
+                <span
+                  class="input-group-text bg-white border-right-0"
+                  style="
+                    border-top-left-radius: 20px;
+                    border-bottom-left-radius: 20px;
+                  "
+                  id="basic-addon1"
+                >
+                  <img src="../../../assets/search.png" />
+                </span>
+              </div>
+              <input
+                class="form-control border-left-0"
+                placeholder="search by Name"
+                [(ngModel)]="searchText"
+                (keyup)="applyFilter(searchText)"
+                style="
+                  border-top-right-radius: 20px;
+                  border-bottom-right-radius: 20px;
+                "
+              />
+            </div>
+          </div>
+        </mat-toolbar-row>
+      </mat-toolbar>
+    </div>
+  </div>
+  <div class="row" style="background-color: #ffffff">
+    <div class="col-md-12">
+      <div class="container">
+        <div class="row" style="min-height: 70vh">
+          <div
+            *ngIf="filteredData && filteredData.length"
+            [ngClass]="{ showDetails: isSelected }"
+            class="col-md-4 p-0 scroll mb-3"
+            style="overflow-y: auto; max-height: 80vh"
+          >
+            <div class="list-group mr-3 pt-1">
+              <a
+                class="list-group-item hover list-group-item-action mb-2"
+                (click)="viewDetails(jobs)"
+                style="border-radius: 20px; background-color: #f8f8f8"
+                *ngFor="let jobs of filteredData; let i = index"
+              >
+                <h6 class="mt-2 mb-1 px-3">{{ jobs.postTitle }}</h6>
+                <div class="d-flex p-1 justify-content-start">
+                  <div class="px-3 border-right">
+                    <img
+                      src="{{ image }}"
+                      *ngIf="!isOfferedJobs"
+                      width="40"
+                      height="40"
+                      style="border-radius: 50%"
+                    />
+                    <img
+                      src="{{
+                        'https://liveapi.startasker.com/' +
+                          jobs.userInfo.profilePic
+                      }}"
+                      *ngIf="jobs && jobs.userInfo && jobs.userInfo.profilePic"
+                      width="40"
+                      height="40"
+                      style="border-radius: 50%"
+                    />
+                    <br />
+                    <span class="font-weight-bold text-nowrap small"
+                      >RM {{ jobs.budget.budget }}</span
+                    >
+                  </div>
+                  <div class="pl-3">
+                    <ul class="list-unstyled">
+                      <li class="d-flex justify-content-start">
+                        <span>
+                          <img
+                            src="../../../assets/Icon-material-location-on.png"
+                            class="d-inline-block"
+                            width="13"
+                          />
+                        </span>
+                        <span
+                          class="text-justify address"
+                          style="
+                            font-weight: 500;
+                            width: 150px !important;
+                            overflow: hidden;
+                            text-overflow: ellipsis;
+                            white-space: nowrap;
+                          "
+                        >
+                          <small *ngIf="!jobs.canThisTaskRemote">{{
+                            jobs.location
+                          }}</small>
+                          <small *ngIf="jobs.canThisTaskRemote"
+                            >Remote Task</small
+                          >
+                        </span>
+                      </li>
+                      <li class="d-flex">
+                        <span>
+                          <img src="../../../assets/calendar.png" width="13" />
+                        </span>
+                        <span class="m-0 p-0">
+                          <small
+                            *ngFor="let dates of jobs.taskDate"
+                            class="m-0 pr-1"
+                            >{{ +dates | date }},</small
+                          >
+                        </span>
+                      </li>
+                      <li class="d-flex">
+                        <span>
+                          <img src="../../../assets/clock.png" width="13" />
+                        </span>
+                        <span>
+                          <small
+                            *ngIf="
+                              jobs.convenientTimings.length == 0 ||
+                              jobs.convenientTimings.length == 4
+                            "
+                            >Any Time
+                          </small>
+                          <span
+                            style="margin: 0 !important"
+                            *ngIf="
+                              jobs &&
+                              jobs.convenientTimings.length &&
+                              jobs.convenientTimings.length <= 3
+                            "
+                          >
+                            <small
+                              *ngFor="let timings of jobs.convenientTimings"
+                              >{{ timings }},
+                            </small>
+                          </span>
+                        </span>
+                      </li>
+                    </ul>
+                    <!-- <p>
+                                            <span class="small text-justify" style="font-weight: 500; color: #000000;">
+                                                <img src="../../../assets/Icon-material-location-on.png" class="d-inline-block" width="13">&nbsp; <span class="text-justify">
+                                                    {{jobs.location}}
+                                                </span>
+                                            </span>
+                                            <br>
+                                            <span class="small" style="font-weight: 500; color: #000000;">
+                                                <img src="../../../assets/calendar.png" width="13">&nbsp;   {{jobs.taskDate[0] | date}}
+                                            </span><br>
+                                            <span class="small" style="font-weight: 500; color: #000000;">
+                                                <img src="../../../assets/clock.png" width="13">&nbsp;   {{jobs.postedDate | dateAgo}}
+                                            </span>
+                                        </p> -->
+                    <div
+                      class="small d-flex justify-content-around"
+                      style="font-weight: 500"
+                    >
+                      <span
+                        [ngStyle]="{
+                          color:
+                            jobs.post_Status == 'Assigned'
+                              ? '#77c04b'
+                              : '#Fa0e0e'
+                        }"
+                        >{{ jobs.post_Status }}</span
+                      >
+                      <span class="text-success"
+                        >Offers({{ jobs.offers.length }})</span
+                      >
+                    </div>
+                  </div>
+                </div>
+              </a>
+            </div>
+          </div>
+          <div
+            *ngIf="filteredData.length == 0"
+            class="col-md-4 p-0 d-flex justify-content-center bg-light"
+            style="height: 50vh"
+          >
+            <div class="align-self-center">
+              <img src="../../../assets/notasks.png" />
+              <h5 *ngIf="taskStatus != 'All'" class="text-center">
+                {{ jobsFetching }}
+              </h5>
+              <div class="f-14" *ngIf="taskStatus == 'All'">
+                Look like you haven't post a task yet.<br />
+                How about doing that now?
+              </div>
+              <div *ngIf="taskStatus == 'All'" class="text-center">
+                <button
+                  mat-raised-button
+                  class="rounded-pill my-3 m-auto text-white"
+                  (click)="openPostJob()"
+                  style="background-color: #fa0e0e; font-size: 14px"
+                >
+                  Post a Task
+                </button>
+              </div>
+            </div>
+          </div>
+          <div
+            class="col-md-8 bg-white scroll"
+            [ngClass]="{ showDetails: !isSelected }"
+            style="overflow-y: scroll; max-height: 75vh; min-height: 60vh"
+          >
+            <div *ngIf="!showDetails">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d16300243.318149967!2d100.5588515947959!3d4.111215970346351!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3034d3975f6730af%3A0x745969328211cd8!2sMalaysia!5e0!3m2!1sen!2sin!4v1587729840283!5m2!1sen!2sin"
+                width="600"
+                height="450"
+                frameborder="0"
+                style="border: 0"
+                allowfullscreen=""
+                aria-hidden="false"
+                tabindex="0"
+              ></iframe>
+            </div>
+            <div *ngIf="showDetails">
+              <router-outlet></router-outlet>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

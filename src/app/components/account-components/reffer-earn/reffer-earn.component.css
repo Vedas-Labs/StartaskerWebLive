@@ -1,0 +1,3 @@
+.form-control:focus{
+    border: 1px solid #e4dcdc;
+}

@@ -1,0 +1,37 @@
+<div class="text-center bg-light p-3">
+    <h5 class="">
+        Report <span class="float-right hover text-right" (click)="closeTab()">
+            <img width="40" style="border-radius: 50%; padding: 10px;" src="../../../assets/Iconmetro-cancel.png">
+        </span></h5>
+</div>
+<br>
+<div class="container-fluid">
+    <div class="row px-5" >
+        <form class="w-100 bankDetails" [formGroup]="reportForm" (ngSubmit)="submitReport()">
+            <div class="input-group mb-3 hover" [matMenuTriggerFor]="menu">
+                <input type="text" formControlName="type" readonly  class="form-control border-success border-right-0  bg-white">
+                <div class="input-group-append  border-left-0">
+                  <span class="input-group-text border-success bg-white ">
+                      <img src="../../../assets/downsvg.svg" width="12px" >
+                  </span>
+                </div>
+              </div>
+              <mat-menu #menu="matMenu">
+                <button mat-menu-item *ngFor="let type of types" (click)="setType(type)">{{type}}</button>
+              </mat-menu>              
+            <div class="form-group">
+                <textarea class="form-control bg-white"
+                    [ngClass]="{'border-success': reportForm.get('message').valid}" formControlName="message"
+                    id="exampleFormControlTextarea1" rows="3"></textarea>
+                <small class="text-danger"
+                    *ngIf="reportForm.get('message').touched  && reportForm.get('message').hasError('required')">Enter
+                    your message..</small>
+            </div>
+        </form>
+
+    </div>
+    <div class="text-center mt-5 mb-3" >
+        <button mat-raised-button style="background-color: #fa0e0e;" [disabled]="!reportForm.valid" [class.spinner]="loading"
+            class="rounded-pill text-white w-50" (click)="submitReport()">Report</button>
+    </div>
+</div>

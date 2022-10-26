@@ -1,0 +1,76 @@
+<div class="text-center bg-light p-3">
+    <h5 class="">
+        {{headings}} <span class="float-right hover text-right" (click)="closeTab()">
+            <img width="40" style="border-radius: 50%; padding: 10px;" src="../../../assets/Iconmetro-cancel.png">
+        </span></h5>
+</div>
+<div class="container-fluid">
+    <div class="row">
+        <div *ngIf="offers.length >= 1">
+                <div class="d-flex">
+                    <div class="p-3">
+                        <img src="{{baseUrl+data.authorProfilePic}}" width="40" height="40" class="rounded-circle">
+                    </div>
+                    <div class="align-self-center" style="line-height: 20px;">
+                        <span style="font-size: 15px;font-weight: 500;">{{data.authorName}}</span><br>
+                        <ngb-rating rate="{{data.authorRatings}}" [starTemplate]="t" [readonly]="true" [max]="5">
+                            <ng-template #t let-fill="fill">
+                            <span class="star" [class.full]="fill === 100">
+                              <span class="half" [style.width.%]="fill">&#9733;</span>&#9733;
+                            </span>
+                          </ng-template>
+                          </ngb-rating>
+                    </div>
+                </div>
+        </div>
+    </div>
+    <div style="min-height: 40vh; max-height: 60vh;overflow-y: auto;" id="" class="row justify-content-center scroll">
+        <div class="col-md-11">
+            <div style="width: 100%;"  *ngFor="let messages of offers">
+                <div *ngIf="messages.userID != user.userID">
+                    <div class="p-1 row">
+                        <div class="col-2">
+                            <img src="{{baseUrl+messages.profilePic}}" width="40" height="40" class="rounded-circle">
+                        </div>
+                     <div class="bg-light py-1 col-9"  style=" border-radius: 15px; margin-left: 1rem;line-height: 0.9rem;">
+                        <span class="f-12 text-red">{{messages.name}}</span><br>
+                       <small class="p-2 f-14"> {{messages.message}}</small> 
+                     </div>
+                    </div>
+                    <div class="d-flex w-75" style="margin-left: 3rem;">
+                        <span class="px-3 f-12"><small>{{messages.timestamp | dateAgo}}</small></span>
+                    </div>
+                </div>
+                <div *ngIf="messages.userID == user.userID">
+                    <div class="p-1 row">
+                     <div class="bg-info  py-1 col-9"  style=" border-radius: 15px; margin-left: 1rem;line-height: 0.9rem;">
+                        <span class="f-12 text-white">{{messages.name}}</span><br>
+                       <small class="p-2 f-14"> {{messages.message}}</small> 
+                     </div>
+                     <div class="col-2">
+                        <img src="{{baseUrl+messages.profilePic}}" width="40" height="40" class="rounded-circle">
+                    </div>
+                    </div>
+                    <div class="d-flex w-75" style="margin-left: 1rem;">
+                        <span class="px-3 f-12"><small>{{messages.timestamp | dateAgo}}</small></span>
+                    </div>
+                    
+                </div>
+             </div>
+        </div>
+    </div>
+    <div class="row mb-3">
+        <div class="col-md-12">
+
+            <form [formGroup]="replyForm" (ngSubmit)="sendReply()">
+                <div class="d-flex">
+                    <textarea class="form-control" formControlName="message" rows="1"></textarea> <span (click)="sendReply()" class="hover"><img src="../../../assets/send.png" width="40"></span>
+                </div>
+            </form>
+            <small class="text-danger"
+                            *ngIf="replyForm.get('message').touched  && replyForm.get('message').dirty && isWordThere">
+                        You'r not allowed to add sensitive information like contact details, website links, mail id etc..
+                        </small>
+        </div>
+    </div>
+</div>

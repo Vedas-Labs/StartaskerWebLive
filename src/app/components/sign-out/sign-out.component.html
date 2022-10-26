@@ -1,0 +1,22 @@
+<div class="container-fluid" style="padding: 24px;">
+    <div class="row">
+        <div class="col-4">
+            <img src="../../../assets/exit.png"  class="p-2 img-fluid">
+        </div>
+        <div class="col-8 text-center">
+            <h5 class="font-weight-bold">Sign Out</h5>
+           <div style="font-weight: 500;">
+            Do you want to Sign out
+           </div>
+           <div style="font-weight: 500;">
+             from StarTasker ?
+           </div>
+        </div>
+    </div>
+    <div class="d-flex justify-content-end pb-2 mt-3">
+        <button mat-raised-button (click)="close()" class="text-black-50 rounded-pill hover" style="font-weight: 400;font-weight: 400; border: 1px solid grey;">
+            &nbsp; &nbsp;   Cancel &nbsp; &nbsp;</button>&nbsp; &nbsp;
+        <button mat-raised-button (click)="submit()" class="text-white rounded-pill hover" style="font-weight: 400;font-weight: 400; background-color: #FA0E0E;">
+            &nbsp; &nbsp; Sign Out &nbsp; &nbsp;</button>&nbsp;
+    </div>
+</div>

@@ -1,0 +1,427 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-12 p-0">
+      <div class="hide-arrow" [ngClass]="{ showDetails: !isSelected }">
+        <img
+          src="../../../assets/left-arrow.png"
+          (click)="navigateToBack()"
+          class="ml-2"
+          width="24"
+        />
+      </div>
+
+      <mat-toolbar [ngClass]="{ showDetails: isSelected }">
+        <mat-toolbar-row>
+          <div
+            class="toolbar-text text-dark jobs-nav"
+            fxShow="true"
+            fxHide.lt-md
+          >
+            <a
+              mat-button
+              style="position: static"
+              clickOutside
+              (clickOutside)="locationPopUp = false"
+              class="text-decoration-none header-text"
+            >
+              <div
+                (click)="showLocationPop()"
+                [ngClass]="{ 'text-red': isFilteredJobs }"
+              >
+                Filters
+                <img
+                  src="../../../assets/Icon-awesome-caret-down.png"
+                  width="15"
+                  class="ml-1"
+                />
+              </div>
+              <div
+                *ngIf="locationPopUp"
+                class="triangle-top location-pop scroll"
+                style="
+                  position: absolute;
+                  height: auto;
+                  width: auto;
+                  z-index: 1;
+                  border-radius: 12px;
+                  background-color: #fff;
+                  max-height: 80vh;
+                  overflow: auto;
+                "
+              >
+                <div class="p-4">
+                  <span class="text-left ml-3 mb-2 d-block">To be done</span>
+                  <div class="d-flex justify-content-between job-status">
+                    <span
+                      style="padding: 0 15px"
+                      [ngClass]="{ active: filterType == 'In Person' }"
+                      (click)="filterTypeSetTo('In Person')"
+                      class="rounded-pill"
+                      >In Person</span
+                    >
+                    <span
+                      style="padding: 0 15px"
+                      [ngClass]="{ active: filterType == 'Remotely' }"
+                      (click)="filterTypeSetTo('Remotely')"
+                      class="rounded-pill"
+                      >Remotely</span
+                    >
+                    <span
+                      style="padding: 0 30px"
+                      [ngClass]="{ active: filterType == 'All' }"
+                      (click)="filterTypeSetTo('All')"
+                      class="rounded-pill"
+                      >All</span
+                    >
+                  </div>
+                  <div
+                    [ngClass]="{ 'd-none': filterType == 'Remotely' }"
+                    class="text-left ml-3 mt-2"
+                    style="padding: 0 !important"
+                  >
+                    Location
+                  </div>
+                  <div
+                    class="form-group px-3"
+                    [ngClass]="{ 'd-none': filterType == 'Remotely' }"
+                  >
+                    <input
+                      type="text"
+                      class="form-control bg-white"
+                      style="font-size: 14px"
+                      [value]="formatedAddress"
+                      ngx-google-places-autocomplete
+                      [options]="autoCompleteOptions"
+                      #placesRef="ngx-places"
+                      (onAddressChange)="handleAddressChange($event)"
+                    />
+                  </div>
+                  <div class="d-flex justify-content-between">
+                    <span
+                      [ngClass]="{ 'd-none': filterType == 'Remotely' }"
+                      class="text-left ml-3"
+                      style="padding: 0 !important"
+                      >Distance</span
+                    >
+                    <span
+                      [ngClass]="{ 'd-none': filterType == 'Remotely' }"
+                      class="mr-3"
+                      >{{ value }}KM</span
+                    >
+                  </div>
+                  <div
+                    class="px-4"
+                    [ngClass]="{ 'd-none': filterType == 'Remotely' }"
+                  >
+                    <mat-slider
+                      class="example-margin w-100"
+                      [max]="100"
+                      [min]="0"
+                      [thumbLabel]="true"
+                      [(ngModel)]="value"
+                    ></mat-slider>
+                  </div>
+                  <div class="px-4">
+                    <div class="d-flex justify-content-between">
+                      <span class="text-left" style="padding: 0 !important"
+                        >Price</span
+                      >
+                    </div>
+                    <div class="px-1">
+                      <ng5-slider
+                        [(value)]="minPrice"
+                        [(highValue)]="maxPrice"
+                        [options]="sliderOptions"
+                      ></ng5-slider>
+                    </div>
+                  </div>
+                  <div class="d-flex justify-content-between">
+                    <div class="text-left" style="line-height: 20px">
+                      <span>Available tasks only</span> <br />
+                      <span class="text-black-50" style="font-size: 11px"
+                        >Hide tasks that are already assigned</span
+                      >
+                    </div>
+                    <div>
+                      <mat-slide-toggle
+                        class="example-margin"
+                        color="warn"
+                        (change)="assignedTaskOnly($event)"
+                        [checked]="slideChecked"
+                      >
+                      </mat-slide-toggle>
+                    </div>
+                  </div>
+                  <div class="d-flex justify-content-end mt-2">
+                    <button
+                      mat-raised-button
+                      class="rounded-pill px-3 mx-3"
+                      (click)="showLocationPop()"
+                      style="background-color: rgb(214, 205, 205)"
+                    >
+                      Cancel
+                    </button>
+                    <button
+                      mat-raised-button
+                      class="rounded-pill text-white px-4"
+                      (click)="applyLocationFilter()"
+                      style="background-color: green"
+                    >
+                      Apply
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </a>
+            <!-- <a mat-button style="position: static;"  class="text-decoration-none header-text">
+                            <div (click)="getAllJobs()" [ngClass]="{'text-red' : !isFilteredJobs && !isSearchTextFilter}">
+                                All<img src="../../../assets/Icon-awesome-caret-down.png" width="15" class="ml-1">
+                            </div>
+                            <div *ngIf="pricePopUp"  class="triangle-top price-pop"
+                                style="position: absolute; width: 20rem; height: auto;z-index: 1;border-radius: 12px; background-color: #fff;">
+                            </div>
+                        </a> -->
+            <!-- <a mat-button style="position: static;"  class="text-decoration-none  header-text">
+                            <div  class="text-red" [matMenuTriggerFor]="menu">
+                                {{stateName}} <img src="../../../assets/Icon-awesome-caret-down.png" width="15" class="ml-1">
+                            </div>
+                            <div *ngIf="pricePopUp"  class="triangle-top price-pop"
+                                style="position: absolute; width: 20rem; height: auto;z-index: 1;border-radius: 12px; background-color: #fff;">
+                            </div>
+                            <mat-menu #menu="matMenu"  class="mobile-menu" [overlapTrigger]="false">
+                                <div class="bg-gradient mb-2">
+                                    <h6 class="p-2">Select State</h6>
+                                </div>
+                                <a mat-menu-item (click)="selectState(state)" *ngFor="let state of states" [ngClass]="{'text-red': stateName == state}"  class="text-decoration-none header-text" >
+                                    {{state}}
+                              </a>
+                           
+                              </mat-menu>
+                        </a> -->
+
+            <!-- <a href="https://www.facebook.com/apna.charitabletrust.9?ref=br_tf&epa=SEARCH_BOX" mat-button color="primary">
+                            <i class="fab fa-facebook fa-2x"></i>
+                    </a> -->
+          </div>
+          <span style="flex: 1 1 auto"></span>
+          <form
+            [formGroup]="searchTextForm"
+            class="seachText"
+            (ngSubmit)="searchTextFilter()"
+          >
+            <div class="mr-3 input-group">
+              <div class="input-group-prepend">
+                <span
+                  class="input-group-text bg-white border-right-0"
+                  (click)="searchTextFilter()"
+                  style="
+                    border-top-left-radius: 20px;
+                    border-bottom-left-radius: 20px;
+                  "
+                  id="basic-addon1"
+                >
+                  <img src="../../../assets/search.png" />
+                </span>
+              </div>
+              <input
+                class="form-control border-left-0"
+                placeholder="search jobs"
+                formControlName="searchText"
+                style="
+                  border-top-right-radius: 20px;
+                  border-bottom-right-radius: 20px;
+                "
+              />
+            </div>
+          </form>
+        </mat-toolbar-row>
+      </mat-toolbar>
+    </div>
+  </div>
+  <div class="row" style="background-color: #ffffff">
+    <div class="col-md-12">
+      <div class="container">
+        <div class="row">
+          <div
+            *ngIf="filteredData && filteredData.length"
+            [ngClass]="{ showDetails: isSelected }"
+            class="col-md-4 p-0"
+          >
+            <div class="list-group mr-3 pt-1">
+              <cdk-virtual-scroll-viewport
+                itemSize="20"
+                (scrolledIndexChange)="onScrollEnd()"
+                style="overflow-y: scroll; max-height: 75vh"
+                class="scroll"
+              >
+                <a
+                  class="list-group-item hover list-group-item-action mb-2"
+                  (click)="viewDetails(jobs.postID)"
+                  style="border-radius: 20px; background-color: #f8f8f8"
+                  *cdkVirtualFor="let jobs of filteredData; let i = index"
+                >
+                  <h6 class="my-1 px-3">{{ jobs.postTitle }}</h6>
+                  <div class="d-flex p-2 justify-content-start">
+                    <div
+                      class="px-3 border-right"
+                      *ngIf="jobs && jobs.userInfo && jobs.userInfo.profilePic"
+                    >
+                      <img
+                        *ngIf="jobs.userInfo.profilePic != ''"
+                        src="{{
+                          'https://liveapi.startasker.com/' +
+                            jobs.userInfo.profilePic
+                        }}"
+                        width="40"
+                        height="40"
+                        style="border-radius: 50%"
+                      />
+                      <img
+                        *ngIf="jobs.userInfo.profilePic == ''"
+                        src="{{ image }}"
+                        width="40"
+                        height="40"
+                        style="border-radius: 50%"
+                      /><br />
+                      <span class="font-weight-bold text-nowrap small"
+                        >RM {{ jobs.budget.budget }}</span
+                      >
+                    </div>
+                    <div class="pl-1">
+                      <ul class="list-unstyled">
+                        <li class="d-flex justify-content-start">
+                          <span>
+                            <img
+                              src="../../../assets/Icon-material-location-on.png"
+                              class="d-inline-block"
+                              width="13"
+                            />
+                          </span>
+                          <span
+                            class="text-justify address"
+                            style="
+                              font-weight: 500;
+                              width: 150px !important;
+                              overflow: hidden;
+                              text-overflow: ellipsis;
+                              white-space: nowrap;
+                            "
+                          >
+                            <small *ngIf="!jobs.canThisTaskRemote">{{
+                              jobs.location
+                            }}</small>
+                            <small *ngIf="jobs.canThisTaskRemote"
+                              >Remote Task</small
+                            >
+                          </span>
+                        </li>
+                        <li class="d-flex">
+                          <span>
+                            <img
+                              src="../../../assets/calendar.png"
+                              width="13"
+                            />
+                          </span>
+                          <span class="m-0 p-0">
+                            <small
+                              *ngFor="let dates of jobs.taskDate"
+                              class="m-0"
+                              >{{ +dates | date }},</small
+                            >
+                          </span>
+                        </li>
+                        <li class="d-flex">
+                          <span>
+                            <img src="../../../assets/clock.png" width="13" />
+                          </span>
+                          <span>
+                            <small
+                              *ngIf="
+                                jobs.convenientTimings.length == 0 ||
+                                jobs.convenientTimings.length == 4
+                              "
+                              >Any Time
+                            </small>
+                            <span
+                              style="margin: 0 !important"
+                              *ngIf="
+                                jobs &&
+                                jobs.convenientTimings.length &&
+                                jobs.convenientTimings.length <= 3
+                              "
+                            >
+                              <small
+                                *ngFor="let timings of jobs.convenientTimings"
+                                >{{ timings }},
+                              </small>
+                            </span>
+                          </span>
+                        </li>
+                      </ul>
+                      <!-- <p>
+                                            <span class="small text-justify" style="font-weight: 500; color: #000000;">
+                                                <img src="../../../assets/Icon-material-location-on.png"
+                                                    class="d-inline-block" width="13">&nbsp; 
+                                                    <span class="text-justify address" style="font-weight: 500;display: inline-block; width: 190px !important;overflow: hidden; text-overflow: ellipsis;white-space: nowrap;">
+                                                    {{jobs.location}}
+                                                </span>
+                                            </span>
+                                            <br>
+                                            <span class="small" style="font-weight: 500; color: #000000;">
+                                                <img src="../../../assets/calendar.png" width="13">&nbsp;
+                                                <span *ngFor="let dates of jobs.taskDate">{{dates | date}}</span>
+                                            </span><br>
+                                            <span class="small" style="font-weight: 500; color: #000000;">
+                                                <img src="../../../assets/clock.png" width="13">&nbsp;
+                                                {{jobs.postedDate | dateAgo}}
+                                            </span>
+                                        </p> -->
+                      <div
+                        class="small pl-1 d-flex justify-content-around"
+                        style="font-weight: 500"
+                      >
+                        <span
+                          [ngStyle]="{
+                            color:
+                              jobs.post_Status == 'Assigned'
+                                ? 'orangered'
+                                : '#Fa0e0e'
+                          }"
+                          class="mx-1"
+                          >{{ jobs.post_Status }}</span
+                        >
+                        <span class="text-success mx-1"
+                          >Offers({{ jobs.offers.length }})</span
+                        >
+                        <span>{{ jobs.postModifyDate | dateAgo }}</span>
+                      </div>
+                    </div>
+                  </div>
+                </a>
+              </cdk-virtual-scroll-viewport>
+            </div>
+          </div>
+          <div
+            *ngIf="filteredData.length == 0"
+            class="col-md-4 p-0 d-flex justify-content-center bg-light"
+            style="min-height: 50vh"
+          >
+            <h5 class="align-self-center text-center">{{ jobsFetching }}</h5>
+          </div>
+          <div
+            class="col-md-8 bg-white scroll"
+            [ngClass]="{ showDetails: !isSelected }"
+            style="overflow-y: scroll; max-height: 75vh; min-height: 50vh"
+          >
+            <div *ngIf="!showDetails">
+              <div #mapContainer id="map"></div>
+            </div>
+            <div *ngIf="showDetails">
+              <router-outlet></router-outlet>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

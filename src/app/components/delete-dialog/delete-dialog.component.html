@@ -1,0 +1,21 @@
+<div class="text-center  p-2 btn-bg">
+    <h5 class="text-white">Delete</h5>
+</div>
+<div class="container-fluid" style="padding: 24px;">
+    <div class="row justify-content-center">
+        <div class="col-10 text-center">
+           <div style="font-weight: 500;">
+            Are you sure,
+           </div>
+           <div style="font-weight: 500;">
+             {{message}}
+           </div>
+        </div>
+    </div>
+    <div class="d-flex justify-content-center pb-2 mt-3">
+        <button mat-raised-button (click)="close()" class="text-black-50 rounded-pill hover" style="font-weight: 400;font-weight: 400; border: 1px solid grey;">
+            &nbsp; &nbsp;   Cancel &nbsp; &nbsp;</button>&nbsp; &nbsp;
+        <button mat-raised-button (click)="submit()" class="text-white rounded-pill hover" style="font-weight: 400;font-weight: 400; background-color: #FA0E0E;">
+            &nbsp; &nbsp; Delete &nbsp; &nbsp;</button>&nbsp;
+    </div>
+</div>

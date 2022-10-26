@@ -1,0 +1,119 @@
+<mat-toolbar class="text-black p-0">
+  <mat-toolbar-row
+    class="row d-none d-md-flex"
+    style="font-size: 12px; height: 50px"
+  >
+    <div class="col-sm-6 text-right">
+      <a href="mailto:info@startasker.com" class="text-dark f-12 px-1">
+        <img src="../../../assets/Icon-ionic-ios-send.png" />
+        &nbsp; info@startasker.com</a
+      >
+      <a href="tel:+60123484833" class="text-dark px-2 f-12">
+        <img src="../../../assets/Icon-awesome-phone-alt.png" />
+        &nbsp; +60123484833</a
+      >
+      <a
+        class="text-dark pl-2"
+        style="font-size: 18px"
+        target="_blank"
+        href="http://www.fb.com/startaskerservice"
+      >
+        <img src="../../../assets/Iconawesomefacebook.png" />
+      </a>
+    </div>
+    <div class="col-sm-6 text-right">
+      <span *ngIf="!loggedIn" style="font-size: 18px">
+        <span (click)="openLogindialog()" class="hover">Login</span> /
+        <span class="hover" (click)="openSignUpdialog()">Sign up</span>
+      </span>
+      <span class="hover" *ngIf="loggedIn">
+        <img
+          src="{{ previewUrl }}"
+          width="30"
+          height="30"
+          [matMenuTriggerFor]="menu"
+          style="border-radius: 50%; border: 1px solid #fa0e0e"
+        />
+        <mat-menu #menu="matMenu">
+          <button
+            mat-menu-item
+            routerLinkActive="active"
+            (click)="showUserProfile(user.userID)"
+          >
+            Profile
+          </button>
+          <button
+            mat-menu-item
+            routerLinkActive="active"
+            [routerLink]="['/my-account']"
+          >
+            Account
+          </button>
+        </mat-menu>
+      </span>
+      &nbsp;
+      <a class="hover" *ngIf="loggedIn" (click)="signOut()"> Sign-Out </a>
+    </div>
+  </mat-toolbar-row>
+
+  <mat-toolbar-row class="bg-white py-3">
+    <div class="col-md-3 hover text-md-center" [routerLink]="['/home']">
+      <img src="..\assets\startasker-new-logo.png" width="163" height="62" />
+    </div>
+    <div class="col-md-3 mt-4 d-none d-md-block">
+      <a
+        class="hover"
+        [routerLink]="['/browsejobs']"
+        style="font-weight: 500; font-size: 18px; padding: 0 16px; color: black"
+        routerLinkActive="active"
+        >Browse Tasks</a
+      >
+      <a
+        class="hover"
+        *ngIf="!loggedIn"
+        (click)="goToMyTasks()"
+        style="font-weight: 500; font-size: 18px; padding: 0 16px; color: black"
+        routerLinkActive="active"
+        >My Tasks</a
+      >
+      <a
+        class="hover"
+        *ngIf="loggedIn"
+        [routerLink]="['/my-tasks']"
+        style="font-weight: 500; font-size: 18px; padding: 0 16px; color: black"
+        routerLinkActive="active"
+        >My Tasks</a
+      >
+      <a
+        class="hover"
+        (click)="openEHiring()"
+        *ngIf="loggedIn"
+        style="font-weight: 500; font-size: 18px; padding: 0 16px; color: black"
+        routerLinkActive="active"
+        >E Hiring</a
+      >
+    </div>
+    <span class="example-spacer"></span>
+    <div class="col-md-3 text-right mt-2 d-none d-md-block">
+      <!-- 
+            <a mat-button class="text-dark hover" [routerLink]="['/minitask']"  routerLinkActive="active">MINITASK</a> -->
+      <button
+        mat-raised-button
+        class="rounded-pill small text-white"
+        (click)="openPostJob()"
+        style="background-color: #fa0e0e; font-size: 14px"
+      >
+        Post a Task
+      </button>
+      &nbsp;
+      <button
+        mat-raised-button
+        class="rounded-pill"
+        style="font-size: 14px; border: 1px solid #fa0e0e; color: #fa0e0e"
+        (click)="gotoBookings()"
+      >
+        Bookings
+      </button>
+    </div>
+  </mat-toolbar-row>
+</mat-toolbar>

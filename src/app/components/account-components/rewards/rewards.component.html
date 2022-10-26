@@ -1,0 +1,56 @@
+<div class="container-fluid bg-white ">
+    <h4>Rewards</h4>
+    <hr>
+    <div class="p-3" style="background-color: whitesmoke;font-size: 22px;">
+        <div class="d-flex justify-content-between">
+            <p>Star Tasker Credits(RM)</p>
+            <p class="text-red">0.00</p>
+        </div>
+        <div class="d-flex justify-content-between">
+            <p>Rewards</p>
+            <p class="text-red">3</p>
+        </div>
+    </div>
+    <br>
+    <div class=" bg-light">
+        <div class="pl-3 py-3 " style="font-size: 18px;" >
+
+           <span [ngClass]="{'text-success' : showRewards}" (click)=" showRewards = true" class="mx-2 hover">Rewards</span>
+           <span [ngClass]="{'text-success' : !showRewards}" (click)=" showRewards = false" class="mx-2 hover">Redeem</span>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-md-10">
+            <div class="container-fluid  mt-3" *ngIf="showRewards">
+                <div class="row p-0  rewards">
+                    <div (click)="openReward()" class="position-relative w-100">
+                        <img src="../../../../assets/gift.png"  
+                            class="px-2 align-self-center" >
+                        <h6 class="pl-2 align-self-center" style="line-height: 20px;">
+                            60% Cashback on House Cleaning <br>
+                           <small><b>Validity :</b></small> <small style="font-weight: 500;" >06 Feb 2020 to 31 jul 2020</small>
+                        </h6>
+                    </div>
+                </div>
+                <br>
+            </div>
+            <div class="container-fluid  mt-3" *ngIf="!showRewards">
+                <div class="row p-0 p-4 reedems">
+                    <div  class="position-relative w-100">
+                        <img src="../../../../assets/kfc.png"  
+                            class="img-fluid align-self-center">
+                        <h6 class="pl-2 align-self-center" style="line-height: 30px;">
+                            60% Cashback on House Cleaning <br>
+                           <small><b>Validity :</b></small> <small style="font-weight: 500;" >06 Feb 2020 to 31 jul 2020</small>
+                        </h6>
+                        <span style="flex: 1 1 auto;"></span>
+                        <span class="align-self-center mx-3">
+                            <button mat-raised-button class="bg-success text-white">Reedem</button>
+                        </span>
+                    </div>
+                </div>
+                <br>
+            </div>
+        </div>
+    </div>
+</div>

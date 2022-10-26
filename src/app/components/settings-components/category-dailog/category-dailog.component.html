@@ -1,0 +1,33 @@
+<div class="text-center bg-light p-2">
+    <div class="d-flex justify-content-around">
+        <h6 class="mx-2 align-self-center hover" (click)="isCategorySelected = true" [ngClass]="{'text-red':isCategorySelected}"> Category</h6>
+         <h6 [ngClass]="{'text-red':!isCategorySelected}" (click)="isCategorySelected = false" class=" hover mx-2 align-self-center">Keyword</h6>
+         <span class="f hover text-right" (click)="closeTab()">
+            <img width="40" style="border-radius: 50%; padding: 10px;" src="../../../assets/Iconmetro-cancel.png">
+        </span></div>
+</div>
+<br>
+<div class="container-fluid scroll" style="min-height: 30vh; overflow: auto;">
+    <div class="row justify-content-center" *ngIf="isCategorySelected">
+        <button mat-raised-button  class="rounded-pill mx-1 border mb-2 f-14"  *ngFor="let category of categories"
+         [ngClass]="{'btn-bg': category.isSelected}" (click)="addToSelected(category.categoryName)">{{category.categoryName}}</button>
+    </div>
+    <div class="row justify-content-start" *ngIf="!isCategorySelected">
+<div class="col-md-12">
+     <form [formGroup]="keywordForm" (ngSubmit)="addKeyword(keyword.value)">
+        <div class="input-group mb-3">
+            <input type="text" class="form-control" placeholder="Keywords.." #keyword formControlName="taskName">
+            <span class="input-group-text bg-white hover border-0" (click)="addKeyword(keyword.value)" id="basic-addon2">
+                <img src="../../../assets/plus.png" width="20">
+            </span>
+          </div>
+     </form>
+</div>
+        <div  class="rounded-pill mx-1 border mb-2 btn-bg p-1 px-2 f-14"  *ngFor="let category of keywords;let i = index;"
+          >{{category}} <span class="hover" (click)="removeKeyword(i)">
+              <img src="../../../../assets/criss_cross.png" style="width: 1rem;"></span></div>
+    </div>
+</div>
+<div class="text-center my-3">
+    <button mat-raised-button class="rounded-pill btn-gradiant w-50" (click)="addBoth()">Add</button>
+</div>

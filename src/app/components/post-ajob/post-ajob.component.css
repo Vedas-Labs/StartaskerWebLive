@@ -1,0 +1,120 @@
+.form-control:focus {
+  border: 1px solid rgba(128, 128, 128, 0.5);
+}
+.note {
+  font-weight: 500;
+  font-size: 13px;
+  color: #373837;
+  margin-top: 1rem;
+}
+.border-right-0 {
+  border-right: none !important;
+}
+.border-left-0 {
+  border-left: none !important;
+}
+input {
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  color: #000000;
+}
+.mat-form-field-appearance-legacy .mat-form-field-wrapper {
+  padding-bottom: 0 !important;
+}
+.number-input {
+  width: 100% !important;
+}
+.mat-dialog-container {
+  padding: 0 !important;
+}
+.mat-radio-button,
+.mat-radio-button {
+  border: 1px solid #dee2e6;
+  border-radius: 3px;
+  padding: 10px 70px 0 10px;
+  background-color: #fff;
+}
+.mat-form-field-underline {
+  display: none;
+}
+.timings-section div {
+  border: 1px solid gray;
+  padding: 4px;
+  display: flex;
+  flex-wrap: wrap;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+.border-success {
+  border: 1px solid rgb(2, 136, 2) !important;
+}
+.border-right-0 {
+  border-right: 1px solid #fff !important;
+}
+.timings-section div h6 {
+  line-height: 1;
+}
+
+.mat-checkbox-checked .mat-checkbox-background,
+.mat-checkbox-indeterminate .mat-checkbox-background {
+  background-color: #fa0e0e !important;
+}
+* {
+  font-family: "proxy reg", sans-serif;
+}
+label {
+  font-size: 15px;
+  font-weight: 500;
+}
+.mat-button-toggle-appearance-standard .mat-button-toggle-label-content {
+  line-height: unset !important;
+}
+.mat-radio-checked .mat-radio-outer-circle {
+  background: red url("../../../assets/checkbox.png") no-repeat center !important;
+  background-size: cover;
+  border: 2px solid #fa0e0e !important;
+}
+.mat-radio-button.mat-accent .mat-radio-inner-circle {
+  background-color: transparent !important;
+}
+/* multiple date picker */
+.mat-calendar-body-cell.selected {
+  background-color: red !important;
+  border-radius: 50%;
+}
+.drop-calendar {
+  position: absolute;
+  left: 0 !important;
+  right: 0 !important;
+  width: 30rem;
+}
+/**** Scroll Bar*****/
+.scroll::-webkit-scrollbar-track {
+  border-radius: 2px;
+}
+.scroll::-webkit-scrollbar {
+  width: 5px;
+  background-color: #f7f7f7;
+}
+.scroll::-webkit-scrollbar-thumb:hover {
+  width: 20px !important;
+}
+.scroll::-webkit-scrollbar-thumb {
+  border-radius: 10px;
+  -webkit-box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.3);
+  background-color: orangered;
+}
+@media screen and (max-width: 767px) {
+  .mat-radio-button,
+  .mat-radio-button {
+    border: 1px solid #dee2e6;
+    border-radius: 3px;
+    padding: 10px 40px 0 10px;
+    background-color: #fff;
+    margin: 10px;
+  }
+  .input-group-prepend {
+    width: auto !important;
+  }
+}

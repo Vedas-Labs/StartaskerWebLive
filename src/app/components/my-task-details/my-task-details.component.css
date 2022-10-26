@@ -1,0 +1,108 @@
+*{
+    font-family: "proxy reg", sans-serif !important;
+  }
+.toolbar-text a{
+    font-size: 13px;
+    font-weight: 600;
+    }
+    .form-control:focus{
+        border: 1px solid rgba(128, 128, 128,0.4);
+    }
+    .job-status span{
+        padding: 5px 25px;
+        background-color: #cccccc;
+        border-radius: 10px;
+        font-size: small;
+        color: white;
+    }
+    .job-status span.active{
+        background-color: #FA0e0e;
+    }
+    
+    small{
+        font-weight: 500;
+    }
+    ul li span{
+        margin: 10px !important;
+    }
+    .clear{
+        clear: both !important;
+    }
+    .text-area:focus{
+        box-shadow: 0 1px 4px 2px rgba(250, 14, 14,0.5) !important;
+    }
+    .text-area{
+        font-size: 14px;
+        font-weight: 500;
+    }
+    .triangle-top{
+        filter: drop-shadow(3px 3px 2px gray);
+    }
+    .triangle-top::after{
+        content: '';
+    position: absolute;
+    left: 30px;
+    top: -8px;
+    width: 0;
+    height: 0;
+    border-left: 8px solid transparent;
+    border-right: 8px solid transparent;
+    border-bottom: 8px solid rgb(235, 226, 226);
+    }
+    .profile-btn{
+        max-width: 6rem;
+        font-size: 12px;
+        line-height: 1rem !important;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+    }
+    /**** Scroll Bar*****/
+    .scroll::-webkit-scrollbar-track
+    {
+    border-radius: 2px;
+    }
+    .scroll::-webkit-scrollbar
+    {
+    width: 10px;
+    background-color: #F7F7F7;
+    }
+    .scroll::-webkit-scrollbar-thumb
+    {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+    box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+    background-color: rgb(173, 168, 168);
+    }
+   /* Ratings */
+   .star {
+    position: relative;
+    display: inline-block;
+    font-size: 1.2rem;
+    color: #d3d3d3;
+  }
+  .full {
+    color: yellow;
+  }
+  .half {
+    position: absolute;
+    display: inline-block;
+    overflow: hidden;
+    color: yellow;
+  }
+  .qstn-width{
+    width: 75%;
+}
+  @media screen and (max-width:767px){
+    .qstn-width{
+        width: 100%;
+    }
+  .job-status{
+      margin-bottom: 10px;
+  }
+  .rmv-pad{
+      padding: 0 !important;
+  }
+  .job-status span{
+      margin: 10px;
+  }
+}

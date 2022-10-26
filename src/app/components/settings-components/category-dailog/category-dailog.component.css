@@ -1,0 +1,6 @@
+::ng-deep .mat-dialog-container {
+    padding: 0 !important;
+  }
+  .form-control:focus{
+    border: 1px solid gainsboro;
+  }

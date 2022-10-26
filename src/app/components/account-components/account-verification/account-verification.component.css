@@ -1,0 +1,25 @@
+.nationality div{
+    width: 16rem;
+    text-align: center;
+    margin: 0.5rem;
+}
+.custom-border{
+    border: 1px solid green !important;
+    color: green;
+}
+.identity-img .border{
+    width: 16rem;
+    height: 10rem;
+    margin: 0.5rem;
+}
+.example-section {
+    display: flex;
+    align-content: center;
+    align-items: center;
+  }
+  ::ng-deep .mat-checkbox-checked .mat-checkbox-background, .mat-checkbox-indeterminate .mat-checkbox-background {
+    background-color: #FA0E0E !important;
+  }
+  .example-margin {
+    margin: 0 10px;
+  }

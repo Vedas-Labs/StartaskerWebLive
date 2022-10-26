@@ -1,0 +1,67 @@
+<div class="container-fluid">
+  <div class="text-right mt-2 hover" (click)="close()">
+    <img src="../../../assets/Iconmetro-cancel.png" width="25" alt="" />
+  </div>
+  <div class="form-container">
+    <form
+      [formGroup]="addCatForm"
+      class="example-form m-auto px-1"
+      (ngSubmit)="submitDetails()"
+    >
+      <div class="form-group">
+        <label for="exampleFormControlInput1">Category Name</label>
+        <input
+          type="text"
+          formControlName="categoryName"
+          [ngClass]="{ 'is-valid': addCatForm.get('categoryName').valid }"
+          class="form-control bg-white"
+          id="exampleFormControlInput1"
+        />
+        <small
+          class="text-danger"
+          *ngIf="
+            addCatForm.get('categoryName').touched &&
+            addCatForm.get('categoryName').hasError('required')
+          "
+          >Enter Category Name</small
+        >
+      </div>
+      <div class="form-group">
+        <label for="exampleFormControlInput1">Experiance</label>
+        <input
+          type="number"
+          formControlName="Experience"
+          [ngClass]="{ 'is-valid': addCatForm.get('Experience').valid }"
+          class="form-control bg-white"
+          id="exampleFormControlInput1"
+        />
+        <small
+          class="text-danger"
+          *ngIf="
+            addCatForm.get('Experience').touched &&
+            addCatForm.get('Experience').hasError('required')
+          "
+          >Enter Experience
+        </small>
+        <small
+          class="text-danger"
+          *ngIf="
+            addCatForm.get('Experience').touched &&
+            addCatForm.get('Experience').hasError('min')
+          "
+          >Enter Number only
+        </small>
+      </div>
+      <div class="d-flex justify-content-center mb-3">
+        <button
+          type="submit"
+          mat-raised-button
+          class="rounded-pill w-75"
+          color="warn"
+        >
+          Submit
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

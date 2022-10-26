@@ -1,0 +1,819 @@
+<div class="container" *ngIf="rawData && rawData.taskTitle">
+  <div class="row">
+    <div class="col-md-12">
+      <div class="d-none d-md-block" *ngIf="!isPendingBooking">
+        <mat-horizontal-stepper labelPosition="bottom" *ngIf="!iamPoster">
+          <mat-step
+            label="Paid to startasker &nbsp;"
+            [editable]="false"
+            [completed]="one"
+            state="phone"
+          >
+          </mat-step>
+          <mat-step
+            label="Work completed (by provider )"
+            [editable]="false"
+            [completed]="two"
+            *ngIf="bookedTaskers.isWithDraw || bookedTaskers.isWithDrawCustomer"
+            state="cross"
+          >
+          </mat-step>
+          <mat-step
+            label="Work completed (by provider )"
+            [editable]="false"
+            [completed]="two"
+            *ngIf="
+              !bookedTaskers.isWithDraw && !bookedTaskers.isWithDrawCustomer
+            "
+          >
+          </mat-step>
+          <mat-step
+            label="Work completed (by customer)"
+            *ngIf="bookedTaskers.isWithDraw || bookedTaskers.isWithDrawCustomer"
+            [editable]="false"
+            [completed]="three"
+            state="cross"
+          >
+          </mat-step>
+          <mat-step
+            label="Work completed (by customer)"
+            *ngIf="
+              !bookedTaskers.isWithDraw && !bookedTaskers.isWithDrawCustomer
+            "
+            [editable]="false"
+            [completed]="three"
+          >
+          </mat-step>
+          <mat-step
+            label="Payment release to provider is completed"
+            *ngIf="bookedTaskers.isWithDraw || bookedTaskers.isWithDrawCustomer"
+            [editable]="false"
+            [completed]="four"
+            state="cross"
+          >
+          </mat-step>
+          <mat-step
+            label="Payment release to provider is completed"
+            *ngIf="
+              !bookedTaskers.isWithDraw && !bookedTaskers.isWithDrawCustomer
+            "
+            [editable]="false"
+            [completed]="four"
+          >
+          </mat-step>
+          <mat-step
+            label="Payment is done to provider"
+            *ngIf="bookedTaskers.isWithDraw || bookedTaskers.isWithDrawCustomer"
+            [editable]="false"
+            [completed]="five"
+            state="cross"
+          >
+          </mat-step>
+          <mat-step
+            label="Payment is done to provider"
+            *ngIf="
+              !bookedTaskers.isWithDraw && !bookedTaskers.isWithDrawCustomer
+            "
+            [editable]="false"
+            [completed]="five"
+          >
+          </mat-step>
+
+          <!-- Icon overrides. -->
+          <ng-template matStepperIcon="phone">
+            <i class="far fa-money-bill-alt"></i>
+          </ng-template>
+          <ng-template matStepperIcon="cross">
+            <img src="../../../assets/criss_cross.png" width="25" />
+          </ng-template>
+        </mat-horizontal-stepper>
+        <mat-horizontal-stepper labelPosition="bottom" *ngIf="iamPoster">
+          <mat-step
+            label="Paid to startasker &nbsp;"
+            [editable]="false"
+            [completed]="one"
+            state="phone"
+          >
+          </mat-step>
+          <mat-step
+            label="Work completed (by provider )"
+            [editable]="false"
+            [completed]="two"
+            *ngIf="isBookingWithDrawnByAllTaskers"
+            state="cross"
+          >
+          </mat-step>
+          <mat-step
+            label="Work completed (by provider )"
+            [editable]="false"
+            [completed]="two"
+            *ngIf="!isBookingWithDrawnByAllTaskers"
+          >
+          </mat-step>
+          <mat-step
+            label="Work completed (by customer)"
+            *ngIf="isBookingWithDrawnByAllTaskers"
+            [editable]="false"
+            [completed]="three"
+            state="cross"
+          >
+          </mat-step>
+          <mat-step
+            label="Work completed (by customer)"
+            *ngIf="!isBookingWithDrawnByAllTaskers"
+            [editable]="false"
+            [completed]="three"
+          >
+          </mat-step>
+          <mat-step
+            label="Payment release to provider is completed"
+            *ngIf="isBookingWithDrawnByAllTaskers"
+            [editable]="false"
+            [completed]="four"
+            state="cross"
+          >
+          </mat-step>
+          <mat-step
+            label="Payment release to provider is completed"
+            *ngIf="!isBookingWithDrawnByAllTaskers"
+            [editable]="false"
+            [completed]="four"
+          >
+          </mat-step>
+          <mat-step
+            label="Payment is done to provider"
+            *ngIf="isBookingWithDrawnByAllTaskers"
+            [editable]="false"
+            [completed]="five"
+            state="cross"
+          >
+          </mat-step>
+          <mat-step
+            label="Payment is done to provider"
+            *ngIf="!isBookingWithDrawnByAllTaskers"
+            [editable]="false"
+            [completed]="five"
+          >
+          </mat-step>
+
+          <!-- Icon overrides. -->
+          <ng-template matStepperIcon="phone">
+            <i class="far fa-money-bill-alt"></i>
+          </ng-template>
+          <ng-template matStepperIcon="cross">
+            <img src="../../../assets/criss_cross.png" width="25" />
+          </ng-template>
+        </mat-horizontal-stepper>
+      </div>
+      <div class="d-block d-md-none" *ngIf="!isPendingBooking">
+        <mat-vertical-stepper labelPosition="bottom" *ngIf="!iamPoster">
+          <mat-step
+            label="Paid to startasker &nbsp;"
+            [editable]="false"
+            [completed]="one"
+            state="phone"
+          >
+          </mat-step>
+          <mat-step
+            label="Work completed (by provider )"
+            [editable]="false"
+            [completed]="two"
+            *ngIf="bookedTaskers.isWithDraw || bookedTaskers.isWithDrawCustomer"
+            state="cross"
+          >
+          </mat-step>
+          <mat-step
+            label="Work completed (by provider )"
+            [editable]="false"
+            [completed]="two"
+            *ngIf="
+              !bookedTaskers.isWithDraw && !bookedTaskers.isWithDrawCustomer
+            "
+          >
+          </mat-step>
+          <mat-step
+            label="Work completed (by customer)"
+            *ngIf="bookedTaskers.isWithDraw || bookedTaskers.isWithDrawCustomer"
+            [editable]="false"
+            [completed]="three"
+            state="cross"
+          >
+          </mat-step>
+          <mat-step
+            label="Work completed (by customer)"
+            *ngIf="
+              !bookedTaskers.isWithDraw && !bookedTaskers.isWithDrawCustomer
+            "
+            [editable]="false"
+            [completed]="three"
+          >
+          </mat-step>
+          <mat-step
+            label="Payment release to provider is completed"
+            *ngIf="bookedTaskers.isWithDraw || bookedTaskers.isWithDrawCustomer"
+            [editable]="false"
+            [completed]="four"
+            state="cross"
+          >
+          </mat-step>
+          <mat-step
+            label="Payment release to provider is completed"
+            *ngIf="
+              !bookedTaskers.isWithDraw && !bookedTaskers.isWithDrawCustomer
+            "
+            [editable]="false"
+            [completed]="four"
+          >
+          </mat-step>
+          <mat-step
+            label="Payment is done to provider"
+            *ngIf="bookedTaskers.isWithDraw || bookedTaskers.isWithDrawCustomer"
+            [editable]="false"
+            [completed]="five"
+            state="cross"
+          >
+          </mat-step>
+          <mat-step
+            label="Payment is done to provider"
+            *ngIf="
+              !bookedTaskers.isWithDraw && !bookedTaskers.isWithDrawCustomer
+            "
+            [editable]="false"
+            [completed]="five"
+          >
+          </mat-step>
+
+          <!-- Icon overrides. -->
+          <ng-template matStepperIcon="phone">
+            <i class="far fa-money-bill-alt"></i>
+          </ng-template>
+          <ng-template matStepperIcon="cross">
+            <img src="../../../assets/criss_cross.png" width="25" />
+          </ng-template>
+        </mat-vertical-stepper>
+        <mat-vertical-stepper labelPosition="bottom" *ngIf="iamPoster">
+          <mat-step
+            label="Paid to startasker &nbsp;"
+            [editable]="false"
+            [completed]="one"
+            state="phone"
+          >
+          </mat-step>
+          <mat-step
+            label="Work completed (by provider )"
+            [editable]="false"
+            [completed]="two"
+            *ngIf="isBookingWithDrawnByAllTaskers"
+            state="cross"
+          >
+          </mat-step>
+          <mat-step
+            label="Work completed (by provider )"
+            [editable]="false"
+            [completed]="two"
+            *ngIf="!isBookingWithDrawnByAllTaskers"
+          >
+          </mat-step>
+          <mat-step
+            label="Work completed (by customer)"
+            *ngIf="isBookingWithDrawnByAllTaskers"
+            [editable]="false"
+            [completed]="three"
+            state="cross"
+          >
+          </mat-step>
+          <mat-step
+            label="Work completed (by customer)"
+            *ngIf="!isBookingWithDrawnByAllTaskers"
+            [editable]="false"
+            [completed]="three"
+          >
+          </mat-step>
+          <mat-step
+            label="Payment release to provider is completed"
+            *ngIf="isBookingWithDrawnByAllTaskers"
+            [editable]="false"
+            [completed]="four"
+            state="cross"
+          >
+          </mat-step>
+          <mat-step
+            label="Payment release to provider is completed"
+            *ngIf="!isBookingWithDrawnByAllTaskers"
+            [editable]="false"
+            [completed]="four"
+          >
+          </mat-step>
+          <mat-step
+            label="Payment is done to provider"
+            *ngIf="isBookingWithDrawnByAllTaskers"
+            [editable]="false"
+            [completed]="five"
+            state="cross"
+          >
+          </mat-step>
+          <mat-step
+            label="Payment is done to provider"
+            *ngIf="!isBookingWithDrawnByAllTaskers"
+            [editable]="false"
+            [completed]="five"
+          >
+          </mat-step>
+
+          <!-- Icon overrides. -->
+          <ng-template matStepperIcon="phone">
+            <i class="far fa-money-bill-alt"></i>
+          </ng-template>
+          <ng-template matStepperIcon="cross">
+            <img src="../../../assets/criss_cross.png" width="25" />
+          </ng-template>
+        </mat-vertical-stepper>
+      </div>
+    </div>
+  </div>
+  <div class="row" [ngClass]="{ 'mt-3': isPendingBooking }">
+    <div
+      class="col-md-7 mb-2"
+      style="border: 1px solid gray; border-radius: 12px"
+    >
+      <p
+        class="text-muted pb-0"
+        *ngIf="rawData && rawData.taskTitle"
+        style="color: #030303; font-size: 24px; padding: 10px"
+      >
+        {{ rawData.taskTitle }}
+      </p>
+      <ul class="list-unstyled">
+        <li class="d-flex">
+          <span class="hover" (click)="showUserProfile(rawData.userID)">
+            <img
+              src="{{ image }}"
+              width="70"
+              height="70"
+              class="rounded-circle shadow"
+            />
+          </span>
+          <span class="align-self-center">
+            <b>{{ rawData.customerName }}</b
+            ><br />
+            <small style="font-weight: 500">{{ date | dateAgo }}</small>
+          </span>
+        </li>
+        <li class="clear"></li>
+        <li class="d-flex justify-content-start">
+          <span>
+            <img
+              src="https://img.icons8.com/cotton/2x/worldwide-location.png"
+              width="30"
+            />
+          </span>
+          <span style="line-height: 17px">
+            <b>Location</b><br />
+            <small>{{ rawData.location }}</small
+            ><br />
+            <a
+              target="_blank"
+              href="https://maps.google.com/?q={{ rawData.loc[0] }},{{
+                rawData.loc[1]
+              }}"
+              class="text-decoration-none f-14 text-red"
+              >View in map</a
+            >
+          </span>
+        </li>
+        <li class="d-flex">
+          <span>
+            <img src="../../../assets/calendar.png" width="30" />
+          </span>
+          <span style="line-height: 17px !important">
+            <small><b>To be done on</b></small
+            ><br />
+            <small
+              style="color: #000000"
+              class="mx-1"
+              *ngFor="let date of rawData.taskDate"
+              >{{ date | date }},</small
+            ><br />
+            <span
+              style="margin: 0 !important"
+              *ngIf="rawData && rawData.convenientTimings"
+            >
+              <small *ngFor="let timings of rawData.convenientTimings"
+                >{{ timings }},
+              </small>
+            </span>
+          </span>
+        </li>
+        <li
+          class="d-flex"
+          *ngIf="rawData && rawData.attachments && rawData.attachments.length"
+        >
+          <span>
+            <img src="../../../assets/Icon-metro-attachment.png" width="30" />
+          </span>
+          <span>
+            <small><b>Attachments</b></small
+            ><br />
+            <span
+              (click)="showAttachmentPop(rawData.attachments)"
+              class="hover"
+              *ngFor="let attachments of rawData.attachments"
+            >
+              <img
+                src="{{ 'https://liveapi.startasker.com' + attachments }}"
+                width="30"
+                *ngIf="attachments.split('.').pop() !== 'png'"
+              />
+              <img
+                src="../../../assets/thumbnail.png"
+                width="30"
+                alt="icon"
+                loading="lazy"
+                *ngIf="attachments.split('.').pop() == 'png'"
+              />
+            </span>
+          </span>
+        </li>
+        <li
+          class="d-flex"
+          *ngIf="rawData && rawData.mustHaves && rawData.mustHaves.length >= 1"
+        >
+          <span style="width: 30px"> </span>
+          <span style="line-height: 15px">
+            <small><b>Must Haves</b></small
+            ><br />
+            <span
+              style="line-height: 10px"
+              class="p-0 d-block"
+              *ngFor="let must of rawData.mustHaves; let i = index"
+            >
+              <small>{{ must }}</small>
+            </span>
+          </span>
+        </li>
+        <li *ngIf="!iamPoster && !isPosterCompletedTask && !isTaskerWithdrawn">
+          <div class="mt-2 d-flex ml-3 align-self-center">
+            <a
+              href="https://wasap.my/{{ rawData?.phoneNumber }}"
+              target="_blank"
+            >
+              <img
+                src="../../../assets/whatsapp.png"
+                width="30"
+                alt="whatsapp"
+              />
+            </a>
+            &nbsp; &nbsp;
+            <a href="tel:{{ rawData?.phoneNumber }}">
+              <img src="../../../assets/phone@2x.png" width="25" alt="call" />
+            </a>
+          </div>
+        </li>
+      </ul>
+    </div>
+    <div class="col-md-5 rmv-pad" style="max-height: 75vh">
+      <div class="text-center">
+        <div class="card">
+          <div class="card-header f-18" style="background-color: #f8f8f8">
+            Task Price
+          </div>
+          <div class="card-body" *ngIf="isPendingBooking">
+            <p class="card-text font-weight-bold" style="font-size: 20px">
+              RM {{ rawData.taskTotalBudget }}
+            </p>
+            <div
+              class="mt-3 d-flex flex-column justify-content-center"
+              *ngIf="iamPoster"
+            >
+              <button
+                mat-raised-button
+                (click)="retryPayMent()"
+                class="rounded-pill m-2 text-center btn-gradiant px-5"
+              >
+                Retry
+              </button>
+              <button
+                mat-raised-button
+                (click)="deleteBooking()"
+                class="rounded-pill m-2 text-center bg-light px-5"
+              >
+                Delete
+              </button>
+            </div>
+          </div>
+          <div class="card-body" *ngIf="!isPendingBooking">
+            <p class="card-text font-weight-bold" style="font-size: 20px">
+              RM {{ rawData.taskTotalBudget }}
+            </p>
+            <div class="mt-3" *ngIf="iamPoster">
+              <button
+                mat-raised-button
+                *ngIf="!isPosterCompletedTask"
+                (click)="completeTask()"
+                class="rounded-pill btn-bg px-5"
+              >
+                Complete
+              </button>
+              <button
+                mat-raised-button
+                *ngIf="isPosterCompletedTask"
+                class="rounded-pill btn-gradiant px-5"
+              >
+                Completed
+              </button>
+            </div>
+            <div class="mt-3" *ngIf="!iamPoster">
+              <button
+                mat-raised-button
+                *ngIf="
+                  !(
+                    bookedTaskers.isWithDraw || bookedTaskers.isWithDrawCustomer
+                  ) &&
+                  !(
+                    bookedTaskers.isCustomerCompletedTask ||
+                    bookedTaskers.isTaskerCompletedTask
+                  )
+                "
+                (click)="completeTask()"
+                class="rounded-pill btn-gradiant px-5"
+              >
+                Complete
+              </button>
+              <button
+                mat-raised-button
+                *ngIf="
+                  bookedTaskers.isCustomerCompletedTask ||
+                  bookedTaskers.isTaskerCompletedTask
+                "
+                class="rounded-pill btn-gradiant px-5"
+              >
+                Completed
+              </button>
+              <span
+                class="f-14 text-red"
+                *ngIf="bookedTaskers.isWithDrawCustomer"
+                >Withdrawn by customer
+              </span>
+              <span class="f-14 text-red" *ngIf="bookedTaskers.withDrawTime">
+                On ({{ bookedTaskers.withDrawTime | date: "longDate" }})
+              </span>
+              <span class="f-14 text-red" *ngIf="bookedTaskers.isWithDraw"
+                >Withdrawn by You
+              </span>
+              <span class="f-14 text-red" *ngIf="bookedTaskers.withDraw">
+                On ({{ bookedTaskers.withDrawTime | date: "longDate" }})
+              </span>
+              <br />
+              <button
+                mat-raised-button
+                *ngIf="
+                  !bookedTaskers.isTaskerCompletedTask &&
+                  !(
+                    bookedTaskers.isWithDraw || bookedTaskers.isWithDrawCustomer
+                  ) &&
+                  !bookedTaskers.isCustomerCompletedTask
+                "
+                (click)="withdraw(bookedTaskers)"
+                class="btn-light border rounded-pill px-5 mt-2"
+              >
+                withdraw
+              </button>
+              <button
+                mat-raised-button
+                *ngIf="
+                  (bookedTaskers.isWithDraw ||
+                    bookedTaskers.isWithDrawCustomer) &&
+                  !isCustomerCompled
+                "
+                class="btn-light rounded-pill border px-5 mt-2"
+              >
+                withdrawn
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div>
+        <fieldset style="border: 1px solid gray; border-radius: 10px">
+          <legend
+            style="width: inherit; font-size: 20px"
+            class="scheduler-border text-center px-2"
+          >
+            SHARE
+          </legend>
+          <div class="d-flex justify-content-around mb-4">
+            <span class="p-2">
+              <a (click)="shareOnFaceBook()" href="javascript:void">
+                <img
+                  src="../../../assets/Icon-awesome-facebook.png"
+                  width="25"
+                />
+              </a>
+            </span>
+            <span class="p-2">
+              <a (click)="shareOnTwiter()" href="javascript:void">
+                <img src="../../../assets/Icon-metro-twitter.png" width="25" />
+              </a>
+            </span>
+            <span class="p-2">
+              <a (click)="shareOnLinkedIn()" href="javascript:void">
+                <img
+                  src="../../../assets/Icon-awesome-linkedin.png"
+                  width="25"
+                />
+              </a>
+            </span>
+            <span class="p-2">
+              <a
+                href="mailto:?subject=I wanted you to see this Post&amp;body=Check out this site {{
+                  shareUrl
+                }}"
+                title="Share by Email"
+              >
+                <img src="../../../assets/Icon-awesome-code.png" width="25" />
+              </a>
+            </span>
+          </div>
+        </fieldset>
+        <!-- <div
+        class="mt-2 d-flex justify-content-end border p-1 rounded"
+        *ngIf="!iamPoster"
+      >
+        <a
+          *ngIf="rawData.post_Status === 'Assigned'"
+          href="https://wasap.my/+60{{ rawData.phoneNumber }}"
+          target="_blank"
+        >
+          <img src="../../../assets/whatsapp.png" width="30" alt="whatsapp" />
+        </a>
+      </div> -->
+      </div>
+      <div class="mt-2" *ngIf="!iamPoster">
+        <button
+          mat-raised-button
+          *ngIf="!bookedTaskers.ratingsToPoster"
+          (click)="giveRatings(bookedTaskers)"
+          class="btn-success w-100 rounded-pill"
+        >
+          Give Rating
+        </button>
+        <button
+          mat-raised-button
+          *ngIf="bookedTaskers.ratingsToPoster"
+          class="btn-success w-100 rounded-pill border"
+        >
+          Rating Given
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="row mb-3">
+    <div class="col-md-12 p-0 text-muted">
+      <div class="border p-4 mt-3" style="border-radius: 12px">
+        <h5>Details</h5>
+        <p class="">
+          <small>{{ rawData.describeTaskInDetails }}</small>
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="row p-0 mt-3" *ngIf="iamPoster">
+    <div class="col-md-12 p-0 border-top border-bottom">
+      <div *ngIf="bookedTaskers && bookedTaskers.length">
+        <h4 class="p-3">Offers</h4>
+        <div *ngFor="let tasker of bookedTaskers; let i = index" id="offers">
+          <div class="d-flex">
+            <div class="d-flex">
+              <div class="p-3">
+                <img
+                  src="{{
+                    'https://liveapi.startasker.com' +
+                      tasker.offeredUserProfilePic
+                  }}"
+                  width="40"
+                  height="40"
+                  class="rounded-circle"
+                />
+              </div>
+              <div class="align-self-center" style="line-height: 20px">
+                <small>{{ tasker.offeredUserName }}</small
+                ><br />
+                <button
+                  style="font-size: 10px; font-weight: 500"
+                  (click)="giveRatings(tasker)"
+                  *ngIf="!tasker.ratingsToProvider && !tasker.isWithDraw"
+                  class="rounded-pill bg-success text-white border"
+                >
+                  Give Ratings
+                </button>
+                <button
+                  style="font-size: 10px; font-weight: 500"
+                  *ngIf="tasker.ratingsToProvider"
+                  class="rounded-pill bg-success text-white border"
+                >
+                  Ratings Given
+                </button>
+              </div>
+            </div>
+            <span style="display: flex; flex: 1 1 auto"></span>
+            <div class="mt-2 d-flex justify-content-end align-self-center">
+              <a
+                *ngIf="
+                  !isPosterCompletedTask &&
+                  !isPendingBooking &&
+                  !tasker.isWithDrawCustomer &&
+                  !tasker.isWithDraw &&
+                  tasker.phoneNumber
+                "
+                [href]="getWhatsappUrl(bookedTaskers[i])"
+                target="_blank"
+              >
+                <img
+                  src="../../../assets/whatsapp.png"
+                  width="30"
+                  alt="whatsapp"
+                />
+              </a>
+              &nbsp;
+              <a
+                *ngIf="
+                  !isPosterCompletedTask &&
+                  !isPendingBooking &&
+                  !tasker.isWithDrawCustomer &&
+                  !tasker.isWithDraw &&
+                  tasker.phoneNumber
+                "
+                [href]="getCallUrl(bookedTaskers[i])"
+              >
+                <img
+                  src="../../../assets/phone@2x.png"
+                  width="25"
+                  alt="whatsapp"
+                />
+              </a>
+            </div>
+            <div
+              class="align-self-center d-flex"
+              style="font-weight: 700; line-height: 20px"
+            >
+              <div class="m-2">
+                <button
+                  style="font-size: 10px; font-weight: 500"
+                  *ngIf="
+                    !(tasker.isWithDraw || tasker.isWithDrawCustomer) &&
+                    !tasker.isCustomerCompletedTask
+                  "
+                  (click)="withdraw(tasker)"
+                  class="rounded-pill btn-light border"
+                >
+                  withdraw
+                </button>
+                <button
+                  style="font-size: 10px; font-weight: 500"
+                  *ngIf="
+                    (tasker.isWithDraw || tasker.isWithDrawCustomer) &&
+                    !tasker.isCustomerCompletedTask
+                  "
+                  class="rounded-pill btn btn-light border"
+                >
+                  Withdrawn
+                  <span *ngIf="tasker.isWithDrawCustomer">By You</span>
+                  <span *ngIf="tasker.isWithDraw">By provider</span>
+                </button>
+                <br />
+                <span
+                  *ngIf="tasker && tasker.withDrawTime"
+                  style="font-size: 10px; font-weight: 500"
+                  class="ml-2 text-red"
+                  >({{ tasker.withDrawTime | date: "longDate" }})</span
+                >
+                <button
+                  style="font-size: 10px; font-weight: 500"
+                  *ngIf="tasker.isCustomerCompletedTask"
+                  class="rounded-pill btn-gradiant border"
+                >
+                  Completed
+                </button>
+                <!-- Whats app -->
+              </div>
+              <div
+                class="align-self-center px-2"
+                *ngIf="
+                  !tasker.isCustomerCompletedTask &&
+                  !(tasker.isWithDraw || tasker.isWithDrawCustomer)
+                "
+              >
+                <mat-checkbox
+                  class="example-margin"
+                  color="warn"
+                  [checked]="tasker.isCustomerCompletedTask"
+                  (change)="selectTasker($event, tasker.offeredUserID, i)"
+                ></mat-checkbox>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

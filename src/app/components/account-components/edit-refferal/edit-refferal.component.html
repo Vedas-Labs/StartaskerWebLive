@@ -1,0 +1,289 @@
+<div class="text-center bg-light p-3">
+  <h5 class="">
+    Refferal Details
+    <span class="float-right hover text-right" (click)="closeTab()">
+      <img
+        width="40"
+        style="border-radius: 50%; padding: 10px"
+        src="../../../assets/Iconmetro-cancel.png"
+      />
+    </span>
+  </h5>
+</div>
+<div class="container-fluid">
+  <div class="row p-0 bg-gradient">
+    <div class="col-md-12 d-flex justify-content-around">
+      <div class="ml-2 position-relative">
+        <img src="{{ image }}" class="rounded-circle avathar" />
+      </div>
+      <div
+        class="align-self-center px-4"
+        *ngIf="taskUserInfo && taskUserInfo.firstName"
+      >
+        <p class="mb-0 f-18">{{ taskUserInfo.firstName }}</p>
+        <p class="mb-o f-14" *ngIf="!rawData.canThisTaskRemote">
+          {{ rawData.location }}
+        </p>
+        <p class="mb-o f-14" *ngIf="rawData.canThisTaskRemote">Remote Task</p>
+      </div>
+    </div>
+  </div>
+  <br />
+  <div class="row p-0 scroll" style="max-height: 55vh; overflow-y: auto">
+    <div class="col-md-12 p-0">
+      <div class="container-fluid">
+        <div class="row justify-content-center mt-2">
+          <div class="col-md-10 align-self-center">
+            <div class="text-center">
+              <mat-button-toggle-group
+                name="fontStyle"
+                style="border-radius: 20px"
+                aria-label="Font Style"
+              >
+                <mat-button-toggle
+                  value="tasker"
+                  [ngStyle]="{
+                    'background-color': asPoster == false ? '#FA0E0E' : '#FFF',
+                    color: asPoster == false ? '#fff' : '#000'
+                  }"
+                  class="px-3 py-1 f-14"
+                  >As a Tasker
+                </mat-button-toggle>
+                <mat-button-toggle
+                  value="poster"
+                  [ngStyle]="{
+                    'background-color': asPoster == true ? '#FA0E0E' : '#FFF',
+                    color: asPoster == true ? '#fff' : '#000'
+                  }"
+                  class="px-3 py-1 f-14"
+                  >As a Poster
+                </mat-button-toggle>
+              </mat-button-toggle-group>
+            </div>
+          </div>
+        </div>
+        <div class="mt-1">
+          <table class="table table-bordered text-center shadow mt-2">
+            <thead class="thead-light">
+              <tr>
+                <th scope="col">Task Title</th>
+                <th scope="col">Amount</th>
+                <th scope="col">Commision 10%</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>
+                  {{ earnData.taskTitle }}
+                </td>
+                <td>RM {{ earnData.bookingAmount }}</td>
+                <td>RM {{ earnData.earnAmount }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="bg-light p-2">
+          <h5>Task Details</h5>
+        </div>
+        <div class="my-2">
+          <div
+            class="job-status d-flex justify-content-around"
+            *ngIf="rawData && rawData.post_Status"
+          >
+            <span
+              [ngClass]="{ active: rawData.post_Status == 'Open' }"
+              class="rounded-pill"
+              >Open</span
+            >
+            <span
+              [ngClass]="{ active: rawData.post_Status == 'Assigned' }"
+              class="rounded-pill"
+              >Assigned</span
+            >
+            <span
+              [ngClass]="{ active: rawData.post_Status == 'Cancel' }"
+              class="rounded-pill"
+              >Closed</span
+            >
+          </div>
+        </div>
+        <div
+          class="row justify-content-center"
+          *ngIf="rawData && rawData.postTitle"
+        >
+          <div class="list-group col-md-11 pt-1">
+            <a
+              class="list-group-item hover list-group-item-action mb-2"
+              style="border-radius: 20px; background-color: #f8f8f8"
+            >
+              <h6 class="my-1 px-3">{{ rawData.postTitle }}</h6>
+              <div class="d-flex p-1 justify-content-start">
+                <div
+                  class="px-2 border-right"
+                  *ngIf="
+                    rawData && rawData.userInfo && rawData.userInfo.profilePic
+                  "
+                >
+                  <img
+                    *ngIf="rawData.userInfo.profilePic != ''"
+                    src="{{
+                      'https://liveapi.startasker.com/' +
+                        rawData.userInfo.profilePic
+                    }}"
+                    width="50"
+                    height="50"
+                    style="border-radius: 50%"
+                  />
+                  <img
+                    *ngIf="rawData.userInfo.profilePic == ''"
+                    src="{{ image }}"
+                    width="40"
+                    height="40"
+                    style="border-radius: 50%"
+                  /><br />
+                </div>
+                <div class="pl-1">
+                  <ul class="list-unstyled">
+                    <li class="d-flex justify-content-start">
+                      <span>
+                        <img
+                          src="../../../assets/Icon-material-location-on.png"
+                          class="d-inline-block"
+                          width="13"
+                        />
+                      </span>
+                      <span
+                        class="text-justify address pl-1"
+                        style="
+                          font-weight: 500;
+                          width: 150px !important;
+                          overflow: hidden;
+                          text-overflow: ellipsis;
+                          white-space: nowrap;
+                        "
+                      >
+                        <small *ngIf="rawData && !rawData.canThisTaskRemote">{{
+                          rawData.location
+                        }}</small>
+                        <small *ngIf="rawData && rawData.canThisTaskRemote"
+                          >Remote Task</small
+                        >
+                      </span>
+                    </li>
+                    <li class="d-flex">
+                      <span>
+                        <img src="../../../assets/calendar.png" width="13" />
+                      </span>
+                      <span class="m-0 pl-1">
+                        <small
+                          *ngFor="let dates of rawData.taskDate"
+                          class="m-0"
+                          >{{ +dates | date }},</small
+                        >
+                      </span>
+                    </li>
+                    <li class="d-flex">
+                      <span>
+                        <img src="../../../assets/clock.png" width="13" />
+                      </span>
+                      <span class="pl-1">
+                        <small
+                          *ngIf="
+                            rawData.convenientTimings.length == 0 ||
+                            rawData.convenientTimings.length == 4
+                          "
+                          >Any Time
+                        </small>
+                        <span
+                          style="margin: 0 !important"
+                          *ngIf="
+                            rawData &&
+                            rawData.convenientTimings.length &&
+                            rawData.convenientTimings.length <= 3
+                          "
+                        >
+                          <small
+                            *ngFor="let timings of rawData.convenientTimings"
+                            >{{ timings }},
+                          </small>
+                        </span>
+                      </span>
+                    </li>
+                  </ul>
+                </div>
+              </div>
+            </a>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-12 px-3 text-muted">
+            <div class="border p-2 mt-3" style="border-radius: 12px">
+              <h5>Details</h5>
+              <p class="">
+                <small>{{ rawData.describeTaskInDetails }}</small>
+              </p>
+            </div>
+          </div>
+        </div>
+        <div
+          class="border p-2 my-3"
+          style="border-radius: 12px"
+          *ngIf="rawData && rawData.mustHaves && rawData.mustHaves.length >= 1"
+        >
+          <p class="">
+            <span><b>Must Haves</b></span>
+            <span style="line-height: 15px">
+              <span
+                style="line-height: 10px"
+                class="p-0 d-block"
+                *ngFor="let must of rawData.mustHaves; let i = index"
+              >
+                <small>{{ must }}</small>
+              </span>
+            </span>
+          </p>
+        </div>
+        <div
+          class="border p-2 mb-3"
+          style="border-radius: 12px"
+          *ngIf="rawData && rawData.attachments && rawData.attachments.length"
+        >
+          <p class="">
+            <span><b>Attachments</b></span
+            ><br />
+            <span class="hover" *ngFor="let attachments of rawData.attachments">
+              <img src="{{ baseUrl + attachments }}" width="30" />
+            </span>
+          </p>
+        </div>
+        <div class="text-center mb-3">
+          <div class="card">
+            <div class="card-header f-18" style="background-color: #f8f8f8">
+              Task Price
+            </div>
+            <div class="card-body p-0">
+              <p
+                class="card-title small mb-3"
+                *ngIf="rawData.budget.budgetType.HourlyRate"
+                style="font-weight: 500"
+              >
+                Approx {{ rawData.budget.Hours }}Hrs
+              </p>
+              <p class="card-text font-weight-bold" style="font-size: 20px">
+                RM {{ rawData.budget.budget }}
+              </p>
+              <div class="mt-3 mb-2">
+                <button
+                  mat-raised-button
+                  class="rounded-pill btn-gradiant text-white px-5"
+                >
+                  {{ rawData.post_Status }}
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

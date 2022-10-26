@@ -1,0 +1,35 @@
+<div class="text-center  px-3 pt-3">
+    <h5 class="">Cancel Task</h5>
+</div>
+<div class="container-fluid" style="padding: 14px 24px;">
+    <div class="row justify-content-center">
+        <div class="col-10 text-center mb-2">
+           <div style="font-weight: 500;">
+            Are you sure,
+           </div>
+           <div style="font-weight: 500;">
+             You want to with draw from this job?
+           </div>
+           <span class=" text-center" style="font-weight: 500;">If yes select the reason</span>
+        </div>
+    </div>
+    <ul class="list-unstyled">
+        <li *ngFor="let reason of reasons;let i = index;">
+            <mat-radio-button color="warn" [checked]="i == defaultSelected" [value]="reason" (change)="selectedReason($event.value)">
+                 {{reason}}
+            </mat-radio-button>
+        </li>
+    </ul>
+    <form [formGroup]="reasonForm" class="d-none" [ngClass]="{'d-block': isOthersSelected}">
+        <div class="form-group text-center">
+            <input type="text" formControlName="reason" class="form-control f-14 border-dark" placeholder="Enter Your Reason for Cancellation..!">
+          </div>
+    </form>
+    
+    <div class="d-flex justify-content-center pb-2 mt-3">
+        <button mat-raised-button (click)="close()" class="text-black-50 rounded-pill hover" style="font-weight: 400;font-weight: 400; border: 1px solid grey;">
+            &nbsp; &nbsp;   No &nbsp; &nbsp;</button>&nbsp; &nbsp;
+        <button mat-raised-button (click)="submit()" [disabled]="!reasonForm.valid" class="text-white btn-bg rounded-pill hover" style="font-weight: 400;font-weight: 400;">
+            &nbsp; &nbsp; Submit &nbsp; &nbsp;</button>&nbsp;
+    </div>
+</div>

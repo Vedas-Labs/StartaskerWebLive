@@ -1,0 +1,326 @@
+<div class="text-center bg-light p-3">
+    <h5 class=""><span class="float-left hover text-right" (click)="backToZero()">
+            <img width="40" style="border-radius: 50%; padding: 10px;" src="../../../assets/left-arrow.png"
+                *ngIf="index != 0 && index != 8">
+        </span>
+        {{headings}} <span class="float-right hover text-right" (click)="closeTab()">
+            <img width="40" style="border-radius: 50%; padding: 10px;" src="../../../assets/Iconmetro-cancel.png">
+        </span></h5>
+
+</div>
+<br>
+<div class="container-fluid scroll" style="max-height: 80vh; overflow-y: auto;">
+
+    <div *ngIf="index == 0" class="timings-section mt-2">
+        <div (click)="addPhoto()" class="position-relative" [ngClass]="{'border-success':imageUpdate}">
+            <img src="../../../assets/red-awesome-user-alt.png"  width="40" class="px-2">
+            <h6 class="px-2 align-self-center">
+                Profile Picture
+            </h6>
+            <img src="{{userUrl}}" *ngIf="imageUpdate" height="30" class="rounded-circle" width="30">
+            <span style="flex: 1 1 auto;"></span>
+            <img src="../../../assets/multimedia-option.png" width="20" height="20" class="align-self-center mr-2">
+            <span class="position-absolute" *ngIf="imageUpdate"
+                style="top: 0;right: 0; margin-top: -10px;margin-right: -5px;">
+                <img src="../../../assets/check.png" width="20">
+            </span>
+        </div>
+        <div (click)="addBankDetails()" class="position-relative" [ngClass]="{'border-success':BankUpdated}">
+            <img src="../../../assets/red-awesome-credit-card.png"  width="40"
+                class="px-2 align-self-center">
+            <h6 class="pl-2 align-self-center">
+                Bank Account <br *ngIf="BankUpdated">
+                <small style="font-weight: 500;" *ngIf="BankUpdated">{{bankAccountDetails.Accountnumber}}</small>
+            </h6>
+            <span style="flex: 1 1 auto;"></span>
+            <img src="../../../assets/multimedia-option.png" width="20" height="20" class="align-self-center mr-2">
+            <span class="position-absolute" *ngIf="BankUpdated"
+                style="top: 0;right: 0;margin-top: -10px;margin-right: -5px;">
+                <img src="../../../assets/check.png" width="20">
+            </span>
+        </div>
+        <div (click)="addAddress()" class="position-relative" [ngClass]="{'border-success':billingAddressUpdated}">
+            <img src="../../../assets/red-material-location-on.png" height="28" width="40"
+                class="px-2 align-self-center">
+            <h6 class="pl-2 align-self-center">
+                Billing Address <br *ngIf="billingAddressUpdated">
+                <small style="font-weight: 500;display: inline-block; width: 150px !important;overflow: hidden; text-overflow: ellipsis !important;white-space: nowrap;" *ngIf="billingAddressUpdated">{{billingDetails.AddressLine1}}</small>
+            </h6>
+            <span style="flex: 1 1 auto;"></span>
+            <img src="../../../assets/multimedia-option.png" width="20" height="20" class="align-self-center mr-2">
+            <span class="position-absolute" *ngIf="billingAddressUpdated"
+                style="top: 0;right: 0;margin-top: -10px;margin-right: -5px;">
+                <img src="../../../assets/check.png" width="20">
+            </span>
+        </div>
+        <div (click)="addDob()" class="position-relative" [ngClass]="{'border-success':dobUpdated}">
+            <img src="../../../assets/red-ionic-md-calendar.png" height="28px" width="40" class="px-2 align-self-center">
+            <h6 class="pl-2 align-self-center mt-1">
+                Date of Birth <br *ngIf="dobUpdated">
+                <small *ngIf="dobUpdated">{{user.dob}}</small>
+            </h6>
+            <span style="flex: 1 1 auto;"></span>
+            <img src="../../../assets/multimedia-option.png" width="20" height="20" class="align-self-center mr-2">
+            <span class="position-absolute" *ngIf="dobUpdated"
+                style="top: 0;right: 0;margin-top: -10px;margin-right: -5px;">
+                <img src="../../../assets/check.png" width="20">
+            </span>
+        </div>
+        <div (click)="addPhoneNumber()" class="position-relative" [ngClass]="{'border-success':phoneUpdated}">
+            <img src="../../../assets/red-awesome-phone.png"  width="40" class="px-2 align-self-center">
+            <h6 class="pl-2 align-self-center mt-1">
+                Mobile Number <br *ngIf="phoneUpdated">
+                <small *ngIf="phoneUpdated">{{user.phoneNumber}}</small>
+            </h6>
+            <span style="flex: 1 1 auto;"></span>
+            <img src="../../../assets/multimedia-option.png" width="20" height="20" class="align-self-center mr-2">
+            <span class="position-absolute" *ngIf="phoneUpdated"
+                style="top: 0;right: 0;margin-top: -10px;margin-right: -5px;">
+                <img src="../../../assets/check.png" width="20">
+            </span>
+        </div>
+    </div>
+    <div *ngIf="index == 1" style="height: 60vh;">
+        <div class="d-flex">
+            <img src="{{previewUrl}}" *ngIf="isImageUploaded" width="50" height="50">
+            <img src="../../../assets/Add.png" width="50" (click)="fileInput.click()" class="px-1 hover">
+            <input type="file" class="form-control d-none" name="file" #fileInput accept=".png, .jpg, .jpeg"
+                (change)="fileProgress($event)">
+        </div>
+    </div>
+    <div class="row px-5" style="height: 60vh;" *ngIf="index == 2">
+        <form class="w-100 bankDetails" [formGroup]="bankAccountForm">
+            <div class="form-group">
+                <label for="bankholderName">Bank Holder Name</label>
+                <input type="text" class="form-control" formControlName="Accountholdername" id="bankholderName">
+                <small class="text-danger" *ngIf="bankAccountForm.get('Accountholdername').touched && bankAccountForm.get('Accountholdername').hasError('required')">Enter Account Holder Name...</small>
+            </div>
+            <div class="form-group">
+                <label for="bankName">Bank Name</label>
+                <input type="text" class="form-control" formControlName="BSB" id="bankName">
+                <small class="text-danger" *ngIf="bankAccountForm.get('BSB').touched && bankAccountForm.get('BSB').hasError('required')">Enter Bank Name...</small>
+            </div>
+            <div class="form-group">
+                <label for="accountNumber">Account Number</label>
+                <input type="number" class="form-control number-input" formControlName="Accountnumber" id="accountNumber">
+                <small class="text-danger" *ngIf="bankAccountForm.get('Accountnumber').touched && bankAccountForm.get('Accountnumber').hasError('required')">Enter Account Number...</small>
+                <small class="text-danger" *ngIf="bankAccountForm.get('Accountnumber').touched && bankAccountForm.get('Accountnumber').hasError('pattern')">Enter Account Number...</small>
+            </div>
+        </form>
+    </div>
+    <div class="row px-5" style="height: 60vh;" *ngIf="index == 3">
+        <form class="w-100 bankDetails" [formGroup]="billingAddressForm">
+            <div class="form-group">
+                <label for="addressName">Address</label>
+                <input type="text" class="form-control" id="addressName" (blur)="onBlurMethod()" [value]="formatedAddress"
+                    formControlName="AddressLine1" ngx-google-places-autocomplete [options]='options'
+                    #placesRef="ngx-places" (onAddressChange)="handleAddressChange($event)">
+                    <small class="text-danger" *ngIf="billingAddressForm.get('AddressLine1').touched && billingAddressForm.get('AddressLine1').hasError('required')">Enter Your Address...</small>
+            </div>
+            <div class="form-group">
+                <label for="bankName">State</label>
+                <input type="text" class="form-control bg-white" formControlName="State" readonly>
+            </div>
+            <div class="form-group">
+                <label for="accountNumber">Postcode</label>
+                <input type="number" class="form-control number-input" formControlName="Postcode" >
+            </div>
+            <div class="form-group">
+                <label for="accountNumber">Country</label>
+                <input type="text" class="form-control bg-white" formControlName="Country" id="accountNumber" readonly>
+            </div>
+        </form>
+    </div>
+    <div class="row px-5" style="height: 60vh;" *ngIf="index == 4">
+        <div class="col-md-12">
+            <form [formGroup]="dobForm">
+                <div class="w-100">
+                    <mat-form-field class="w-100">
+                        <input matInput class="border bg-white   border-right-0 form-control  p-2" formControlName="dob"
+                            [max]="maxDate" style="color: #000;" [matDatepicker]="picker" readonly>
+                        <mat-datepicker-toggle matSuffix [for]="picker" class="border border-left-0 bg-white p-2"
+                            style="position: relative;padding: 6px 6px 7px 6px !important;left: -2px;">
+                        </mat-datepicker-toggle>
+                        <mat-datepicker #picker disabled="false"></mat-datepicker>
+                        <mat-error>Select Your Date of Birth</mat-error>
+                    </mat-form-field>
+                </div>
+            </form>
+        </div>
+    </div>
+    <div class="row px-5" style="height: 60vh;" *ngIf="index == 5">
+        <form class="w-100 bankDetails" [formGroup]="phoneNumberForm">
+            <div>
+                <label for="basic-url" style="font-weight: 500; margin-top: 10px;">Mobile Number</label>
+                <div class="input-group ">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text bg-white border-right-0" style="font-size: small;"
+                            id="basic-addon3">+61</span>
+                    </div>
+                    <input type="tel" formControlName="phoneNumber" class="form-control bg-white  border-left-0"
+                        id="basic-url" aria-describedby="basic-addon3">
+                </div>
+                <small style="font-weight: 500;">Verifying your mobile number helps us know you're genuine human! We
+                    won't show it to
+                    anyone or sell it on to any 3rd party. it's just for us to send you some good stuff.
+                </small>
+            </div>
+        </form>
+    </div>
+    <div class="row px-5" style="height: 60vh;" *ngIf="index == 6">
+        <form class="w-100 bankDetails">
+            <label>Verification Code</label>
+            <ng-otp-input #ngOtpInput (onInputChange)="onOtpChange($event)" [config]="config"></ng-otp-input>
+
+        </form>
+        <span style="font-weight: 500;font-size: 15px;">Didn't get? <span
+                style="font-size: 15px;font-weight: 500;">Resend</span></span>
+    </div>
+    <div class="row px-5"  *ngIf="index == 7">
+        <form class="w-100 bankDetails" [formGroup]="makeOfferForm">
+            <label for="exampleFormControlInput1">Enter Your Quotation*</label>
+            <div class="input-group mb-3">
+                <div class="input-group-prepend">
+                  <span class="input-group-text bg-white" style="font-size: 14px;font-weight: 500;" [ngClass]="{'border-success': makeOfferForm.get('budget').valid  }" id="basic-addon1">RM</span>
+                </div>
+                <input type="number" formControlName="budget"
+                [ngClass]="{'border-success': makeOfferForm.get('budget').valid  }" class="form-control  bg-white"
+                id="exampleFormControlInput1">
+              </div>
+              <div>
+                <small class="text-danger"
+                *ngIf="makeOfferForm.get('budget').touched  && makeOfferForm.get('budget').hasError('required')">Enter
+                Budget</small>
+            <small class="text-danger"
+                *ngIf="makeOfferForm.get('budget').touched  && makeOfferForm.get('budget').hasError('pattern')">Enter
+                Valid Amount..</small>
+              </div>
+            <!-- <div class="form-group">
+                
+                <input type="number" formControlName="budget"
+                    [ngClass]="{'border-success': makeOfferForm.get('budget').valid  }" class="form-control  bg-white"
+                    id="exampleFormControlInput1">
+                <small class="text-danger"
+                    *ngIf="makeOfferForm.get('budget').touched  && makeOfferForm.get('budget').hasError('required')">Enter
+                    Budget</small>
+                <small class="text-danger"
+                    *ngIf="makeOfferForm.get('budget').touched  && makeOfferForm.get('budget').hasError('pattern')">Enter
+                    Valid Amount..</small>
+            </div> -->
+            <div class="form-group">
+                <label for="exampleFormControlInput1">Message*</label>
+                <textarea class="form-control bg-white"
+                    [ngClass]="{'border-success': makeOfferForm.get('message').valid}" formControlName="message"
+                    id="exampleFormControlTextarea1" rows="3"></textarea>
+                <small class="text-danger"
+                    *ngIf="makeOfferForm.get('message').touched  && makeOfferForm.get('message').hasError('required')">Enter
+                    your message..</small>
+                    <small class="text-danger"
+                    *ngIf="makeOfferForm.get('message').touched  && makeOfferForm.get('message').dirty && isWordThere">
+                    You'r not allowed to add sensitive information like contact details, website links, mail id etc..
+                </small>
+            </div>
+        </form>
+
+    </div>
+    <div class="px-2 m-auto" *ngIf="index == 8">
+        <div class="text-center">
+            <img src="../../../assets/congrats.png" style="width: 8rem ;">
+        </div>
+        <h4 class="text-center">Offer {{offerStatus}}!</h4>
+        <div class="text-center text-black-50 m-auto" style="width: 232px; font-size: 14px; font-weight: 500;">
+            Your offer has been confirmed. You'll be notified as soon as your customer hires you.
+        </div>
+        <div class="text-center mt-4 " >
+            <button mat-raised-button  (click)="closeWithRes()" class="rounded-pill bg-red text-white w-50">Continue</button>
+        </div>
+    </div>
+    <div class="row px-2"  *ngIf="index == 9">
+       <div class="col-md-12">
+        <div class="bg-light border p-2">
+            <div class="d-flex justify-content-between mx-2  f-18">
+                <span>Your Offer</span>
+                <span>{{budgetValue}}</span>
+            </div>
+        </div>
+        <div class="d-flex justify-content-between mx-3 mt-2">
+            <span class="f-14 text-black-50">Service Fee</span>
+            <span class="f-14">RM {{serviceFee}}</span>
+          </div>
+          <div class="d-flex justify-content-between mx-3">
+            <span class="f-14">You'll Receive</span>
+            <span class="f-14">RM {{userReceivedFee}}</span>
+          </div>
+       </div>
+       <p class="f-14 text-black-50 px-4 mt-3">*StarTasker  automatically includes a service fee to cover variable insurance and transactiona costs.</p>
+       <div class="p-3">
+        <div class="border p-2">
+            <div class="d-flex justify-content-between mx-2">
+                <div class="align-self-center">
+                    <img src="../../../assets/security.png" width="100" class="img-fluid p-2">
+                </div>
+                <div class="align-self-center">
+                    <p class="f-18">
+                        Get Paid Security
+                    </p>
+                    <span class="f-14 text-black-50">
+                        Task funds are held securely until the task is completed
+                    </span>
+                </div>
+            </div>
+           </div>
+       </div>
+       <div class="text-center w-100">
+           <p class="text-center m-0 f-14">By clicking submit offer you agree to </p>
+           <a class="text-red f-14" target="_blank" [routerLink]="['/term']">Terms and Conditions</a>
+       </div>
+       <div class="w-100 mt-3">
+        <div class="d-flex justify-content-center pb-2">
+            <button mat-raised-button (click)="back()" class="f-14 rounded-pill hover" style="font-weight: 400;font-weight: 400; border: 1px solid grey;">
+                &nbsp; &nbsp;   Back &nbsp; &nbsp;</button>&nbsp; &nbsp;
+            <button mat-raised-button (click)="makeAnOffer()" class="text-white f-14 rounded-pill hover" style="font-weight: 400;font-weight: 400; background-color: #FA0E0E;">
+                &nbsp;  {{submitText}} Offer &nbsp; </button>&nbsp;
+        </div>
+       </div>
+    </div>
+    <div class="text-center mt-3 " *ngIf="index == 0">
+        <button mat-raised-button [ngClass]="{'bg-red':allUpdated,
+        'bg-light': !allUpdated }" (click)="showMakeOffer()" [class.spinner]="loading" [disabled]="!allUpdated"
+            class="rounded-pill text-white w-50">Continue</button>
+    </div>
+    <div class="text-center mt-auto " *ngIf="index == 2">
+        <button mat-raised-button [ngClass]="{'bg-red':bankAccountForm.valid,
+        'bg-light': !bankAccountForm.valid }" (click)="sendBankDetails()" [class.spinner]="loading"
+            [disabled]="!bankAccountForm.valid" class="rounded-pill text-white w-50">Add</button>
+    </div>
+    <div class="text-center mt-auto " *ngIf="index == 1">
+        <button mat-raised-button (click)="sendPhoto()" [class.spinner]="loading" [ngClass]="{'bg-red':isImageUploaded,
+                'bg-light': !isImageUploaded }" class="rounded-pill  w-50">Add</button>
+    </div>
+    <div class="text-center mt-auto " *ngIf="index == 3">
+        <button mat-raised-button [ngClass]="{'bg-red':billingAddressForm.valid,
+        'bg-light': !billingAddressForm.valid }" (click)="sendBillingAddressDetails()" [class.spinner]="loading"
+            [disabled]="!billingAddressForm.valid" class="rounded-pill text-white w-50">Add</button>
+    </div>
+    <div class="text-center mt-auto " *ngIf="index == 4">
+        <button mat-raised-button [ngClass]="{'bg-red':dobForm.valid,
+        'bg-light': !dobForm.valid }" (click)="sendDob()" [class.spinner]="loading" [disabled]="!dobForm.valid"
+            class="rounded-pill text-white w-50">Add</button>
+    </div>
+    <div class="text-center mt-auto " *ngIf="index == 5">
+        <button mat-raised-button [ngClass]="{'bg-red':phoneNumberForm.valid,
+        'bg-light': !phoneNumberForm.valid }" (click)="sendMobileNumber()" [class.spinner]="loading"
+            [disabled]="!phoneNumberForm.valid" class="rounded-pill text-white w-50">Send Verification Code</button>
+    </div>
+    <div class="text-center mt-auto " *ngIf="index == 6">
+        <button mat-raised-button style="background-color: #fa0e0e;" [class.spinner]="loading"
+            class="rounded-pill text-white w-50">Verify</button>
+    </div>
+    <div class="text-center mt-3 " *ngIf="index == 7">
+        <button mat-raised-button [ngClass]="{'bg-red':makeOfferForm.valid,
+        'bg-light': !makeOfferForm.valid }" (click)="previewOffer()" [class.spinner]="loading"
+            [disabled]="!makeOfferForm.valid" class="rounded-pill text-white w-50">
+            Make an Offer</button>
+    </div>
+    <br><br>
+</div>

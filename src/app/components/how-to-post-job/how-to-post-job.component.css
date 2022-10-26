@@ -1,0 +1,23 @@
+*{
+    font-family: "proxy reg", sans-serif !important;
+  }
+.bg-ash{
+    background-color: #f7f8fa;
+}
+.bg-gradient{
+    background: linear-gradient(90deg,#a6d9ef,#ebf6fb);
+  }
+  .banner .img-lg{
+    width: 90% !important;
+  }
+  .steps p{
+      font-size: 1.1rem;
+      font-weight: 500;
+      padding: 0 1rem 0 1rem;
+  }
+  @media screen and (max-width:767px){
+    .text-red{
+      text-align: center;
+      font-size: 1.5rem !important;
+    }
+  }

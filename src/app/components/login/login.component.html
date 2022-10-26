@@ -1,0 +1,73 @@
+
+<div class="text-center bg-light p-3">
+    <h5 class="">Login <span class="float-right hover text-right" (click)="closeTab()">
+      <img width="40" style="border-radius: 50%; padding: 10px;"
+        src="../../../assets/Iconmetro-cancel.png">
+    </span></h5>
+    
+</div>
+<br>
+<div class="container-fluid scroll" style="max-height: 80vh; overflow-y: scroll;">
+    <form [formGroup]="loginForm" class="example-form" (ngSubmit)="submitDetails()">
+        <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label class="small">Email</mat-label>
+            <input matInput style="background-color: white; color: black;padding: 5px;"  formControlName="userID"
+              type="email"     placeholder="Ex. pat@example.com">    
+                   <mat-error class="small" *ngIf="loginForm.get('userID').touched && loginForm.get('userID').hasError('email')">
+                    Please enter a valid email address
+                  </mat-error>
+                  <mat-error class="small" *ngIf="loginForm.get('userID').touched && loginForm.get('userID').hasError('required')">
+                    Email is <strong>required</strong>
+                  </mat-error>        
+          </mat-form-field>
+          <mat-form-field class="example-full-width" appearance="outline">
+            <mat-label class="small">Password</mat-label>
+            <input matInput style="background-color: white; color: black;padding: 5px;"   [type]="hide ? 'password' : 'text'" formControlName="password" >
+                   <button mat-icon-button matSuffix type="button" class="text-black-50" (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                    <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                    </button>            
+                    <mat-error class="small"  *ngIf="loginForm.get('password').touched && loginForm.get('password').hasError('minlength')">
+                        Password should contain minimum 8 letters
+                      </mat-error>
+                      <mat-error class="small" *ngIf="loginForm.get('password').hasError('required')">
+                        Password is <strong>required</strong>
+                      </mat-error> 
+          </mat-form-field>
+            <div class="text-black text-right  small">
+              <a class="hover change-color" style="color: #271414; font-size: 14px; font-weight: 500;" (click)="openForgotDialog()">Forgot Password ?</a>
+            </div>
+          <br>
+        <div>
+            <button class="w-100 rounded-pill btn-clr py-1 text-white" style="font-size: 20px;" [class.spinner]="loading" [disabled]="loading"  mat-raised-button >Login</button>
+        </div>
+        <br>
+        <div class="text-center">
+          <span class="text-black" style="color: #271414; font-size: 14px; font-weight: 500;">
+            Don't have an account yet! <a class=" change-color  hover" style="font-weight: bold; color: #FA0E0E;" (click)="openSignUp()">SIGN UP</a>
+          </span>
+        </div>
+        <br>
+        <div class="text-center" style="color: #271414; font-size: 14px;">
+          OR
+        </div>
+        <p class="text-center" style="color: #271414;font-size: 14px;">
+          Login With
+        </p>
+        
+    </form>
+    <div class="row justify-content-center flex-nowrap" style="width: 90%; margin: auto;">
+      <!-- <button mat-raised-button [disabled]="loading" color="primary" class="rounded-pill" type="button"(click)="signInWithFB()"><i class="fab fa-facebook-f "></i> &nbsp;
+          <span class="small" style="font-weight: 400;">
+            facebook
+          </span></button> -->
+          <button mat-raised-button type="button" style="height: 46px; width: 156px;" [disabled]="loading" color="primary" (click)="signInWithFB()" class="rounded-pill"><i class="fab fa-facebook-f "></i> &nbsp;
+            <span class="font-weight-bold">Facebook</span></button> &nbsp; &nbsp;
+          <button mat-raised-button [disabled]="loading" style="height: 46px; width: 156px;" type="button" (click)="signInWithGoogle()" color="warn" class=" rounded-pill"><i class="fab fa-google text-white "></i>
+            &nbsp; <span class="font-weight-bold text-white "> Google &nbsp; &nbsp; </span></button>
+          <!-- <img src="../../../assets/connect-with-fb@3x.png" class="hover mt-1 px-1" width="150" height="45" (click)="signInWithFB()">
+
+        <img src="../../../assets/connect_with_google@3x.png"  width="150" height="45" class="mt-1 hover px-1"  (click)="signInWithGoogle()" >
+       -->
+  </div>
+    <br><br>
+</div>

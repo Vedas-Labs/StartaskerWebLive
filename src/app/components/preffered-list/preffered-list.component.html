@@ -1,0 +1,49 @@
+<div class="text-center bg-blue p-3">
+  <h5 class="">
+    Category Selections
+    <span
+      class="float-right hover text-right"
+      *ngIf="showCancel"
+      (click)="closeTab()"
+    >
+      <img
+        width="40"
+        style="border-radius: 50%; padding: 10px"
+        src="../../../assets/Iconmetro-cancel.png"
+      />
+    </span>
+  </h5>
+</div>
+<div
+  class="container-fluid scroll"
+  style="max-height: 60vh; overflow-y: scroll"
+>
+  <ul class="list-unstyled">
+    <li class="list-styles mb-3" *ngFor="let list of list; let i = index">
+      <div class="list-name">{{ list.categoryName }}</div>
+      <div class="list-check">
+        <mat-checkbox
+          labelPosition="before"
+          [(ngModel)]="list.selected"
+          (change)="setAll($event.checked, i)"
+          [disabled]="selectedList.length > 4 && !list.selected"
+        >
+        </mat-checkbox>
+      </div>
+    </li>
+  </ul>
+</div>
+<div class="ok-btn">
+  <div
+    *ngIf="selectedList.length > 4"
+    class="small text-danger text-center my-3"
+  >
+    You can't select more than 5 Categories
+  </div>
+  <div
+    class="text-aqua text-center font-weight-bold shadow py-3 hover"
+    (click)="submit()"
+  >
+    OK
+  </div>
+</div>

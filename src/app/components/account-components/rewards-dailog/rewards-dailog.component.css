@@ -1,0 +1,17 @@
+::ng-deep .mat-dialog-container {
+    padding: 0 !important;
+    width: 30vw;
+  }
+  @media all and (max-width: 960px){
+    ::ng-deep .mat-dialog-container {
+        padding: 0 !important;
+        width: 70vw;
+      }
+  }
+  @media all and (max-width: 767px){
+    ::ng-deep .mat-dialog-container {
+        padding: 0 !important;
+        width: 70vw;
+        margin: auto;
+      }
+  }

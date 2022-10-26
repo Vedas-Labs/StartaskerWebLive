@@ -1,0 +1,39 @@
+<h3>Task Alert</h3>
+    <hr>
+<div class="container">
+<div class="row p-3 border-bottom">
+    <div class=" w-60" style="font-size: 18px; font-weight: 500;">
+        Turn on task alerts to get notified about tasks we  think you'd be interested in.
+    </div>
+    <div  class="align-self-center w-40 text-center">
+        <div>
+            <mat-slide-toggle class="example-margin" color="warn" (change)="turnOnAlerts($event)" [checked]="isChecked">
+            </mat-slide-toggle>
+        </div>
+    </div>
+</div>
+<h5 class="mt-4">Additional Custom Task Alerts</h5>
+<div class="row p-3">
+    <div class="col-md-8" style="font-weight: 500;font-size: 18px;">
+        Got a something specific in mind? Add a custom task alert and we'll let you know when a match pop up!
+    </div>
+</div>
+<div class="mt-4">
+    <button mat-raised-button class="rounded-pill btn-bg" *ngIf="isChecked" (click)="openCustomAlert()">Add Custom task alert</button>
+</div>
+<div class="row mt-4" *ngIf="customAlerts && customAlerts.length && isChecked">
+    <div class="col-md-6 reedems " *ngFor="let alert of customAlerts;let i = index;">
+        <div  class="position-relative items p-1">
+            <p class="pl-2 f-14 align-self-center text-wrap" style="line-height: 1rem;" (click)="updateAlert(alert)">
+               <strong *ngIf="alert.taskName.length"> <span *ngFor="let name of alert.taskName"> {{name &nbsp;}} </span> </strong> , <strong *ngIf="alert.taskKeyword.length"> <span class="px-1" *ngFor="let keyword of alert.taskKeyword"> {{ keyword }}</span></strong> <br>
+                <small style="font-weight: 500;" *ngIf="alert.taskLocation != ''">{{alert.taskLocation}}</small>
+                <small style="font-weight: 500;" *ngIf="alert.taskLocation == ''">Remote</small>
+            </p>
+            
+            <span class="align-self-center mx-3 " (click)="deleteTask(alert)">
+                <img src="../../../../assets/criss_cross.png" width="16" style="position:absolute; right: -5px;top: -10px;">
+            </span>
+        </div>
+    </div>
+</div>
+</div>

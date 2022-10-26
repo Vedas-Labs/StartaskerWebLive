@@ -1,0 +1,33 @@
+    /**** Scroll Bar*****/
+    .scroll::-webkit-scrollbar-track
+    {
+    border-radius: 2px;
+    }
+    .scroll::-webkit-scrollbar
+    {
+    width: 10px;
+    background-color: #F7F7F7;
+    }
+    
+    .scroll::-webkit-scrollbar-thumb
+    {
+    border-radius: 10px;
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+    box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+    background-color: rgb(173, 168, 168);
+    }
+    .inbox-bg{
+        background-color:#FFF0F0;
+    }
+
+    /* Styles for Tabs */
+::ng-deep .mat-tab-label .mat-tab-label-content{
+    font-size: 17px;
+    font-weight: bold !important;
+}
+::ng-deep .mat-ink-bar {
+    background-color: #FA0e0e !important;
+}
+::ng-deep .mat-tab-body-content{
+    overflow-x: hidden !important;
+}

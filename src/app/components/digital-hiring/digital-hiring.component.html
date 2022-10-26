@@ -1,0 +1,323 @@
+<div class="wraper scroll">
+  <div *ngIf="index > 1 && index < 8" class="p-2">
+    <img
+      src="../../../assets/left-arrow.png"
+      class="hover"
+      *ngIf="!loading"
+      (click)="prev()"
+      alt=""
+    />
+  </div>
+  <ng-container *ngIf="index == 0">
+    <div class="hiring-background">
+      <img
+        src="../../../assets/e_hiring_background_1@2x.png"
+        class="img-fluid"
+        alt=""
+      />
+      <div class="btn-container">
+        <button mat-raised-button class="cust-btn" (click)="index = 1">
+          Yes
+        </button>
+        <button mat-raised-button class="cust-btn" (click)="close()">No</button>
+      </div>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="index == 1">
+    <div class="hiring-background">
+      <img
+        src="../../../assets/e_hiring_background_1@2x.png"
+        class="img-fluid"
+        alt=""
+      />
+      <div class="terms-box card shadow-sm bg-white">
+        <div class="card-body text-center f-18">
+          <mat-checkbox [(ngModel)]="checkValue" class="check-box" warn
+            >I agree to the startasker <br />
+            <a class="text-red" [routerLink]="['/term']" (click)="close()"
+              >Terms of Conditions</a
+            >
+            and <br />
+            <a class="text-red" [routerLink]="['/privacy']" (click)="close()"
+              >Privacy Policy</a
+            >
+          </mat-checkbox>
+          <button
+            mat-raised-button
+            class="cust-btn mt-2"
+            (click)="agreeTerms()"
+          >
+            Yes
+          </button>
+        </div>
+      </div>
+      <div class="btn-container">
+        <button mat-raised-button class="cust-btn" (click)="close()">No</button>
+      </div>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="index == 2">
+    <div class="qns">
+      <div class="f-18 font-weight-bold">Are You a Malaysian ?</div>
+      <div class="btn-container">
+        <button
+          mat-raised-button
+          class="cust-btn"
+          (click)="setIsMalaysian(true)"
+          [ngClass]="{ active: isMalaysian }"
+        >
+          Yes
+        </button>
+        <button
+          mat-raised-button
+          class="cust-btn"
+          (click)="setIsMalaysian(false)"
+          [ngClass]="{ active: !isMalaysian }"
+        >
+          No
+        </button>
+      </div>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="index == 3">
+    <div class="qns">
+      <div class="f-18 font-weight-bold">Where did you know Startasker ?</div>
+      <div class="btn-container mt-3">
+        <button
+          mat-raised-button
+          class="cust-btn w-75"
+          (click)="setMediaName('facebook')"
+          [ngClass]="{ active: mediaName == 'facebook' }"
+        >
+          Facebook
+        </button>
+        <button
+          mat-raised-button
+          class="cust-btn w-75"
+          (click)="setMediaName('google')"
+          [ngClass]="{ active: mediaName == 'google' }"
+        >
+          Google
+        </button>
+        <button
+          mat-raised-button
+          class="cust-btn w-75"
+          (click)="setMediaName('youtube')"
+          [ngClass]="{ active: mediaName == 'youtube' }"
+        >
+          Youtube
+        </button>
+        <button
+          mat-raised-button
+          class="cust-btn w-75"
+          (click)="setMediaName('friends')"
+          [ngClass]="{ active: mediaName == 'friends' }"
+        >
+          From Friends
+        </button>
+
+        <div class="experiance-box w-75 hover">
+          <button
+            mat-raised-button
+            class="cust-btn w-100 mb-0 border-0"
+            (click)="setMediaName('others')"
+            [ngClass]="{ active: isOtherMedia }"
+          >
+            Others
+          </button>
+          <div class="exp" *ngIf="isOtherMedia">
+            <div class="bg-light w-100">
+              <input
+                type="text"
+                [(ngModel)]="otherMediaName"
+                name="experiance"
+                placeholder="Enter Name"
+                class="form-control bg-light border-0"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="index == 4">
+    <div class="qns">
+      <div class="f-18 font-weight-bold">What transportation you have ?</div>
+      <div class="btn-container mt-3">
+        <ng-container *ngFor="let vehicle of vehicleArray; let i = index">
+          <button
+            mat-raised-button
+            class="cust-btn w-75"
+            *ngIf="i != 3"
+            (click)="setVehicleName(i)"
+            [ngClass]="{ active: vehicle.isSelected }"
+          >
+            {{ vehicle.name }}
+          </button>
+          <div class="experiance-box w-75 hover" *ngIf="i == 3">
+            <button
+              mat-raised-button
+              class="cust-btn w-100 mb-0 border-0"
+              (click)="setVehicleName(i)"
+              [ngClass]="{ active: isOtherVehicle }"
+            >
+              Others
+            </button>
+            <div class="exp" *ngIf="isOtherVehicle">
+              <div class="bg-light w-100">
+                <input
+                  type="text"
+                  [(ngModel)]="otherVehicleName"
+                  name="experiance"
+                  placeholder="Enter Vehicle Name"
+                  class="form-control bg-light border-0"
+                />
+              </div>
+            </div>
+          </div>
+        </ng-container>
+      </div>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="index == 5">
+    <div class="qns">
+      <div class="f-18 font-weight-bold">Do you provide your own tools ?</div>
+      <div class="btn-container mt-3">
+        <button
+          mat-raised-button
+          class="cust-btn w-75"
+          (click)="hasOwnTools = true"
+          [ngClass]="{ active: hasOwnTools }"
+        >
+          Yes
+        </button>
+        <button
+          mat-raised-button
+          class="cust-btn w-75"
+          (click)="hasOwnTools = false"
+          [ngClass]="{ active: !hasOwnTools }"
+        >
+          No
+        </button>
+      </div>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="index == 6">
+    <div class="qns">
+      <div class="f-18 font-weight-bold">What Experiance You have ?</div>
+      <div class="f-18 font-weight-bold">(You can choose multiple)</div>
+      <div class="btn-container mt-3">
+        <div
+          class="experiance-box w-75 hover"
+          *ngFor="let cat of categories; let i = index"
+        >
+          <div
+            class="cat-name"
+            (click)="selectItem(i)"
+            [ngClass]="{ active: cat.isSelected }"
+          >
+            {{ cat.categoryName }}
+          </div>
+          <div class="exp" *ngIf="cat.isSelected">
+            <div class="exp-child-one w-75 align-self-center">
+              Experiance (years)
+            </div>
+            <div class="exp-child-two w-25 bg-light">
+              <input
+                type="number"
+                min="1"
+                [(ngModel)]="cat.Experience"
+                name="experiance"
+                class="form-control border-0"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="text-center" (click)="addNewCat()">
+        <img
+          src="../../../assets/Add.png"
+          alt="add"
+          width="30"
+          class="mx-2 hover"
+        />
+        <span class="font-weight-bold f-18 hover">Add New</span>
+      </div>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="index == 7">
+    <div class="qns">
+      <div class="f-22 font-weight-bold">
+        Please provide your emergency contact here.
+      </div>
+      <div class="f-18 font-weight-bold">(Optional)</div>
+      <form [formGroup]="mobileForm" class="phone-number-form m-auto px-1">
+        <div class="form-group mt-3">
+          <input
+            type="number"
+            formControlName="mobileNumber"
+            class="form-control custom-border w-75 m-auto"
+          />
+          <small
+            class="text-danger"
+            *ngIf="
+              mobileForm.get('mobileNumber').touched &&
+              mobileForm.get('mobileNumber').hasError('required')
+            "
+            >Enter Mobile Number</small
+          >
+          <small
+            class="text-danger"
+            *ngIf="
+              mobileForm.get('mobileNumber').touched &&
+              mobileForm.get('mobileNumber').hasError('pattern')
+            "
+            >Enter Valid Mobile Number</small
+          >
+        </div>
+      </form>
+    </div>
+  </ng-container>
+  <ng-container *ngIf="index == 8">
+    <div class="qns">
+      <div>
+        <img
+          src="../../../assets/help_center_1@2x.png"
+          class="img-fluid w-50"
+          alt=""
+        />
+      </div>
+      <div class="f-22 font-weight-bold">Our recruitment team</div>
+      <div class="f-22 font-weight-bold">will call you soon…</div>
+      <div class="btn-container mt-3">
+        <button
+          mat-raised-button
+          color="warn"
+          class="rounded-pill w-50"
+          (click)="close()"
+        >
+          OK
+        </button>
+      </div>
+    </div>
+  </ng-container>
+</div>
+<div class="next-container" *ngIf="index > 1 && index < 8">
+  <div class="prev">
+    <span class="hover" *ngIf="!loading" (click)="prev()">Back</span>
+  </div>
+  <div class="next">
+    <span class="text-red hover" *ngIf="index < 7" (click)="next()">Next</span>
+    <button
+      mat-raised-button
+      color="warn"
+      *ngIf="index === 7"
+      class="rounded-pill px-3"
+      (click)="completeHiring()"
+      [class.spinner]="loading"
+      [disabled]="loading"
+    >
+      Complete
+    </button>
+  </div>
+</div>

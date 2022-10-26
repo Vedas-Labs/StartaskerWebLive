@@ -1,0 +1,789 @@
+<div class="text-center bg-light p-3" [ngSwitch]="index">
+  <h5 *ngSwitchCase="1" class="">
+    Set Location & time
+    <span class="float-right hover text-right" (click)="closeTab()">
+      <img
+        width="40"
+        style="border-radius: 50%; padding: 10px"
+        src="../../../assets/Iconmetro-cancel.png"
+      />
+    </span>
+  </h5>
+  <h5 *ngSwitchCase="2">
+    Set Location & time
+    <span class="float-right hover text-right" (click)="closeTab()">
+      <img
+        width="40"
+        style="border-radius: 50%; padding: 10px"
+        src="../../../assets/Iconmetro-cancel.png"
+      />
+    </span>
+  </h5>
+  <h5 *ngSwitchCase="3" class="">
+    Extra Information
+    <span class="float-right hover text-right" (click)="closeTab()">
+      <img
+        width="40"
+        style="border-radius: 50%; padding: 10px"
+        src="../../../assets/Iconmetro-cancel.png"
+      />
+    </span>
+  </h5>
+  <h5 *ngSwitchCase="4">
+    Set your budget
+    <span class="float-right hover text-right" (click)="closeTab()">
+      <img
+        width="40"
+        style="border-radius: 50%; padding: 10px"
+        src="../../../assets/Iconmetro-cancel.png"
+      />
+    </span>
+  </h5>
+  <h5 *ngSwitchCase="5">
+    Task Posted
+    <span class="float-right hover text-right" (click)="closeTab()">
+      <img
+        width="40"
+        style="border-radius: 50%; padding: 10px"
+        src="../../../assets/Iconmetro-cancel.png"
+      />
+    </span>
+  </h5>
+  <h5 *ngSwitchDefault>
+    Post Task<span class="float-right hover text-right" (click)="closeTab()">
+      <img
+        width="40"
+        style="border-radius: 50%; padding: 10px"
+        src="../../../assets/Iconmetro-cancel.png"
+      />
+    </span>
+  </h5>
+</div>
+<br />
+<div
+  class="container-fluid scroll"
+  style="max-height: 80vh; overflow: auto; min-height: 70vh"
+>
+  <form
+    [formGroup]="postTaskForm"
+    class="example-form m-auto px-1"
+    (ngSubmit)="submitDetails()"
+  >
+    <div *ngIf="index == 0">
+      <div class="group-gap">
+        <div class="d-block my-3">
+          <div class="mb-3" formGroupName="category">
+            <label for="exampleFormControlInput1">Task Category</label>
+            <select
+              class="custom-select form-control bg-white"
+              [ngClass]="{ 'border-success': categoryValidation }"
+              formControlName="categoryName"
+              (change)="changeCategory($event)"
+            >
+              <option value="">Choose Category*</option>
+              <option
+                *ngFor="let category of category"
+                [ngValue]="category.categoryName"
+              >
+                {{ category.categoryName }}
+              </option>
+            </select>
+            <small
+              class="text-danger"
+              *ngIf="
+                (postTaskForm.get('category.categoryName').touched ||
+                  firstIndexError) &&
+                postTaskForm.get('category.categoryName').hasError('required')
+              "
+              >Select category..</small
+            >
+          </div>
+        </div>
+      </div>
+      <div class="form-group">
+        <div class="d-flex justify-content-between">
+          <label for="exampleFormControlInput1">Task Name</label>
+          <span>{{ taskNameCount }}/10<sup>+</sup></span>
+        </div>
+        <input
+          type="text"
+          formControlName="postTitle"
+          [ngClass]="{ 'border-success': postTitleValidation }"
+          class="form-control bg-white"
+          id="exampleFormControlInput1"
+        />
+        <small
+          class="text-danger"
+          *ngIf="
+            (postTaskForm.get('postTitle').touched || firstIndexError) &&
+            postTaskForm.get('postTitle').hasError('required')
+          "
+          >Enter task Name</small
+        >
+        <small
+          class="text-danger"
+          *ngIf="
+            (postTaskForm.get('postTitle').touched || firstIndexError) &&
+            postTaskForm.get('postTitle').hasError('minlength')
+          "
+          >Task name should be at least 10 letters.</small
+        >
+      </div>
+      <div class="form-group">
+        <div class="d-flex justify-content-between">
+          <label for="exampleFormControlInput1">Describe your task</label>
+          <span>{{ describeCount }}/20<sup>+</sup></span>
+        </div>
+        <textarea
+          class="form-control bg-white"
+          [ngClass]="{ 'border-success': describeValidation }"
+          formControlName="describeTaskInDetails"
+          id="exampleFormControlTextarea1"
+          rows="4"
+        ></textarea>
+        <small
+          class="text-danger"
+          *ngIf="
+            (postTaskForm.get('describeTaskInDetails').touched ||
+              firstIndexError) &&
+            postTaskForm.get('describeTaskInDetails').hasError('required')
+          "
+          >Describe your task in detail..</small
+        >
+        <small
+          class="text-danger"
+          *ngIf="
+            (postTaskForm.get('describeTaskInDetails').touched ||
+              firstIndexError) &&
+            postTaskForm.get('describeTaskInDetails').hasError('minlength')
+          "
+          >Describe should contain atleast 20 letters.</small
+        >
+      </div>
+      <div class="row">
+        <div class="col-md-7">
+          <label> Number Of Workers You Need </label> <br />
+          <small class="text-black-50">Can select max 20 workers</small>
+        </div>
+        <div class="col-md-5">
+          <div class="input-group mb-3">
+            <div class="input-group-prepend">
+              <span
+                class="input-group-text bg-white hover"
+                (click)="decrementWorker()"
+              >
+                <img src="../../../assets/minus.png" width="10" />
+              </span>
+            </div>
+            <input
+              type="number"
+              disabled
+              class="form-control text-center bg-white"
+              formControlName="numberOfWorkers"
+              aria-label="Amount (to the nearest dollar)"
+            />
+            <div class="input-group-append">
+              <span
+                class="input-group-text bg-white hover"
+                (click)="incrementWorker()"
+              >
+                <img src="../../../assets/icon-plus.png" width="10" />
+              </span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="index == 1">
+      <div class="form-group">
+        <label for="exampleFormControlInput1">Where do you need it done?</label>
+      </div>
+      <div>
+        <mat-radio-group
+          formControlName="canThisTaskRemote"
+          class="d-flex flex-wrap cust-radio"
+          (change)="postStatusChecking($event)"
+          class="d-flex justify-content-around"
+          aria-label="Select an option"
+        >
+          <mat-radio-button
+            [ngClass]="{ 'border-success': radioButtonValidation }"
+            value="false"
+            >In Person</mat-radio-button
+          >
+          <mat-radio-button
+            [ngClass]="{ 'border-success': !radioButtonValidation }"
+            value="true"
+            >Remote</mat-radio-button
+          >
+        </mat-radio-group>
+      </div>
+      <br />
+      <div class="form-group" *ngIf="showTaskLocation">
+        <label for="exampleFormControlInput1">Task Location</label>
+        <input
+          type="text"
+          (keyup)="onBlurMethod()"
+          [ngClass]="{ 'border-success': locationValidation }"
+          class="form-control bg-white"
+          [value]="formatedAddress"
+          formControlName="location"
+          ngx-google-places-autocomplete
+          [options]="options"
+          #placesRef="ngx-places"
+          (onAddressChange)="handleAddressChange($event)"
+        />
+        <small
+          class="text-danger"
+          *ngIf="
+            (postTaskForm.get('location').touched || secondIndexError) &&
+            postTaskForm.get('location').hasError('required')
+          "
+          >Enter a valid address...</small
+        >
+      </div>
+    </div>
+    <div *ngIf="index == 2">
+      <div>
+        <label> When do you need it done </label>
+      </div>
+      <div class="input-group mb-3" [matMenuTriggerFor]="appMenu">
+        <div class="input-group-prepend">
+          <span class="input-group-text bg-white" id="basic-addon2">
+            <span class="small">
+              <img src="../../../assets/calendar.png" width="19" />
+            </span>
+          </span>
+        </div>
+        <input
+          type="text"
+          class="form-control bg-white"
+          readonly
+          formControlName="taskDate"
+          style="font-size: 14px; font-weight: 500"
+          [value]="daysSelected.toString()"
+          aria-label="Recipient's username"
+          aria-describedby="basic-addon2"
+        />
+
+        <mat-menu #appMenu="matMenu" class="drop-calendar">
+          <div (click)="$event.stopPropagation()">
+            <mat-calendar
+              #calendar
+              (selectedChange)="select($event, calendar)"
+              [dateClass]="isSelected"
+            ></mat-calendar>
+          </div>
+        </mat-menu>
+        <small
+          class="text-danger"
+          *ngIf="postTaskForm.get('taskDate').touched && !taskDateValidation"
+          >Select task date...</small
+        >
+      </div>
+
+      <div class="mb-2">
+        <span
+          style="font-size: 14px; font-weight: 500; margin-right: 3px"
+          *ngFor="let dates of datesArray"
+          >{{ dates | date }}</span
+        >
+      </div>
+      <mat-checkbox
+        (change)="showConvinientTimings($event)"
+        [checked]="checkValue"
+        >Set time of your convienence</mat-checkbox
+      >
+      <div *ngIf="!checkValue" style="height: 20vh"></div>
+      <div *ngIf="checkValue" class="timings-section">
+        <p>Select your convenient timing(s)</p>
+        <div
+          (click)="addEarlyMorning()"
+          class="position-relative"
+          [ngClass]="{ 'border-success': isEarlyMorningSelected }"
+        >
+          <img
+            src="../../../assets/early_morning.png"
+            height="32px"
+            width="43"
+            class="px-2"
+          />
+          <h6 class="pl-2">
+            <small>
+              Morning <br />
+              before 10am
+            </small>
+            <span
+              class="position-absolute"
+              *ngIf="isEarlyMorningSelected"
+              style="top: 0; right: 0; margin-top: -10px; margin-right: -5px"
+            >
+              <img src="../../../assets/check.png" width="20" />
+            </span>
+          </h6>
+        </div>
+        <div
+          (click)="addMorning()"
+          class="position-relative"
+          [ngClass]="{ 'border-success': isMorningSelected }"
+        >
+          <img
+            src="../../../assets/midday.png"
+            height="32px"
+            width="43"
+            class="px-2"
+          />
+          <h6 class="pl-2">
+            <small>
+              Midday <br />
+              10am - 2pm
+            </small>
+          </h6>
+          <span
+            class="position-absolute"
+            *ngIf="isMorningSelected"
+            style="top: 0; right: 0; margin-top: -10px; margin-right: -5px"
+          >
+            <img src="../../../assets/check.png" width="20" />
+          </span>
+        </div>
+        <div
+          (click)="addAfternoon()"
+          class="position-relative"
+          [ngClass]="{ 'border-success': isAfternoonSelected }"
+        >
+          <img
+            src="../../../assets/evening.png"
+            height="32px"
+            width="43"
+            class="px-2"
+          />
+          <h6 class="pl-2">
+            <small>
+              Afternoon <br />
+              2pm - 6pm
+            </small>
+          </h6>
+          <span
+            class="position-absolute"
+            *ngIf="isAfternoonSelected"
+            style="top: 0; right: 0; margin-top: -10px; margin-right: -5px"
+          >
+            <img src="../../../assets/check.png" width="20" />
+          </span>
+        </div>
+        <div
+          (click)="addEvening()"
+          class="position-relative"
+          [ngClass]="{ 'border-success': isEveningSelected }"
+        >
+          <img
+            src="../../../assets/night.png"
+            height="32px"
+            width="43"
+            class="px-2"
+          />
+          <h6 class="pl-2">
+            <small>
+              Evening <br />
+              after 6pm
+            </small>
+          </h6>
+          <span
+            class="position-absolute"
+            *ngIf="isEveningSelected"
+            style="top: 0; right: 0; margin-top: -10px; margin-right: -5px"
+          >
+            <img src="../../../assets/check.png" width="20" />
+          </span>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="index == 3">
+      <div class="p-2">
+        Attachments
+        <span style="font-size: 10px" class="small text-black-50"
+          >(Can add max 3 things)</span
+        >
+      </div>
+      <div
+        [ngClass]="{ 'border-success': attachmentsValidation }"
+        class="border bg-white d-flex justify-content-between"
+        style="max-height: 125px; min-height: 75px"
+      >
+        <div
+          class="align-self-center d-flex justify-content-start flex-wrap w-75"
+        >
+          <div
+            class="position-relative"
+            *ngFor="let image of listOfFiles; let i = index"
+          >
+            <img
+              [src]="baseUrl + image"
+              width="40"
+              height="40"
+              class="m-1"
+              alt="icon"
+              loading="lazy"
+              *ngIf="image.split('.').pop() !== 'png'"
+            />
+            <img
+              src="https://w7.pngwing.com/pngs/761/398/png-transparent-white-and-black-play-video-icon-illustration-logo-brand-circle-font-youtube-play-button-angle-text-computer-thumbnail.png"
+              width="40"
+              height="40"
+              class="m-1"
+              alt="icon"
+              loading="lazy"
+              *ngIf="image.split('.').pop() == 'png'"
+            />
+            <span
+              class="position-absolute text-white"
+              *ngIf="listOfFiles[0]"
+              style="top: 0; right: 0"
+            >
+              <img
+                src="../../../assets/criss_cross.png"
+                (click)="removeImg(i)"
+                class="hover"
+                style="margin-top: -5px"
+                width="15"
+            /></span>
+          </div>
+          <img
+            src="../../../assets/Add.png"
+            width="40"
+            *ngIf="listOfFiles.length != 8"
+            (click)="fileInput.click()"
+            class="px-1 hover"
+          />
+          <input
+            type="file"
+            class="form-control d-none"
+            name="file"
+            #fileInput
+            accept=".jpg, .jpeg, video/mp4"
+            (change)="fileProgress($event)"
+          />
+        </div>
+        <div class="w-25 align-content-end d-flex justify-content-end">
+          <img
+            src="../../../assets/Icon-metro-attachment.png"
+            width="40"
+            class="align-self-center px-1"
+          />
+        </div>
+      </div>
+      <div class="p-2">
+        Add must Haves
+        <span style="font-size: 10px" class="small text-black-50"
+          >(Can add max 3 things)</span
+        >
+      </div>
+      <div class="input-group">
+        <input
+          type="text"
+          [ngClass]="{ 'border-success': mustHaveValidation }"
+          #activity
+          formControlName="mustHaves"
+          class="form-control border bg-white mb-2"
+          id="inputEmail2"
+          placeholder=""
+        />
+        <div
+          class="input-group-append bg-white"
+          (click)="addActivity(activity.value)"
+        >
+          <span
+            class="input-group-text bg-white hover border-0"
+            id="basic-addon2"
+          >
+            <img src="../../../assets/plus.png" width="20" />
+          </span>
+        </div>
+      </div>
+      <div
+        class="row justify-content-around px-2"
+        *ngFor="let items of mustHavesActivities; let i = index"
+      >
+        <p class="col-9 text-justify">{{ items.string1 }}</p>
+        <div class="col-2">
+          <img
+            src="../../../assets/criss_cross.png"
+            width="20"
+            (click)="deleteActivity(i)"
+          />
+        </div>
+        <div class="col-1"></div>
+      </div>
+      <br /><br />
+    </div>
+    <div *ngIf="index == 4">
+      <div class="text-center">
+        <mat-button-toggle-group
+          name="fontStyle"
+          (change)="changeView($event)"
+          style="border-radius: 20px"
+          aria-label="Font Style"
+        >
+          <mat-button-toggle
+            value="budget"
+            [ngStyle]="{
+              'background-color': showHourly == false ? '#FA0E0E' : '#FFF',
+              color: showHourly == false ? '#fff' : '#000'
+            }"
+            style="font-size: 14px"
+            class="px-3 py-1"
+            >Total Budget
+          </mat-button-toggle>
+          <mat-button-toggle
+            value="hourly"
+            [ngStyle]="{
+              'background-color': showHourly == true ? '#FA0E0E' : '#FFF',
+              color: showHourly == true ? '#fff' : '#000'
+            }"
+            style="font-size: 14px"
+            class="px-4 py-1"
+            >Hourly rate</mat-button-toggle
+          >
+        </mat-button-toggle-group>
+      </div>
+      <div class="note">
+        <span class="font-weight-bold">Note :</span> Minimum Task amount should
+        be RM {{ minPrice }}
+      </div>
+      <div *ngIf="!showHourly">
+        <label for="basic-url" style="font-weight: 500; margin-top: 10px"
+          >Set your budget*</label
+        >
+        <div class="input-group mb-3">
+          <div class="input-group-prepend">
+            <span
+              class="input-group-text bg-white"
+              [ngClass]="{
+                'border-success':
+                  totalBudgetValidation &&
+                  postTaskForm.get('budget').dirty &&
+                  postTaskForm.get('budget').value > minPrice - 1 &&
+                  postTaskForm.get('budget').value < 10000,
+                'border-danger':
+                  postTaskForm.get('budget').dirty &&
+                  (postTaskForm.get('budget').value < minPrice ||
+                    postTaskForm.get('budget').value > 30000)
+              }"
+              style="font-size: small"
+              id="basic-addon3"
+              >RM</span
+            >
+          </div>
+          <input
+            type="text"
+            inputmode="numeric"
+            formControlName="budget"
+            [ngClass]="{
+              'border-success':
+                totalBudgetValidation &&
+                postTaskForm.get('budget').dirty &&
+                postTaskForm.get('budget').value > minPrice - 1 &&
+                postTaskForm.get('budget').value < 30001,
+              'border-danger':
+                postTaskForm.get('budget').dirty &&
+                (postTaskForm.get('budget').value < minPrice ||
+                  postTaskForm.get('budget').value > 30000)
+            }"
+            class="form-control fadeOutLeft has-success bg-white"
+            id="basic-url"
+            aria-describedby="basic-addon3"
+          />
+        </div>
+        <small
+          class="text-danger"
+          *ngIf="
+            postTaskForm.get('budget').touched &&
+            postTaskForm.get('budget').hasError('required')
+          "
+        >
+          Enter budget of your task.
+        </small>
+        <small
+          class="text-danger"
+          *ngIf="
+            postTaskForm.get('budget').touched &&
+            postTaskForm.get('budget').dirty &&
+            (postTaskForm.get('budget').value < minPrice ||
+              postTaskForm.get('budget').value > 30000)
+          "
+        >
+          Total allowed price is Min
+          {{ categoryRes?.amount?.Setminimumtaskamount }} - Max 30000
+        </small>
+        <small
+          class="text-danger"
+          *ngIf="
+            postTaskForm.get('budget').touched &&
+            postTaskForm.get('budget').dirty &&
+            postTaskForm.get('budget').hasError('min')
+          "
+        >
+          Enter Valid Amount, supports only numbers..
+        </small>
+
+        <div class="mb-5">Estimated Budget RM {{ jobBudget }}</div>
+      </div>
+      <div *ngIf="showHourly">
+        <div class="form-row">
+          <div class="form-group col-md-3">
+            <label for="inputEmail4" style="font-weight: 500; margin-top: 10px"
+              >Hours*</label
+            >
+            <input
+              type="text"
+              inputmode="numeric"
+              formControlName="Hours"
+              [ngClass]="{
+                'border-success': hoursValidation,
+                'is-invalid': !hoursValidation
+              }"
+              class="form-control bg-white number-input"
+              id="inputEmail4"
+            />
+            <small
+              class="text-danger"
+              *ngIf="
+                postTaskForm.get('Hours').touched &&
+                postTaskForm.get('Hours').hasError('required')
+              "
+            >
+              Required
+            </small>
+          </div>
+          <div class="form-group col-md-9">
+            <label for="basic-url" style="font-weight: 500; margin-top: 10px"
+              >Price per hour*</label
+            >
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span
+                  class="input-group-text bg-white"
+                  [ngClass]="{
+                    'border-success':
+                      hourlyBudgetValidation &&
+                      jobBudgetInHours > minPrice - 1 &&
+                      jobBudgetInHours < 30001,
+                    'border-danger':
+                      postTaskForm.get('pricePerHour').dirty &&
+                      (jobBudgetInHours < minPrice || jobBudgetInHours > 30000)
+                  }"
+                  style="font-size: small"
+                  id="basic-addon3"
+                  >RM</span
+                >
+              </div>
+              <input
+                type="text"
+                inputmode="numeric"
+                formControlName="pricePerHour"
+                [ngClass]="{
+                  'border-success':
+                    hourlyBudgetValidation &&
+                    jobBudgetInHours > minPrice - 1 &&
+                    jobBudgetInHours < 30001,
+                  'is-invalid':
+                    postTaskForm.get('pricePerHour').dirty &&
+                    (postTaskForm.get('pricePerHour').hasError('pattern') ||
+                      jobBudgetInHours < minPrice ||
+                      jobBudgetInHours > 30000)
+                }"
+                class="form-control fadeOutLeft bg-white"
+                id="basic-url"
+                aria-describedby="basic-addon3"
+              />
+            </div>
+            <small
+              class="text-danger d-block"
+              *ngIf="
+                postTaskForm.get('pricePerHour').dirty &&
+                (jobBudgetInHours < minPrice || jobBudgetInHours > 30000)
+              "
+            >
+              Total allowed price is Min
+              {{ minPrice }} - Max 30000
+            </small>
+          </div>
+        </div>
+        <div class="mb-5">
+          Estimated budget <span class="font-weight-bold">RM </span
+          >{{ jobBudgetInHours }}
+        </div>
+      </div>
+    </div>
+  </form>
+  <div class="px-2 m-auto" *ngIf="index == 5">
+    <div class="text-center">
+      <img src="../../../assets/congrats.png" style="width: 8rem" />
+    </div>
+    <h4 class="text-center">Congratulations</h4>
+    <div
+      class="text-center text-black-50 m-auto"
+      style="width: 232px; font-size: 14px; font-weight: 500"
+    >
+      Your task has been posted successfully. You'll be notified as soon as you
+      recieve an offer - make sure check back on it regularly.
+    </div>
+  </div>
+  <br /><br />
+  <div class="d-flex justify-content-end" *ngIf="index != 5">
+    <button
+      mat-raised-button
+      *ngIf="index != 0"
+      class="rounded-pill border-dark w-25"
+      (click)="decreaseIndex()"
+      style="font-weight: 400; font-weight: 400; border: 1px solid grey"
+    >
+      Back</button
+    >&nbsp;&nbsp;
+    <button
+      mat-raised-button
+      *ngIf="index != 4"
+      class="rounded-pill text-white w-25 border-dark"
+      type="button"
+      (click)="increaseIndex()"
+      style="background-color: #fa0e0e"
+    >
+      Next
+    </button>
+    <button
+      mat-raised-button
+      *ngIf="index == 4 && postTaskForm.valid"
+      [disabled]="!postTaskForm.valid || loading"
+      (click)="postOpenTask()"
+      class="rounded-pill text-white text-center px-2 w-25 border-dark"
+      type="submit"
+      [class.spinner]="loading"
+      style="background-color: #fa0e0e"
+    >
+      Post Task</button
+    >&nbsp;
+    <button
+      mat-raised-button
+      *ngIf="index == 4 && showDraftBtn && postTaskForm.valid"
+      class="rounded-pill border-dark"
+      (click)="saveToDraft()"
+      [disabled]="!postTaskForm.valid || loading"
+      style="font-weight: 400; font-weight: 400; border: 1px solid grey"
+    >
+      Save to Draft</button
+    >&nbsp;
+  </div>
+  <div class="d-flex justify-content-center" *ngIf="index == 5">
+    <button
+      mat-raised-button
+      (click)="closeDailog()"
+      class="rounded-pill text-white w-25 border-dark"
+      type="submit"
+      style="background-color: #fa0e0e"
+    >
+      Continue
+    </button>
+  </div>
+  <br /><br />
+</div>

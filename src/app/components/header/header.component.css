@@ -1,0 +1,31 @@
+*{outline: none;}
+.example-icon {
+    padding: 0 14px !important;
+  }
+    .mat-menu-content{
+        width: 10rem !important;
+    }
+    .mat-menu-item{
+        line-height:35px;
+        height:35px;
+      }
+  .example-spacer {
+    flex: 1 1 auto;
+  }
+  .mat-nav{
+    height: 30px;
+  }
+  .active{
+    color: #d9241b !important;
+  }
+  .login-buttons{
+    margin-right: 22px;
+  }
+  @media screen and (max-width:768px){
+    .main-menu{
+      display: none;
+    }
+    .login-buttons{
+      margin-right: 0;
+    }
+  }

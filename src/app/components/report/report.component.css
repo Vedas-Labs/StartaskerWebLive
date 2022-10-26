@@ -1,0 +1,11 @@
+::ng-deep .mat-dialog-container {
+    padding: 0 !important;
+  }
+  .form-control:focus{
+    outline: none;
+    border: 1px solid #dbcfcf;
+  }
+  .form-control{
+    font-size: 14px;
+    font-weight: 500;
+  }

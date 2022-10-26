@@ -1,0 +1,127 @@
+<div class="text-center bg-light p-3">
+  <h5 class="">
+    Mobile Verification
+    <span class="float-right hover text-right" (click)="closeTab()">
+      <img
+        width="40"
+        style="border-radius: 50%; padding: 10px"
+        src="../../../assets/Iconmetro-cancel.png"
+      />
+    </span>
+  </h5>
+</div>
+<br />
+<div class="container-fluid" *ngIf="!isOtpReceived">
+  <form
+    class="px-2 mb-4"
+    [formGroup]="phoneNumberForm"
+    style="min-height: 20vh"
+  >
+    <div class="form-group">
+      <label>Mobile Number</label>
+      <input
+        type="text"
+        class="form-control bg-white"
+        [class.is-invalid]="
+          (phoneNumberForm.get('phoneNumber').touched ||
+            phoneNumberForm.get('phoneNumber').dirty) &&
+          (phoneNumberForm.get('phoneNumber').hasError('required') ||
+            phoneNumberForm.get('phoneNumber').hasError('pattern'))
+        "
+        formControlName="phoneNumber"
+        style="font-size: 14px"
+      />
+      <small
+        class="text-red f-14"
+        *ngIf="
+          (phoneNumberForm.get('phoneNumber').touched ||
+            phoneNumberForm.get('phoneNumber').dirty) &&
+          phoneNumberForm.get('phoneNumber').hasError('required')
+        "
+        >Phone number required...</small
+      >
+      <small
+        class="text-red f-14"
+        *ngIf="
+          (phoneNumberForm.get('phoneNumber').touched ||
+            phoneNumberForm.get('phoneNumber').dirty) &&
+          phoneNumberForm.get('phoneNumber').hasError('pattern')
+        "
+        >Numbers only allowed...</small
+      >
+      <ngb-alert [type]="alertType" class="f-12" *ngIf="showAlert">{{
+        alertMsg
+      }}</ngb-alert>
+    </div>
+  </form>
+  <div class="d-flex justify-content-end pb-2 mt-3">
+    <button
+      mat-raised-button
+      (click)="closeTab()"
+      class="text-black-50 rounded-pill hover"
+      style="font-weight: 400; font-weight: 400; border: 1px solid grey"
+    >
+      &nbsp; &nbsp; Cancel &nbsp; &nbsp;</button
+    >&nbsp; &nbsp;
+    <button
+      mat-raised-button
+      (click)="updatePhoneToUser()"
+      [class.spinner]="loading"
+      [disabled]="loading || !phoneNumberForm.valid"
+      class="text-white rounded-pill hover"
+      style="font-weight: 400; font-weight: 400; background-color: #fa0e0e"
+    >
+      &nbsp; &nbsp; Update &nbsp; &nbsp;</button
+    >&nbsp;
+  </div>
+</div>
+<div class="container-fluid" *ngIf="isOtpReceived">
+  <div class="row justify-content-center">
+    <div class="col-md-10 p-2">
+      <div class="pb-3 pt-5 theme-color f-28 raleway-bold text-center">
+        Verification
+      </div>
+      <div class="raleway theme-color mb-4 text-center">
+        Enter the verfication code.<br />
+        <span>we just sent to your Mobile.</span>
+      </div>
+      <div class="otp-container pt-4 f-26">
+        <ng-otp-input
+          class="text-center py-3 pb-5"
+          (onInputChange)="onOtpChange($event)"
+          [config]="config"
+        ></ng-otp-input>
+        <p
+          class="f-14 text-danger raleway-bold text-center mt-2"
+          *ngIf="isError"
+        >
+          Enter valid OTP...
+        </p>
+        <ngb-alert [type]="alertType" class="f-12" *ngIf="showAlert">{{
+          alertMsg
+        }}</ngb-alert>
+      </div>
+
+      <div class="raleway theme-color mb-3 pt-4 pb-3 f-15 text-center">
+        If you didn't receive a code!
+        <span
+          class="raleway-bold hover text-red f-15"
+          (click)="sendMobileNumber()"
+        >
+          Resend</span
+        >
+      </div>
+
+      <div class="text-center mt-2">
+        <button
+          mat-raised-button
+          class="rounded-pill raleway-bold w-100 py-1 my-4 btn-gradiant mb-5 f-14"
+          (click)="verify()"
+        >
+          VERIFY
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="recaptcha-container" class="mt-3"></div>

@@ -1,0 +1,18 @@
+<div class=" bg-white p-2">
+    <h5 class=""><span class="float-right hover text-right" (click)="closeTab()">
+      <img width="40" style="border-radius: 50%; padding: 10px;"
+        src="../../../assets/Iconmetro-cancel.png">
+    </span></h5>
+    
+</div>
+<br>
+<div class="container mb-5">
+<div class="text-center">
+    <img src="{{imgPath}}" class="img-fluid">
+</div>
+<div style="line-height: 10px;">
+    <p class="text-center mt-2 f-18" style="color: #0C0C0C;">Payment <span *ngIf="isSuccess">successful!</span>
+        <span *ngIf="!isSuccess">Failed!</span></p>
+        <p class="text-center mt-2 f-14" style="color: #0C0C0C;">Unfortunately your payment has failed.</p>
+</div>
+</div>

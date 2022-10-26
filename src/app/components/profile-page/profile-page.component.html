@@ -1,0 +1,682 @@
+<div class="container-fluid px-4">
+  <div class="row bg-light">
+    <div class="col-md-5 d-flex justify-content-around">
+      <div class="ml-4 position-relative">
+        <img src="{{ image }}" class="rounded-circle avathar" />
+        <div
+          class="edit-icon hover"
+          *ngIf="isCurrentUser"
+          [routerLink]="['/my-account/profileSetting']"
+        >
+          <img src="../../../assets/edit.png" />
+        </div>
+      </div>
+      <div
+        class="align-self-center px-4"
+        *ngIf="UserDetails && UserDetails.firstName"
+      >
+        <p class="mb-0 f-18">
+          {{ UserDetails.firstName }} &nbsp;
+          <img
+            *ngIf="isVerified"
+            src="../../../assets/ic_verified.png"
+            width="20"
+          />
+        </p>
+        <p class="mb-o f-14">{{ UserDetails.address }}</p>
+      </div>
+    </div>
+    <div class="col-md-4 d-flex ratings">
+      <div style="line-height: 10px" class="f-14 align-self-center">
+        <p>{{ totalReviews }} Reviews</p>
+        <p *ngIf="userReviews?.completedPercentage">
+          {{ userReviews.completedPercentage }}% Completion Rate
+        </p>
+        <p>{{ userReviews?.TaskCompletedCount }} completed task</p>
+      </div>
+      <div style="line-height: 10px" class="f-14 align-self-center">
+        <div>
+          <span *ngFor="let five of fiveStar">
+            <img src="../../../assets/Icon-awesome-star.png" />
+          </span>
+        </div>
+        <div class="text-right">
+          <span *ngFor="let four of fourStar">
+            <img src="../../../assets/Icon-awesome-star.png" />
+          </span>
+        </div>
+        <div class="text-right">
+          <span *ngFor="let three of threeStar">
+            <img src="../../../assets/Icon-awesome-star.png" />
+          </span>
+        </div>
+        <div class="text-right">
+          <span *ngFor="let two of twoStar">
+            <img src="../../../assets/Icon-awesome-star.png" />
+          </span>
+        </div>
+        <div class="text-right">
+          <span>
+            <img src="../../../assets/Icon-awesome-star.png" />
+          </span>
+        </div>
+      </div>
+      <div class="f-14 align-self-center ml-1">
+        <div>{{ five }}</div>
+        <div>{{ four }}</div>
+        <div>{{ three }}</div>
+        <div>{{ two }}</div>
+        <div>{{ one }}</div>
+      </div>
+    </div>
+    <div class="col-md-3 align-self-center">
+      <div class="text-center">
+        <mat-button-toggle-group
+          name="fontStyle"
+          style="border-radius: 20px"
+          aria-label="Font Style"
+        >
+          <mat-button-toggle
+            value="tasker"
+            (change)="changeView($event)"
+            [ngStyle]="{
+              'background-color': asPoster == false ? '#FA0E0E' : '#FFF',
+              color: asPoster == false ? '#fff' : '#000'
+            }"
+            class="px-3 py-1 f-14"
+            >As a Tasker
+          </mat-button-toggle>
+          <mat-button-toggle
+            value="poster"
+            (change)="changeView($event)"
+            [ngStyle]="{
+              'background-color': asPoster == true ? '#FA0E0E' : '#FFF',
+              color: asPoster == true ? '#fff' : '#000'
+            }"
+            class="px-3 py-1 f-14"
+            >As a Poster
+          </mat-button-toggle>
+        </mat-button-toggle-group>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div
+      class="col-md-6 p-0 scroll-lg mt-4"
+      style="max-height: 55vh; overflow-y: auto"
+    >
+      <div class="bg-light">
+        <h5 class="ml-4 p-2">About</h5>
+      </div>
+      <p class="px-3 f-14" *ngIf="UserDetails && UserDetails.aboutMe">
+        {{ UserDetails.aboutMe }}
+      </p>
+      <div class="bg-light">
+        <h5 class="ml-4 p-2">Gallery</h5>
+      </div>
+      <div class="d-flex flex-wrap gallery-sec ml-2">
+        <div class="ml-1" *ngFor="let img of gallery">
+          <img
+            src="{{ 'https://liveapi.startasker.com' + img }}"
+            width="70"
+            height="70"
+            class="rounded hover"
+            (click)="showGallery()"
+          />
+        </div>
+      </div>
+      <div class="bg-light">
+        <h4 class="text-center p-2">Skills</h4>
+      </div>
+      <div
+        class="bg-light mt-3"
+        *ngIf="skills && skills.languages && skills.languages.length"
+      >
+        <h5 class="ml-4 p-2">Languages</h5>
+      </div>
+      <div class="d-flex flex-wrap p-2" *ngIf="skills && skills.languages">
+        <button
+          mat-raised-button
+          *ngFor="let language of skills.languages"
+          class="rounded-pill mx-1 bg-light"
+        >
+          {{ language }}
+        </button>
+      </div>
+      <div class="bg-light" *ngIf="skills && skills.trasportations">
+        <h5 class="ml-4 p-2">Transportation</h5>
+      </div>
+      <div class="d-flex flex-wrap p-2" *ngIf="skills && skills.trasportations">
+        <button
+          mat-raised-button
+          *ngIf="skills.trasportations.Bicycle"
+          class="rounded-pill mx-1 bg-light"
+        >
+          Bicycle
+        </button>
+        <button
+          mat-raised-button
+          *ngIf="skills.trasportations.Car"
+          class="rounded-pill mx-1 bg-light"
+        >
+          Car
+        </button>
+        <button
+          mat-raised-button
+          *ngIf="skills.trasportations.Online"
+          class="rounded-pill mx-1 bg-light"
+        >
+          Online
+        </button>
+        <button
+          mat-raised-button
+          *ngIf="skills.trasportations.Scooter"
+          class="rounded-pill mx-1 bg-light"
+        >
+          Scooter
+        </button>
+        <button
+          mat-raised-button
+          *ngIf="skills.trasportations.Truck"
+          class="rounded-pill mx-1 bg-light"
+        >
+          Truck
+        </button>
+        <button
+          mat-raised-button
+          *ngIf="skills.trasportations.Walk"
+          class="rounded-pill mx-1 bg-light"
+        >
+          Walk
+        </button>
+      </div>
+      <div
+        class="bg-light"
+        *ngIf="skills && skills.education && skills.education.length"
+      >
+        <h5 class="ml-4 p-2">Education</h5>
+      </div>
+      <div class="d-flex flex-wrap p-2" *ngIf="skills && skills.education">
+        <button
+          mat-raised-button
+          *ngFor="let education of skills.education"
+          class="rounded-pill mx-1 bg-light"
+        >
+          {{ education }}
+        </button>
+      </div>
+      <div class="bg-light" *ngIf="skills && skills.work && skills.work.length">
+        <h5 class="ml-4 p-2">Work Experiance</h5>
+      </div>
+      <div class="d-flex flex-wrap p-2" *ngIf="skills && skills.work">
+        <button
+          mat-raised-button
+          *ngFor="let work of skills.work"
+          class="rounded-pill mx-1 bg-light"
+        >
+          {{ work }}
+        </button>
+      </div>
+      <div
+        class="bg-light"
+        *ngIf="skills && skills.specialities && skills.specialities.length"
+      >
+        <h5 class="ml-4 p-2">Specialities</h5>
+      </div>
+      <div
+        class="d-flex flex-wrap p-2 mb-2"
+        *ngIf="skills && skills.specialities"
+      >
+        <button
+          mat-raised-button
+          *ngFor="let specialities of skills.specialities"
+          class="rounded-pill mx-1 bg-light"
+        >
+          {{ specialities }}
+        </button>
+      </div>
+    </div>
+    <div
+      class="col-md-6 border scroll-lg rounded"
+      *ngIf="!asPoster"
+      style="max-height: 55vh; overflow-y: auto"
+    >
+      <h5 class="px-3 mt-3">Reviews As a Tasker</h5>
+      <div class="review-section">
+        <ng-container *ngIf="taskerFiveStar && taskerFiveStar.length">
+          <ng-container *ngFor="let five of taskerFiveStar">
+            <p class="f-14 mb-0 text-black-50 mb-0 ml-3">
+              {{ five.postTitle }}
+            </p>
+            <div class="d-flex border-bottom">
+              <div class="p-3">
+                <img
+                  src="{{
+                    'https://liveapi.startasker.com' +
+                      five.ratingsGivenBy.profilePic
+                  }}"
+                  (click)="userProfile(five)"
+                  width="40"
+                  height="40"
+                  class="rounded-circle"
+                />
+              </div>
+              <div class="align-self-center" style="line-height: 20px">
+                <ngb-rating
+                  rate="{{ five.ratingsAsAProvider }}"
+                  [starTemplate]="t"
+                  [readonly]="true"
+                  [max]="5"
+                >
+                  <ng-template #t let-fill="fill">
+                    <span class="star" [class.full]="fill === 100">
+                      <span class="half" [style.width.%]="fill">&#9733;</span
+                      >&#9733;
+                    </span>
+                  </ng-template> </ngb-rating
+                ><br />
+                <span class="f-14 text-red">{{
+                  five.ratingsGivenBy.name
+                }}</span>
+                <span class="f-14 ml-2">{{ five.body }}</span>
+                <br />
+                <span style="font-size: 12px; font-weight: 500">{{
+                  five.timestamp | date
+                }}</span>
+              </div>
+            </div>
+          </ng-container>
+        </ng-container>
+        <ng-container *ngIf="taskerFourStar && taskerFourStar.length">
+          <ng-container *ngFor="let four of taskerFourStar">
+            <p class="f-14 mb-0 text-black-50 mb-0 ml-3">
+              {{ four.postTitle }}
+            </p>
+            <div class="d-flex border-bottom">
+              <div class="p-3">
+                <img
+                  src="{{
+                    'https://liveapi.startasker.com' +
+                      four.ratingsGivenBy.profilePic
+                  }}"
+                  (click)="userProfile(four)"
+                  width="40"
+                  height="40"
+                  class="rounded-circle"
+                />
+              </div>
+              <div class="align-self-center" style="line-height: 20px">
+                <ngb-rating
+                  rate="{{ four.ratingsAsAProvider }}"
+                  [starTemplate]="t"
+                  [readonly]="true"
+                  [max]="5"
+                >
+                  <ng-template #t let-fill="fill">
+                    <span class="star" [class.full]="fill === 100">
+                      <span class="half" [style.width.%]="fill">&#9733;</span
+                      >&#9733;
+                    </span>
+                  </ng-template> </ngb-rating
+                ><br />
+                <span class="f-14 text-red">{{
+                  four.ratingsGivenBy.name
+                }}</span>
+                <span class="f-14 ml-2">{{ four.body }}</span>
+                <br />
+                <span style="font-size: 12px; font-weight: 500">{{
+                  four.timestamp | date
+                }}</span>
+              </div>
+            </div>
+          </ng-container>
+        </ng-container>
+        <ng-container *ngIf="taskerThreeStar && taskerThreeStar.length">
+          <ng-container *ngFor="let three of taskerThreeStar">
+            <p class="f-14 mb-0 text-black-50 mb-0 ml-3">
+              {{ three.postTitle }}
+            </p>
+            <div class="d-flex border-bottom">
+              <div class="p-3">
+                <img
+                  src="{{
+                    'https://liveapi.startasker.com' +
+                      three.ratingsGivenBy.profilePic
+                  }}"
+                  (click)="userProfile(three)"
+                  width="40"
+                  height="40"
+                  class="rounded-circle"
+                />
+              </div>
+              <div class="align-self-center" style="line-height: 20px">
+                <ngb-rating
+                  rate="{{ three.ratingsAsAProvider }}"
+                  [starTemplate]="t"
+                  [readonly]="true"
+                  [max]="5"
+                >
+                  <ng-template #t let-fill="fill">
+                    <span class="star" [class.full]="fill === 100">
+                      <span class="half" [style.width.%]="fill">&#9733;</span
+                      >&#9733;
+                    </span>
+                  </ng-template> </ngb-rating
+                ><br />
+                <span class="f-14 text-red">{{
+                  three.ratingsGivenBy.name
+                }}</span>
+                <span class="f-14 ml-2">{{ three.body }}</span>
+                <br />
+                <span style="font-size: 12px; font-weight: 500">{{
+                  three.timestamp | date
+                }}</span>
+              </div>
+            </div>
+          </ng-container>
+        </ng-container>
+        <ng-container *ngIf="taskerTwoStar && taskerTwoStar.length">
+          <ng-container *ngFor="let two of taskerTwoStar">
+            <p class="f-14 mb-0 text-black-50 mb-0 ml-3">{{ two.postTitle }}</p>
+            <div class="d-flex border-bottom">
+              <div class="p-3">
+                <img
+                  src="{{
+                    'https://liveapi.startasker.com' +
+                      two.ratingsGivenBy.profilePic
+                  }}"
+                  (click)="userProfile(two)"
+                  width="40"
+                  height="40"
+                  class="rounded-circle"
+                />
+              </div>
+              <div class="align-self-center" style="line-height: 20px">
+                <ngb-rating
+                  rate="{{ two.ratingsAsAProvider }}"
+                  [starTemplate]="t"
+                  [readonly]="true"
+                  [max]="5"
+                >
+                  <ng-template #t let-fill="fill">
+                    <span class="star" [class.full]="fill === 100">
+                      <span class="half" [style.width.%]="fill">&#9733;</span
+                      >&#9733;
+                    </span>
+                  </ng-template> </ngb-rating
+                ><br />
+                <span class="f-14 text-red">{{ two.ratingsGivenBy.name }}</span>
+                <span class="f-14 ml-2">{{ two.body }}</span>
+                <br />
+                <span style="font-size: 12px; font-weight: 500">{{
+                  two.timestamp | date
+                }}</span>
+              </div>
+            </div>
+          </ng-container>
+        </ng-container>
+        <ng-container *ngIf="taskerOneStar && taskerOneStar.length">
+          <ng-container *ngFor="let one of taskerOneStar">
+            <p class="f-14 mb-0 text-black-50 mb-0 ml-3">{{ one.postTitle }}</p>
+            <div class="d-flex border-bottom">
+              <div class="p-3">
+                <img
+                  src="{{
+                    'https://liveapi.startasker.com' +
+                      one.ratingsGivenBy.profilePic
+                  }}"
+                  (click)="userProfile(one)"
+                  width="40"
+                  height="40"
+                  class="rounded-circle"
+                />
+              </div>
+              <div class="align-self-center" style="line-height: 20px">
+                <ngb-rating
+                  rate="{{ one.ratingsAsAProvider }}"
+                  [starTemplate]="t"
+                  [readonly]="true"
+                  [max]="5"
+                >
+                  <ng-template #t let-fill="fill">
+                    <span class="star" [class.full]="fill === 100">
+                      <span class="half" [style.width.%]="fill">&#9733;</span
+                      >&#9733;
+                    </span>
+                  </ng-template> </ngb-rating
+                ><br />
+                <span class="f-14 text-red">{{ one.ratingsGivenBy.name }}</span>
+                <span class="f-14 ml-2">{{ one.body }}</span>
+                <br />
+                <span style="font-size: 12px; font-weight: 500">{{
+                  one.timestamp | date
+                }}</span>
+              </div>
+            </div>
+          </ng-container>
+        </ng-container>
+      </div>
+    </div>
+    <div
+      class="col-md-6 border scroll-lg rounded"
+      *ngIf="asPoster"
+      style="max-height: 55vh; overflow-y: auto"
+    >
+      <h5 class="px-3 mt-3">Reviews As a Poster</h5>
+      <div class="review-section">
+        <ng-container *ngIf="posterFiveStar && posterFiveStar.length">
+          <ng-container *ngFor="let five of posterFiveStar">
+            <p class="f-14 mb-0 text-black-50 mb-0 ml-3">
+              {{ five.postTitle }}
+            </p>
+            <div class="d-flex border-bottom">
+              <div class="p-3">
+                <img
+                  src="{{
+                    'https://liveapi.startasker.com' +
+                      five.ratingsGivenBy.profilePic
+                  }}"
+                  (click)="userProfile(five)"
+                  width="40"
+                  height="40"
+                  class="rounded-circle"
+                />
+              </div>
+              <div class="align-self-center" style="line-height: 20px">
+                <ngb-rating
+                  rate="{{ five.ratingsAsAPoster }}"
+                  [starTemplate]="t"
+                  [readonly]="true"
+                  [max]="5"
+                >
+                  <ng-template #t let-fill="fill">
+                    <span class="star" [class.full]="fill === 100">
+                      <span class="half" [style.width.%]="fill">&#9733;</span
+                      >&#9733;
+                    </span>
+                  </ng-template> </ngb-rating
+                ><br />
+                <span class="f-14 text-red">{{
+                  five.ratingsGivenBy.name
+                }}</span>
+                <span class="f-14 ml-2">{{ five.body }}</span>
+                <br />
+                <span style="font-size: 12px; font-weight: 500">{{
+                  five.timestamp | date
+                }}</span>
+              </div>
+            </div>
+          </ng-container>
+        </ng-container>
+        <ng-container *ngIf="posterFourStar && posterFourStar.length">
+          <ng-container *ngFor="let four of posterFourStar">
+            <p class="f-14 mb-0 text-black-50 mb-0 ml-3">
+              {{ four.postTitle }}
+            </p>
+            <div class="d-flex border-bottom">
+              <div class="p-3">
+                <img
+                  src="{{
+                    'https://liveapi.startasker.com' +
+                      four.ratingsGivenBy.profilePic
+                  }}"
+                  (click)="userProfile(four)"
+                  width="40"
+                  height="40"
+                  class="rounded-circle"
+                />
+              </div>
+              <div class="align-self-center" style="line-height: 20px">
+                <ngb-rating
+                  rate="{{ four.ratingsAsAPoster }}"
+                  [starTemplate]="t"
+                  [readonly]="true"
+                  [max]="5"
+                >
+                  <ng-template #t let-fill="fill">
+                    <span class="star" [class.full]="fill === 100">
+                      <span class="half" [style.width.%]="fill">&#9733;</span
+                      >&#9733;
+                    </span>
+                  </ng-template> </ngb-rating
+                ><br />
+                <span class="f-14 text-red">{{
+                  four.ratingsGivenBy.name
+                }}</span>
+                <span class="f-14 ml-2">{{ four.body }}</span>
+                <br />
+                <span style="font-size: 12px; font-weight: 500">{{
+                  four.timestamp | date
+                }}</span>
+              </div>
+            </div>
+          </ng-container>
+        </ng-container>
+        <ng-container *ngIf="posterThreeStar && posterThreeStar.length">
+          <ng-container *ngFor="let three of posterThreeStar">
+            <p class="f-14 mb-0 text-black-50 mb-0 ml-3">
+              {{ three.postTitle }}
+            </p>
+            <div class="d-flex border-bottom">
+              <div class="p-3">
+                <img
+                  src="{{
+                    'https://liveapi.startasker.com' +
+                      three.ratingsGivenBy.profilePic
+                  }}"
+                  (click)="userProfile(three)"
+                  width="40"
+                  height="40"
+                  class="rounded-circle"
+                />
+              </div>
+              <div class="align-self-center" style="line-height: 20px">
+                <ngb-rating
+                  rate="{{ three.ratingsAsAPoster }}"
+                  [starTemplate]="t"
+                  [readonly]="true"
+                  [max]="5"
+                >
+                  <ng-template #t let-fill="fill">
+                    <span class="star" [class.full]="fill === 100">
+                      <span class="half" [style.width.%]="fill">&#9733;</span
+                      >&#9733;
+                    </span>
+                  </ng-template> </ngb-rating
+                ><br />
+                <span class="f-14 text-red">{{
+                  three.ratingsGivenBy.name
+                }}</span>
+                <span class="f-14 ml-2">{{ three.body }}</span>
+                <br />
+                <span style="font-size: 12px; font-weight: 500">{{
+                  three.timestamp | date
+                }}</span>
+              </div>
+            </div>
+          </ng-container>
+        </ng-container>
+        <ng-container *ngIf="posterTwoStar && posterTwoStar.length">
+          <ng-container *ngFor="let two of posterTwoStar">
+            <p class="f-14 mb-0 text-black-50 mb-0 ml-3">{{ two.postTitle }}</p>
+            <div class="d-flex border-bottom">
+              <div class="p-3">
+                <img
+                  src="{{
+                    'https://liveapi.startasker.com' +
+                      two.ratingsGivenBy.profilePic
+                  }}"
+                  (click)="userProfile(two)"
+                  width="40"
+                  height="40"
+                  class="rounded-circle"
+                />
+              </div>
+              <div class="align-self-center" style="line-height: 20px">
+                <ngb-rating
+                  rate="{{ two.ratingsAsAPoster }}"
+                  [starTemplate]="t"
+                  [readonly]="true"
+                  [max]="5"
+                >
+                  <ng-template #t let-fill="fill">
+                    <span class="star" [class.full]="fill === 100">
+                      <span class="half" [style.width.%]="fill">&#9733;</span
+                      >&#9733;
+                    </span>
+                  </ng-template> </ngb-rating
+                ><br />
+                <span class="f-14 text-red">{{ two.ratingsGivenBy.name }}</span>
+                <span class="f-14 ml-2">{{ two.body }}</span>
+                <br />
+                <span style="font-size: 12px; font-weight: 500">{{
+                  two.timestamp | date
+                }}</span>
+              </div>
+            </div>
+          </ng-container>
+        </ng-container>
+        <ng-container *ngIf="posterOneStar && posterOneStar.length">
+          <ng-container *ngFor="let one of posterOneStar">
+            <p class="f-14 mb-0 text-black-50 mb-0 ml-3">{{ one.postTitle }}</p>
+            <div class="d-flex border-bottom">
+              <div class="p-3">
+                <img
+                  src="{{
+                    'https://liveapi.startasker.com' +
+                      one.ratingsGivenBy.profilePic
+                  }}"
+                  (click)="userProfile(one)"
+                  width="40"
+                  height="40"
+                  class="rounded-circle"
+                />
+              </div>
+              <div class="align-self-center" style="line-height: 20px">
+                <ngb-rating
+                  rate="{{ one.ratingsAsAPoster }}"
+                  [starTemplate]="t"
+                  [readonly]="true"
+                  [max]="5"
+                >
+                  <ng-template #t let-fill="fill">
+                    <span class="star" [class.full]="fill === 100">
+                      <span class="half" [style.width.%]="fill">&#9733;</span
+                      >&#9733;
+                    </span>
+                  </ng-template> </ngb-rating
+                ><br />
+                <span class="f-14 text-red">{{ one.ratingsGivenBy.name }}</span>
+                <span class="f-14 ml-2">{{ one.body }}</span>
+                <br />
+                <span style="font-size: 12px; font-weight: 500">{{
+                  one.timestamp | date
+                }}</span>
+              </div>
+            </div>
+          </ng-container>
+        </ng-container>
+      </div>
+    </div>
+  </div>
+</div>

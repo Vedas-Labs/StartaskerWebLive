@@ -1,0 +1,18 @@
+::ng-deep .mat-dialog-container {
+    padding: 0 !important;
+  }
+ ::ng-deep .list-unstyled .mat-radio-button{
+    border: none !important;
+    border-radius: 3px;
+    padding: 10px 70px 0 10px;
+    background-color: #fff;
+  }
+
+  ::ng-deep .list-unstyled .mat-radio-checked .mat-radio-outer-circle{
+    background: transparent !important;
+    background-size: cover;
+    border: 2px solid #FA0E0E !important;
+    }
+    ::ng-deep .list-unstyled  .mat-radio-button.mat-accent .mat-radio-inner-circle{
+      background-color: transparent !important;
+    }

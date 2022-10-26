@@ -1,0 +1,73 @@
+<div class="container-fluid bg-white p-0">
+    <div class="d-flex justify-content-between">
+        <h4>Messages</h4>
+        <div *ngIf="inboxNotifications && inboxNotifications.length">
+            <img src="../../../../assets/delete.png">&nbsp;
+            <span *ngIf="ConfirmDelete" (click)="delete()" class="text-red f-14 font-weight-bold mr-2 hover">
+                 Delete</span>
+            <span  (click)="deleteAll()" class="text-red f-14 font-weight-bold hover">
+                Delete All</span>
+        </div>
+    </div>
+    <hr>
+    <div class="scroll" style="max-height: 65vh; overflow-y: auto; overflow-x: hidden;">
+        <mat-tab-group>
+            <mat-tab label="Notifications"> 
+                <div *ngIf="inboxNotifications && inboxNotifications.length">
+                    <div class="d-flex border-bottom hover"  *ngFor="let notification of notifications"  >
+                        <div class="p-2 position-relative">
+                            <img src="{{baseUrl+notification.data.profilePic}}" width="40" height="40" class="rounded-circle" >
+                            
+                            <span class="btn-bg position-absolute rounded-circle" *ngIf="!notification.isRead" style="width: 0.5rem;height: 0.5rem;top: 0.5rem;right: 0.8rem;"></span>
+                        </div>
+                        <div class="align-self-center" style="line-height: 20px;" (click)="opendetails(notification)">
+                            <small class="f-14">{{notification.notification.title}}</small><br>
+                            <small>{{notification.notification.body}}</small>
+                        </div>
+                        <span style="display: flex; flex: 1 1 auto;" (click)="opendetails(notification)"></span>
+                        <div class="align-self-center d-flex"  >
+                            <div class="m-2" >
+                                <span class="f-14 text-black-50">{{notification.timeStamp | date}}</span>
+                            </div>
+                            <div class="align-self-center mt-2">
+                                <mat-radio-button class="example-radio-button" (change)="deleteOne($event)"  [value]="notification.notifyID"></mat-radio-button>
+                            </div>
+                        </div>
+                    </div>
+                   
+                </div>    
+            </mat-tab>
+            <mat-tab label="Chat Messages"> 
+                <div *ngIf="inboxNotifications && inboxNotifications.length">
+                    <div class="d-flex border-bottom hover"  *ngFor="let notification of chatMessages"  >
+                        <div class="p-2 position-relative">
+                            <img src="{{baseUrl+notification.data.profilePic}}" width="40" height="40" class="rounded-circle" >
+                            <span class="bg-danger position-absolute rounded-circle" *ngIf="!notification.isRead" style="width: 0.4rem;height: 0.4rem;top: 0.1rem;right: 0.2rem;"></span>
+                        </div>
+                        <div class="align-self-center" style="line-height: 20px;" (click)="opendetails(notification)">
+                            <small class="f-14">{{notification.notification.title}}</small><br>
+                            <small>{{notification.notification.body}}</small>
+                        </div>
+                        <span style="display: flex; flex: 1 1 auto;" (click)="opendetails(notification)"></span>
+                        <div class="align-self-center d-flex"  >
+                            <div class="m-2" >
+                                <span class="f-14 text-black-50">{{notification.timeStamp | date}}</span>
+                            </div>
+                            <div class="align-self-center mt-2">
+                                <mat-radio-button class="example-radio-button" (change)="deleteOne($event)"  [value]="notification.notifyID"></mat-radio-button>
+                            </div>
+                        </div>
+                    </div>
+                   
+                </div>     
+            </mat-tab>
+          </mat-tab-group>
+        
+        <div *ngIf="inboxNotifications && !inboxNotifications.length" >
+            <div class="d-flex justify-content-center" style="min-height: 55vh; overflow-y: auto; overflow-x: hidden;">
+                <h3 class="align-self-center">{{statusMsg}}</h3>
+            </div>
+        </div>
+    </div>
+    </div>
+    <br>

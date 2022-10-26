@@ -1,0 +1,133 @@
+<button
+  id="myBtn"
+  class="text-white text-center font-weight-bold shadow"
+  (click)="scroll()"
+  style="border-radius: 50%; height: 30px; width: 30px"
+>
+  <small class="position-absolute" style="top: 4px; right: 8px"
+    ><i class="fas fa-arrow-up"></i
+  ></small>
+</button>
+<!-- Here we go -->
+<div *ngIf="loading" class="app-loading"></div>
+<div>
+  <mat-sidenav-container
+    #sideNavContainer
+    id="sideNavContainer"
+    class="example-container"
+    fixedInViewport="true"
+  >
+    <mat-sidenav
+      #sidenav
+      style="height: 100vh; overflow: auto"
+      (openedStart)="openedStart()"
+      (closedStart)="closedStart()"
+      mode="over"
+      position="end"
+    >
+      <button mat-button (click)="toggleSideNav()">
+        <img src="../assets/responsive/cancel.png" />
+      </button>
+
+      <p class="px-4">
+        <mat-nav-list *ngIf="isLoggedIn">
+          <a
+            mat-list-item
+            (click)="toggleSideNav()"
+            [routerLink]="['/my-account']"
+            routerLinkActive="active"
+            >Profile</a
+          >
+        </mat-nav-list>
+        <mat-nav-list *ngIf="!isLoggedIn">
+          <a mat-list-item (click)="openLogin()">Login</a>
+        </mat-nav-list>
+        <mat-nav-list *ngIf="!isLoggedIn">
+          <a mat-list-item (click)="openSignUp()">Sign Up</a>
+        </mat-nav-list>
+        <mat-nav-list *ngIf="isLoggedIn">
+          <a
+            mat-list-item
+            [routerLink]="['/my-tasks']"
+            (click)="toggleSideNav()"
+            routerLinkActive="side-active"
+            >My Task</a
+          >
+        </mat-nav-list>
+        <mat-nav-list *ngIf="isLoggedIn">
+          <a
+            mat-list-item
+            [routerLink]="['/bookings']"
+            (click)="toggleSideNav()"
+            routerLinkActive="side-active"
+            >Bookings</a
+          >
+        </mat-nav-list>
+        <mat-nav-list>
+          <a
+            mat-list-item
+            [routerLink]="['/browsejobs']"
+            (click)="toggleSideNav()"
+            routerLinkActive="side-active"
+            >Browse Tasks</a
+          >
+        </mat-nav-list>
+        <mat-nav-list *ngIf="isLoggedIn">
+          <a mat-list-item (click)="openEhire()" routerLinkActive="side-active"
+            >E Hiring</a
+          >
+        </mat-nav-list>
+        <mat-nav-list>
+          <a mat-list-item href="mailto:info@startasker.com" target="_blank"
+            >Contact Us</a
+          >
+        </mat-nav-list>
+        <!-- <mat-nav-list>
+            <a mat-list-item [routerLink]="['/term']" (click)="toggleSideNav()"   routerLinkActive="side-active">Terms & Conditions</a>
+          </mat-nav-list>
+          <mat-nav-list>
+            <a mat-list-item [routerLink]="['/privacy']" (click)="toggleSideNav()"  routerLinkActive="side-active">Privacy Policy</a>
+          </mat-nav-list>
+          <mat-nav-list>
+            <a mat-list-item routerLink=".">Disclaimer</a>
+          </mat-nav-list> -->
+
+        <mat-nav-list *ngIf="isLoggedIn">
+          <a mat-list-item (click)="openSignOut()">Sign Out</a>
+        </mat-nav-list>
+      </p>
+      <div class="my-3 d-flex justify-content-center flex-column">
+        <button
+          mat-raised-button
+          class="rounded-pill w-75 mb-2 m-auto text-white"
+          (click)="openPostJob()"
+          style="background-color: #fa0e0e; font-size: 14px"
+        >
+          Post a Task
+        </button>
+        <!-- <button mat-raised-button class="rounded-pill w-75 m-auto" 
+       style="font-size: 14px;border: 1px solid #FA0E0E;color: #FA0E0E;">Browse Tasks</button> -->
+      </div>
+      <br />
+      <br />
+    </mat-sidenav>
+
+    <mat-sidenav-content class="bg-white">
+      <div
+        class="text-right d-block d-md-none"
+        (click)="toggleSideNav()"
+        style="position: absolute; right: 0; top: 22px; z-index: 100"
+      >
+        <img class="ml-auto mr-2" src="../assets/responsive/open-menu.png" />
+      </div>
+      <app-header></app-header>
+      <app-sidebar></app-sidebar>
+      <router-outlet></router-outlet>
+      <app-footer></app-footer>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>
+
+<!-- Copyright 2017 Google Inc. All Rights Reserved.
+      Use of this source code is governed by an MIT-style license that
+      can be found in the LICENSE file at http://angular.io/license -->

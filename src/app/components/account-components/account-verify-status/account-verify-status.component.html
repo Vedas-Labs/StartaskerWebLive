@@ -1,0 +1,72 @@
+<div class="text-center bg-light p-3">
+    <h5 class="">
+        Account Verification <span class="float-right hover text-right" (click)="closeTab()">
+            <img width="40" style="border-radius: 50%; padding: 10px;" src="../../../assets/Iconmetro-cancel.png">
+        </span></h5>
+</div>
+<div class="container-fluid">
+    <div class="row justify-content-center" style="min-height: 30vh;" *ngIf="data.progress == 'submited'">
+        <div class="col-md-10 align-self-center">
+            <h5 class="text-center">Verification in process...</h5>
+            <p class="f-15 text-justify">
+                Your documents have been submitted. It will take 3 working days to verify your application. You can
+                check your verification satus later by clicking on your phone
+            </p>
+        </div>
+    </div>
+    <div class="text-center mb-3" *ngIf="data.progress == 'submited'">
+        <button mat-raised-button class="rounded-pill  btn-bg w-50" (click)="closeTab()">OK</button>
+    </div>
+    <div class="row justify-content-center" *ngIf="data.progress == ('Pending' || 'Rejected')">
+        <div class="col-md-12 p-0 ">
+            <div class="mb-3">
+                <img src="../../../../assets/account_verification2.png" class="img-fluid">
+            </div>
+            <div class="w-75 text-center m-auto">
+                <mat-card class="shadow mb-4">
+                    <div class="text-center">
+                       <img src="../../../../assets/inprogress.png" *ngIf="data.progress == 'Pending'" class="img-fluid" style="width: 4rem;">
+                       <img src="../../../../assets/ic_oops.png" *ngIf="data.progress == 'Rejected'" class="img-fluid" style="width: 4rem;">  
+                    </div>
+                    <div>
+                        <h5 class="font-weight-bold">Verification status</h5>
+                    </div>
+                    <div>
+                        <span class="f-15" *ngIf="data.progress == 'Pending'">Your Account Verification is in process..</span>
+                        <span class="f-15" *ngIf="data.progress == 'Rejected'">Your Account Verification is rejected. you can try again..</span>
+                    </div>
+                </mat-card>
+            </div>
+            <div class="d-flex px-3">
+                <img src="../../../../assets/sheild.png" style="width: 2rem;height: 2rem;">
+                <span class="f-14 align-self-center ml-2">Rest assured that your transactions and data are kept secure and confidential</span>
+            </div>
+            <div class="text-center my-3">
+                <button mat-raised-button class="rounded-pill btn-gradiant shadow" (click)="retry()">Retry Verify Account</button>
+            </div>
+        </div>
+    </div>
+    <div class="row justify-content-center" *ngIf="data.progress == 'Verified'">
+        <div class="col-md-12 p-0 ">
+            <div class="mb-3">
+                <img src="../../../../assets/account_verification2.png" class="img-fluid">
+            </div>
+            <div class="w-75 text-center m-auto mb-3">
+                <mat-card class="shadow mb-4">
+                    <div class="text-center">
+                       <img src="../../../../assets/ticked.png" class="img-fluid" style="width: 4rem;">  
+                    </div>
+                    <div>
+                        <h5 class="font-weight-bold">Verification status</h5>
+                    </div>
+                    <div>
+                        <span class="f-18 text-success">Your Account is Verified..</span>
+                        
+                    </div>
+                </mat-card>
+            </div>
+            <div class="text-center my-3">
+            </div>
+        </div>
+    </div>
+</div>

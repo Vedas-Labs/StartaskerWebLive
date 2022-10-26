@@ -1,0 +1,489 @@
+<span class="float-right hover mr-2 mt-2" (click)="closeTab()">
+  <img
+    width="40"
+    style="border-radius: 50%; padding: 10px"
+    src="../../../assets/Iconmetro-cancel.png"
+  />
+</span>
+<div class="bg-light text-center p-3">
+  <h5 class="head">{{ heading }}</h5>
+</div>
+<hr />
+<div
+  class="container-fluid scroll"
+  style="max-height: 80vh; overflow-y: scroll"
+  *ngIf="showLoginForm"
+>
+  <div class="row justify-content-center">
+    <div class="col-md-12">
+      <div class="f-14 text-center" *ngIf="isRefferalSignUp">
+        Your friend {{ this.refferalObj.invitedby }} invited you to join with
+        StarTasker
+      </div>
+      <form
+        [formGroup]="customerSignUpForm"
+        class="mb-3 example-form mt-1 px-2"
+        (ngSubmit)="checkAvailability()"
+      >
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label class="small">Email</mat-label>
+          <input
+            matInput
+            style="
+              background-color: white;
+              color: black !important;
+              padding: 5px;
+            "
+            formControlName="userID"
+            placeholder="Ex. pat@example.com"
+          />
+          <mat-error *ngIf="customerSignUpForm.get('userID').hasError('email')">
+            Please enter a valid email address
+          </mat-error>
+          <mat-error
+            *ngIf="customerSignUpForm.get('userID').hasError('required')"
+          >
+            Email is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label class="small">Password</mat-label>
+          <input
+            matInput
+            style="background-color: white; color: black; padding: 5px"
+            [type]="hide ? 'password' : 'text'"
+            formControlName="password"
+          />
+          <button
+            mat-icon-button
+            matSuffix
+            type="button"
+            class="text-black-50"
+            (click)="hide = !hide"
+            [attr.aria-label]="'Hide password'"
+            [attr.aria-pressed]="hide"
+          >
+            <mat-icon>{{ hide ? "visibility_off" : "visibility" }}</mat-icon>
+          </button>
+          <mat-error
+            class="small"
+            *ngIf="customerSignUpForm.get('password').hasError('minlength')"
+          >
+            Password should contain minimum 8 letters
+          </mat-error>
+          <mat-error
+            class="small"
+            *ngIf="customerSignUpForm.get('password').hasError('required')"
+          >
+            Password is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label class="small">Confirm Password</mat-label>
+          <input
+            matInput
+            placeholder=""
+            style="background-color: white; color: black; padding: 5px"
+            [type]="hide2 ? 'password' : 'text'"
+            formControlName="confirmPassword"
+          />
+          <button
+            mat-icon-button
+            matSuffix
+            type="button"
+            class="text-black-50"
+            (click)="hide2 = !hide2"
+            [attr.aria-label]="'Hide password'"
+            [attr.aria-pressed]="hide2"
+          >
+            <mat-icon>{{ hide2 ? "visibility_off" : "visibility" }}</mat-icon>
+          </button>
+          <mat-error
+            class="small"
+            *ngIf="
+              customerSignUpForm
+                .get('confirmPassword')
+                .hasError('NoPassswordMatch') &&
+              customerSignUpForm.get('confirmPassword').value != null
+            "
+          >
+            Password should match with Password
+          </mat-error>
+          <mat-error
+            class="small"
+            *ngIf="
+              customerSignUpForm.get('confirmPassword').hasError('required')
+            "
+          >
+            Password is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+        <div class="form-group form-check">
+          <input
+            type="checkbox"
+            class="form-check-input"
+            formControlName="isCheck"
+            id="exampleCheck1"
+          />
+          <label class="form-check-label text-muted small" for="exampleCheck1"
+            >* By signing up, I agree to Startasker's
+            <a [routerLink]="['/term']" target="_blank" class="text-black-50"
+              >Terms & Conditions</a
+            >, and
+            <a
+              class="text-black-50"
+              style="font-weight: 400"
+              target="_blank"
+              [routerLink]="['privacy']"
+              >Privacy Policy</a
+            >.</label
+          >
+        </div>
+        <div
+          class="p-1"
+          style="
+            color: #f44336;
+            font-size: 11px;
+            margin-top: -20px;
+            text-align: center;
+          "
+          *ngIf="customerSignUpForm.get('isCheck').value == false && checkError"
+        >
+          You must accept privacy policy, terms and conditions
+        </div>
+        <div>
+          <button
+            type="submit"
+            mat-raised-button
+            [class.spinner]="loading"
+            [disabled]="loading"
+            class="w-100 rounded-pill py-1 btn-clr"
+            style="font-size: 19px; font-weight: 400"
+          >
+            Submit
+          </button>
+        </div>
+      </form>
+      <div class="text-center small d-flex justify-content-center">
+        <span style="color: #271414; font-size: 14px; font-weight: 500">
+          Already have an account ? </span
+        >&nbsp;
+        <span
+          (click)="openLogin()"
+          class="hover"
+          style="font-weight: bold; color: #fa0e0e"
+          >LOG IN</span
+        >
+      </div>
+      <div style="width: 80%; margin: auto" class="text-center text-muted">
+        <span class="small">OR</span><br />
+        <h5 class="small"><span>Sign In with</span></h5>
+      </div>
+      <div class="d-flex justify-content-center">
+        <button
+          mat-raised-button
+          type="button"
+          style="height: 46px; width: 156px"
+          [disabled]="loading"
+          color="primary"
+          (click)="signInWithFB()"
+          class="rounded-pill"
+        >
+          <i class="fab fa-facebook-f"></i> &nbsp;
+          <span class="font-weight-bold">Facebook</span>
+        </button>
+        &nbsp; &nbsp;
+        <button
+          mat-raised-button
+          [disabled]="loading"
+          style="height: 46px; width: 156px"
+          type="button"
+          (click)="signInWithGoogle()"
+          color="warn"
+          class="rounded-pill"
+        >
+          <i class="fab fa-google text-white"></i> &nbsp;
+          <span class="font-weight-bold text-white">
+            Google &nbsp; &nbsp;
+          </span>
+        </button>
+        <!-- <img src="../../../assets/connect-with-fb@3x.png" class="hover mt-1 px-1" width="150" height="45" (click)="signInWithFB()">
+  
+          <img src="../../../assets/connect_with_google@3x.png"  width="150" height="45" class="mt-1 hover px-1"  (click)="signInWithGoogle()" >
+         -->
+      </div>
+    </div>
+  </div>
+  <br />
+</div>
+<div
+  class="container-fluid scroll"
+  style="max-height: 80vh; overflow-y: scroll"
+  *ngIf="showProfileForm"
+>
+  <div class="row justify-content-center">
+    <div class="col-md-12">
+      <div
+        class="image-preview d-flex justify-content-center"
+        *ngIf="previewUrl"
+      >
+        <figure class="figure text-center">
+          <img
+            [src]="previewUrl"
+            (click)="fileInput.click()"
+            class="rounded hover rounded-circle"
+            width="75"
+            height="75"
+            alt="Image Preview"
+          />
+        </figure>
+      </div>
+      <form
+        [formGroup]="setProfileForm"
+        class="example-form mb-3 px-2"
+        (ngSubmit)="submitProfile()"
+      >
+        <div class="d-none">
+          <input
+            type="file"
+            class="form-control"
+            name="file"
+            id="inputGroupFile01"
+            #fileInput
+            aria-describedby="inputGroupFileAddon01"
+            accept=".png, .jpg, .jpeg"
+            (change)="fileProgress($event)"
+          />
+        </div>
+
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label class="small">First Name</mat-label>
+          <input
+            matInput
+            formControlName="firstName"
+            style="background-color: white; color: black; padding: 5px"
+            placeholder="First Name"
+          />
+          <mat-error
+            class="small"
+            *ngIf="setProfileForm.get('firstName').hasError('required')"
+          >
+            Enter Your First Name..
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label class="small">Last Name</mat-label>
+          <input
+            matInput
+            formControlName="lastName"
+            style="background-color: white; color: black; padding: 5px"
+            placeholder="Last Name"
+          />
+          <mat-error
+            class="small"
+            *ngIf="setProfileForm.get('lastName').hasError('required')"
+          >
+            Enter Your Last Name..
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label class="small">Address</mat-label>
+          <input
+            matInput
+            formControlName="address"
+            (keyup)="onBlurMethod()"
+            style="background-color: white; color: black; padding: 5px"
+            ngx-google-places-autocomplete
+            [options]="options"
+            #placesRef="ngx-places"
+            (onAddressChange)="handleAddressChange($event)"
+          />
+          <mat-error
+            class="small"
+            *ngIf="
+              setProfileForm.get('address').touched &&
+              setProfileForm.get('address').hasError('required')
+            "
+          >
+            Enter Your Address
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label class="small">Phone Number</mat-label>
+          <input
+            matInput
+            type="number"
+            formControlName="phoneNumber"
+            style="background-color: white; color: black; padding: 5px"
+            placeholder="Phone Number"
+          />
+          <mat-error
+            class="small"
+            *ngIf="setProfileForm.get('phoneNumber').hasError('required')"
+          >
+            Enter Your Phone Number..
+          </mat-error>
+        </mat-form-field>
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label>Date of Birth</mat-label>
+          <input
+            matInput
+            [min]="minDate"
+            [max]="maxDate"
+            formControlName="dob"
+            readonly
+            style="background-color: white; color: black; padding: 5px"
+            [matDatepicker]="picker"
+          />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="picker"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+        <div class="text-center">
+          <p class="text-center pb-0 font-weight-bold">
+            What would you like to use Startasker for ?
+          </p>
+          <section class="example-section">
+            <mat-checkbox class="example-margin" formControlName="postTask"
+              >Post Task</mat-checkbox
+            >
+            <mat-checkbox
+              class="example-margin"
+              (change)="onWorkerSelected($event)"
+              formControlName="completeTask"
+              >Complete Task</mat-checkbox
+            >
+          </section>
+        </div>
+        <div
+          class="p-1"
+          style="
+            color: #f44336;
+            font-size: 11px;
+            margin-top: -20px;
+            text-align: center;
+          "
+          *ngIf="
+            setProfileForm.get('postTask').value == false &&
+            setProfileForm.get('completeTask').value == false
+          "
+        >
+          You must accept post task or complete task..
+        </div>
+        <label *ngIf="isWorkerSelected">
+          Prefered Task Categories (Upto 5)</label
+        >
+        <div
+          class="preffered-cat mb-3 hover"
+          *ngIf="isWorkerSelected"
+          (click)="openCategories()"
+        >
+          <div class="selected-Preffered-cat">
+            <div *ngIf="selectedCat.length">
+              <span *ngFor="let cat of selectedCat; let i = index">
+                {{ cat }}
+              </span>
+            </div>
+          </div>
+          <div class="down-arrow">
+            <img
+              src="../../../assets/down-arrow.png"
+              width="15"
+              class="img-fluid"
+              alt="down"
+            />
+          </div>
+        </div>
+        <div>
+          <button
+            type="submit"
+            [class.spinner]="loading"
+            [disabled]="setProfileForm.invalid || loading"
+            mat-raised-button
+            class="w-100 rounded-pill btn-clr py-1"
+            style="font-size: 19px; font-weight: 400"
+          >
+            Submit
+          </button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+<div class="container-fluid scroll" *ngIf="confirmPassword">
+  <div class="row justify-content-center">
+    <div class="col-md-12">
+      <div class="d-flex justify-content-center">
+        <img src="../../../assets/image-5.png" width="180" class="mx-auto" />
+      </div>
+      <form
+        [formGroup]="verificationForm"
+        class="example-form mb-3 px-2"
+        (ngSubmit)="sendOtp()"
+      >
+        <!-- <div class="form-group">
+          <input type="text" class="form-control rounded-pill" formControlName="otp" placeholder="OTP">
+          <p class="text-danger small" *ngIf="verificationForm.get('otp').touched && verificationForm.get('otp').hasError('required')">
+            Enter Your OTP...
+          </p>
+          <p class="text-danger small" *ngIf="verificationForm.get('otp').touched && verificationForm.get('otp').hasError('pattern')">
+            Your Entering Invalid OTP..
+          </p>
+        </div> -->
+        <mat-form-field class="example-full-width" appearance="outline">
+          <mat-label class="small">OTP</mat-label>
+          <input
+            matInput
+            formControlName="otp"
+            style="background-color: white; color: black; padding: 5px"
+          />
+          <mat-error
+            class="small"
+            *ngIf="
+              verificationForm.get('otp').hasError('NoOtpMatch') &&
+              verificationForm.get('otp').touched &&
+              verificationForm.get('otp').value != null
+            "
+          >
+            Otp not matched
+          </mat-error>
+          <mat-error
+            class="small"
+            *ngIf="verificationForm.get('otp').hasError('required')"
+          >
+            Otp is <strong>required</strong>
+          </mat-error>
+        </mat-form-field>
+        <p style="font-size: 14px" class="text-center">
+          Enter the verification code we just sent you on your Email ID.
+        </p>
+        <div>
+          <button
+            type="submit"
+            mat-raised-button
+            [class.spinner]="loading"
+            [disabled]="loading"
+            class="w-100 rounded-pill py-1 btn-clr"
+            style="font-size: 19px; font-weight: 400"
+          >
+            Submit
+          </button>
+        </div>
+        <br />
+        <div class="text-center">
+          <span
+            style="
+              font-size: 15px;
+              font-weight: 400;
+              font-family: 'Roboto medium';
+            "
+            >If you didn't recieve a code!
+            <a class="text-danger hover" (click)="resendOtp()">Resend</a>
+          </span>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,16 @@
+::ng-deep .mat-dialog-container {
+    padding: 0 !important;
+  }
+::ng-deep .mat-button-toggle-appearance-standard .mat-button-toggle-label-content{
+    line-height: unset !important;
+  }
+  label{
+      font-size: 14px;
+      font-weight: 500;
+  }
+  *{
+    font-family: "proxy reg", sans-serif ;
+  }
+  .form-control:focus{
+    border: 1px solid gainsboro;
+  }

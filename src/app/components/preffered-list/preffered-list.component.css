@@ -1,0 +1,10 @@
+::ng-deep .mat-dialog-container {
+  padding: 0 !important;
+}
+.list-styles {
+  display: flex;
+  align-items: center;
+}
+.list-styles .list-name {
+  flex-grow: 4;
+}

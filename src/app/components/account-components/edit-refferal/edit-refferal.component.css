@@ -1,0 +1,62 @@
+::ng-deep .mat-dialog-container {
+    padding: 0 !important;
+  }
+  .form-control:focus{
+      border: 1px solid #c9c3c3;
+  }
+  .form-control{
+      font-size: 14px;
+      font-weight: 500;
+  }
+  .avathar{
+    width: 7rem;
+    height: 7rem;
+     margin-top: 30px;
+      border: 1px solid rgba(231, 63, 63, 0.5);
+    }
+    .job-status span{
+        padding: 5px 25px;
+        background-color: #cccccc;
+        border-radius: 10px;
+        font-size: small;
+        color: white;
+    }
+    .job-status span.active{
+        background-color: #FA0e0e;
+    }
+    ::ng-deep .mat-button-toggle-appearance-standard .mat-button-toggle-label-content{
+        line-height: unset !important;
+      }
+    .bg-gradient{
+        color: #fff;
+        background: linear-gradient(to left,#FF2F29,#FF6521) !important;
+        height: 7rem;
+    }
+    /**** Scroll Bar*****/
+ .scroll::-webkit-scrollbar-track
+ {
+ border-radius: 2px;
+ }
+ .scroll::-webkit-scrollbar
+ {
+ width: 10px;
+ background-color: #F7F7F7;
+ }
+ .f-14{
+   font-weight: 500;
+   font-size: 14px;
+ } 
+ .f-18{
+  font-weight: 500;
+  font-size: 18px;
+} 
+ .text-red{
+   color: #FA0e0e;
+ }
+ .scroll::-webkit-scrollbar-thumb
+ {
+ border-radius: 10px;
+ -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+ box-shadow: inset 0 0 6px rgba(0,0,0,.3);
+ background-color: rgb(173, 168, 168);
+ }

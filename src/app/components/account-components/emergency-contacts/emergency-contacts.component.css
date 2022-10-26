@@ -1,0 +1,30 @@
+::ng-deep .mat-dialog-container {
+    padding: 0 !important;
+  }
+  .reedems div{
+    border: 1px solid rgb(221, 208, 208);
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 10px;
+    cursor: pointer;   
+  }
+  .form-control:focus{
+    border: 1px solid #c9c3c3;
+}
+.form-control , label{
+    font-size: 14px;
+    font-weight: 500;
+}
+@media screen and (max-width:767px){
+    .contact-img{
+        max-width: 90%;
+        max-height: 90%;
+        padding: 0 1.5rem !important;
+        margin: auto;
+        margin-top: 0.8rem;
+    }
+    .contact-text{
+        text-align: center;
+        margin-top: 0.5rem;
+    }
+}

@@ -1,0 +1,572 @@
+<div class="container-fluid">
+  <div class="row p-0">
+    <div class="background col-md-12 d-flex justify-content-center text-white">
+      <div class="align-self-center text-center">
+        <h1 class="top-heading">Your Service Expert is Here</h1>
+        <br />
+        <h3 style="font-weight: 400" class="text-white mr-4">
+          Get Access to reliable and affordable services
+        </h3>
+        <br />
+        <div class="my-3 d-block d-md-none">
+          <button
+            mat-raised-button
+            class="rounded-pill text-white"
+            (click)="openPostJob()"
+            style="background-color: #fa0e0e; font-size: 14px"
+          >
+            Post a Task
+          </button>
+          &nbsp;
+          <button
+            mat-raised-button
+            class="rounded-pill"
+            (click)="openBrowseJobs()"
+            style="font-size: 14px; border: 1px solid #fa0e0e; color: #fa0e0e"
+          >
+            Browse Tasks
+          </button>
+        </div>
+        <form
+          class="example-form"
+          [formGroup]="searchTermForm"
+          (ngSubmit)="searchJobs()"
+        >
+          <div class="form-group has-search">
+            <i class="fa fa-search fa-2x form-control-feedback"></i>
+            <input
+              type="search"
+              class="form-control search-services"
+              formControlName="keyword"
+              placeholder="Search"
+            />
+          </div>
+        </form>
+        <h6 class="text-left hint-text" style="margin-left: 33px">
+          Eg. House Cleaning, Moving Helpers, Designer
+        </h6>
+      </div>
+    </div>
+  </div>
+  <br /><br />
+  <div class="row justify-content-center">
+    <div class="col-md-11 d-none d-md-block">
+      <div class="swiper-container s1 p-4">
+        <div class="swiper-wrapper">
+          <div class="swiper-slide">
+            <div class="">
+              <div class="">
+                <img src="../../../assets/Cleaning.png" class="card-img" />
+                <div class="card-text">
+                  <span style="font-size: 22px; font-weight: 400; color: black"
+                    >Cleaning</span
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="">
+              <div class="">
+                <img src="../../../assets/Moving.png" class="card-img" />
+                <div class="card-text">
+                  <span style="font-size: 22px; font-weight: 400; color: black"
+                    >Moving Help</span
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="">
+              <div class="">
+                <img src="../../../assets/Promotar.png" class="card-img" />
+                <div class="card-text">
+                  <span style="font-size: 22px; font-weight: 400; color: black"
+                    >Promoter</span
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="">
+              <div class="">
+                <img src="../../../assets/handyman.png" class="card-img" />
+                <div class="card-text">
+                  <span style="font-size: 22px; font-weight: 400; color: black"
+                    >Handy man</span
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="">
+              <div class="">
+                <img src="../../../assets/admin.png" class="card-img" />
+                <div class="card-text">
+                  <span style="font-size: 22px; font-weight: 400; color: black"
+                    >Admin</span
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="">
+              <div class="">
+                <img src="../../../assets/Dsigner.png" class="card-img" />
+                <div class="card-text">
+                  <span style="font-size: 22px; font-weight: 400; color: black"
+                    >Designer</span
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+          <div class="swiper-slide">
+            <div class="">
+              <div class="">
+                <img src="../../../assets/Waiter.png" class="card-img" />
+                <div class="card-text">
+                  <span style="font-size: 22px; font-weight: 400; color: black"
+                    >Waiter</span
+                  >
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!-- Add Pagination -->
+        <div class="swiper-pagination"></div>
+      </div>
+    </div>
+  </div>
+  <div class="row justify-content-center d-block d-md-none">
+    <div class="col-md-12 d-flex flex-wrap justify-content-center">
+      <div class="text-center">
+        <img src="../../../assets/responsive/cleaning.png" class="card-img" />
+        <div class="card-text">
+          <span style="font-size: 14px; font-weight: 400; color: black"
+            >Cleaning</span
+          >
+        </div>
+      </div>
+      <div class="text-center">
+        <img
+          src="../../../assets/responsive/moving help.png"
+          class="card-img"
+        />
+        <div class="card-text">
+          <span style="font-size: 14px; font-weight: 400; color: black"
+            >Moving Help</span
+          >
+        </div>
+      </div>
+      <div class="text-center">
+        <img src="../../../assets/responsive/promoter.png" class="card-img" />
+        <div class="card-text">
+          <span style="font-size: 14px; font-weight: 400; color: black"
+            >Promoters</span
+          >
+        </div>
+      </div>
+
+      <div class="text-center">
+        <img src="../../../assets/responsive/handyman.png" class="card-img" />
+        <div class="card-text">
+          <span style="font-size: 14px; font-weight: 400; color: black"
+            >Handy Man</span
+          >
+        </div>
+      </div>
+      <div class="text-center">
+        <img src="../../../assets/responsive/admin.png" class="card-img" />
+        <div class="card-text">
+          <span style="font-size: 14px; font-weight: 400; color: black"
+            >Admin</span
+          >
+        </div>
+      </div>
+      <div class="text-center">
+        <img src="../../../assets/responsive/Designer.png" class="card-img" />
+        <div class="card-text">
+          <span style="font-size: 14px; font-weight: 400; color: black"
+            >Designer</span
+          >
+        </div>
+      </div>
+      <div class="text-center">
+        <img src="../../../assets/responsive/Waiter.png" class="card-img" />
+        <div class="card-text">
+          <span style="font-size: 14px; font-weight: 400; color: black"
+            >Waiter</span
+          >
+        </div>
+      </div>
+    </div>
+  </div>
+  <br />
+  <div class="row" *ngIf="isLoggedIn">
+    <div class="col-md-7">
+      <ul style="list-style-type: none">
+        <li>
+          <a
+            routerLinkActive="active"
+            class="hover"
+            [routerLink]="['/my-account/reffer-earn']"
+          >
+            <img src="../../../assets/reffer-earn.jpeg" class="img-fluid" />
+          </a>
+        </li>
+      </ul>
+      <!-- <img src="../../../assets/reffer-frnd.png" class="img-fluid" /> -->
+    </div>
+    <div class="col-md-5 text-center position-relative">
+      <div class="coupon-container">
+        <div class="coupon-img">
+          <img src="../../../assets/coupon-free.png" class="img-fluid" />
+        </div>
+        <div class="mb-3">
+          Invite your friend to signup using Your refferal code and get up to RM
+          5 DISCOUNT on your next booking
+        </div>
+        <div class="text-center">
+          <div class="">Your Refferal Code</div>
+          <div class="code-button mb-3">
+            {{ user?.referralCode }}
+          </div>
+          <button
+            mat-raised-button
+            class="rounded-pill btn-bg invite-btn"
+            (click)="showBtns()"
+          >
+            Invite Friends
+          </button>
+        </div>
+      </div>
+      <div
+        class="social-buttons d-flex justify-content-around"
+        [ngClass]="{ 'show-socialbtn': isSocialBtnsHidden }"
+      >
+        <div class="share-btn rounded-circle fb" (click)="shareOnFaceBook()">
+          <i class="fab fa-facebook text-white social-icon"></i>
+        </div>
+        <div
+          class="share-btn rounded-circle bg-success"
+          (click)="shareOnWhatsApp()"
+        >
+          <i class="fab fa-whatsapp text-white social-icon"></i>
+        </div>
+        <div class="share-btn rounded-circle twitter" (click)="shareOnTwiter()">
+          <i class="fab fa-twitter text-white social-icon"></i>
+        </div>
+        <div
+          class="share-btn rounded-circle linkedin"
+          (click)="shareOnLinkedIn()"
+        >
+          <i class="fab fa-linkedin text-white social-icon"></i>
+        </div>
+        <div
+          class="share-btn rounded-circle pinterest"
+          (click)="shareOnPinterest()"
+        >
+          <i class="fab fa-pinterest text-white social-icon"></i>
+        </div>
+        <div class="share-btn rounded-circle mail">
+          <a
+            href="mailto:?subject=I wanted you to see this Post&amp;body=Check out this site {{
+              shareUrl
+            }}"
+            (click)="close()"
+          >
+            <i class="far fa-envelope text-white social-icon"></i>
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+  <h4 class="text-center p-3 mb-4 font-weight-bold">
+    How does StarTasker works?
+  </h4>
+  <br />
+  <div class="row justify-content-center howitworks">
+    <div class="col-md-3 text-center">
+      <div class="d-flex justify-content-center">
+        <img
+          src="../../../assets/Component1.png"
+          style="filter: drop-shadow(10px 4px 1px #5e5d5c)"
+          width="210"
+          height="201"
+        />
+      </div>
+      <div class="text-center mx-3 mt-2" style="color: #575656">
+        Set up your Profile & let <br />
+        your potential Taskers <br />
+        know about you.
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="d-flex justify-content-center">
+        <img src="../../../assets/Component2.png" width="210" height="201" />
+      </div>
+      <div class="text-center mx-3 mt-2" style="color: #575656">
+        Post your task, tell us <br />
+        what you need. <br />
+        It's FREE to post.
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="d-flex justify-content-center">
+        <img src="../../../assets/Component3.png" width="210" height="201" />
+      </div>
+      <div class="text-center mx-3 mt-2" style="color: #575656">
+        Get offers from trusted <br />
+        taskers & Choose the <br />
+        right person for your <br />
+        task & get it done
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class="d-flex justify-content-center">
+        <img src="../../../assets/payment.png" width="210" height="201" />
+      </div>
+      <div class="text-center mx-3 mt-2" style="color: #575656">
+        Make payments & <br />
+        Startasker holds the <br />
+        funds until the task <br />
+        is complete.
+      </div>
+    </div>
+  </div>
+  <br /><br />
+  <h4
+    style="font-size: 35px"
+    class="text-center bg-light px-0 py-3 mb-4 font-weight-bold"
+  >
+    Number Of Providers In StarTasker {{ currentDate | date: "MMMM yyyy" }} !
+  </h4>
+  <div
+    class="row justify-content-center no_job_listings_found px-4"
+    *ngIf="jobsCount && jobsCount.Others"
+  >
+    <div class="col-md-2 p-0">
+      <div class="card showcolor">
+        <div class="card-body text-center">
+          <div class="my-3">
+            <h1 style="font-size: 3.5rem; margin-left: 28px">
+              {{ jobsCount.jobsaccomplished }}
+            </h1>
+            <span
+              style="font-size: 21px; margin-left: auto; margin-right: 10px"
+            >
+              JOBS<br />
+              ACCOMPLISHED
+            </span>
+            <div
+              style="font-size: 21px"
+              class="align-self-center text-nowrap"
+            ></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-2 p-0">
+      <div class="card showcolor" style="height: 257px">
+        <div class="card-body text-center">
+          <div class="my-3">
+            <h1 style="font-size: 3.5rem">
+              {{ jobsCount.Cleaner }}
+            </h1>
+            <span style="font-size: 21px">CLEANER</span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-2 p-0">
+      <div class="card showcolor">
+        <div class="card-body text-center">
+          <div class="my-3">
+            <h1 style="font-size: 3.5rem">{{ jobsCount.HandyMan }}</h1>
+            <span style="font-size: 21px"> HANDY MAN </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-2 p-0">
+      <div class="card showcolor">
+        <div class="card-body text-center">
+          <div class="my-3">
+            <h1 style="font-size: 3.5rem">
+              {{ jobsCount.Waiter }}
+            </h1>
+            <span style="font-size: 21px"> WAITER </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-2 p-0">
+      <div class="card showcolor">
+        <div class="card-body text-center">
+          <div class="my-3">
+            <h1 style="font-size: 3.5rem">
+              {{ jobsCount.Painter }}
+            </h1>
+            <span style="font-size: 21px"> Painter </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-2 p-0">
+      <div class="card showcolor">
+        <div class="card-body text-center">
+          <div class="my-3">
+            <h1 style="font-size: 3.5rem">
+              {{ jobsCount.MiniTask }}
+            </h1>
+            <span style="font-size: 21px"> MiniTask </span>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-2 p-0">
+      <div class="card showcolor">
+        <div class="card-body text-center">
+          <div class="my-3">
+            <h1 style="font-size: 3.5rem">
+              {{ jobsCount.Others }}
+            </h1>
+            <span style="font-size: 21px">OTHERS</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <br /><br />
+  <div class="row bg-light mt-5">
+    <div class="col-md-6 text-center">
+      <img
+        src="../../../assets/app.png"
+        width="70%"
+        style="position: relative; margin-top: -70px"
+      />
+    </div>
+    <div class="col-md-6">
+      <div class="d-flex justify-content-center h-75">
+        <div class="align-self-center">
+          <h4 class="font-weight-bold">Get the StarTasker app</h4>
+          <div class="d-flex justify-content-around">
+            <a
+              href="https://apps.apple.com/us/app/id1528746170"
+              target="_blank"
+            >
+              <img src="../../../assets/Appstore.png" />
+            </a>
+            <a
+              href="https://play.google.com/store/apps/details?id=com.star.startasker"
+              target="_blank"
+            >
+              <img src="../../../assets/google_play.png" />
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row mt-3 justify-content-center">
+    <div class="col-md-1"></div>
+    <div class="col-md-5 p-0 border border-dark">
+      <div class="d-flex justify-content-center box-content">
+        <div class="align-self-center p-3">
+          <img src="../../../assets/quality.png" />
+        </div>
+        <div class="align-self-center p-4 border-dark">
+          <h5>High Quality & Trusted Professionals</h5>
+          <br />
+          <p style="color: #6d6b6b">
+            All providers are verified before coming to work. They need to be
+            interviewed and provide Identity Card before they can apply to work.
+            We take your safety extremely seriously at Startasker.
+          </p>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-5 p-0 border border-dark">
+      <div class="d-flex justify-content-center box-content">
+        <div class="align-self-center p-3">
+          <img src="../../../assets/like.png" />
+        </div>
+        <div class="align-self-center p-4 border-dark">
+          <h5>PAYMENT TO STARTASKER</h5>
+          <br />
+          <p style="color: #6d6b6b">
+            Startasker holds the funds until you’re happy with the task is
+            complete. The payment will be refunded if the job is not completed
+            or provider does not show up to work
+          </p>
+          <br />
+        </div>
+      </div>
+    </div>
+    <div class="col-md-1"></div>
+  </div>
+  <h4 class="text-center p-3 mb-4 mt-4 font-weight-bold">
+    Reviews From Our Customers
+  </h4>
+  <div class="row justify-content-center d-none d-md-block">
+    <div class="col-md-12 text-center">
+      <img
+        src="../../../assets/reviewImg.png"
+        width="70%"
+        height="80%"
+        class="img-responsive"
+      />
+    </div>
+  </div>
+  <div class="row justify-content-center d-block d-md-none">
+    <div class="col-md-12">
+      <img src="../../../assets/responsive/reviews.png" width="100%" />
+    </div>
+  </div>
+  <div class="row mt-3 justify-content-center">
+    <div class="d-flex justify-content-around" style="width: 25em">
+      <a
+        mat-raised-button
+        class="rounded-pill text-decoration-none text-white px-4 py-1"
+        href="https://search.google.com/local/writereview?placeid=ChIJU9ts1ZTDSjAR2CS4ika3MV4"
+        target="_blank"
+        style="background-color: #fa0e0e; font-size: 14px"
+        >&nbsp;&nbsp; Write a Review &nbsp; &nbsp;</a
+      >&nbsp;&nbsp;
+
+      <a
+        mat-raised-button
+        class="rounded-pill text-decoration-none px-4 py-1"
+        target="_blank"
+        style="font-size: 14px; border: 1px solid #fa0e0e; color: #fa0e0e"
+        href="https://www.google.com/search?rlz=1C1GCEA_enID755ID755&amp;ei=YY3nXPKUGoOUwgPvm5YI&amp;q=startasker&amp;oq=startasker&amp;gs_l=psy-ab.3..35i39j0l2.899.899..1079...0.0..0.51.51.1......0....1..gws-wiz.......0i71.pQJgk-FBQ8I#lrd=0x304ac394d56cdb53:0x5e31b7468ab824d8,1,,,"
+      >
+        &nbsp; &nbsp; More Reviews &nbsp; &nbsp;</a
+      >
+    </div>
+  </div>
+  <br /><br />
+  <div class="row justify-content-center">
+    <h3 class="font-weight-bold text-center px-1 mt-1">
+      FOR ANY INQUIRIES PLEASE CONTACT US
+    </h3>
+    &nbsp; &nbsp;&nbsp;
+    <div class="align-self-center">
+      <div class="d-flex justify-content-between">
+        <a href="https://m.facebook.com/startaskerservice" target="_blank">
+          <img src="../../../assets/facebook.png" width="40" class="mx-2"
+        /></a>
+        <a href="https://wa.me/60123484833" target="_blank"
+          ><img src="../../../assets/whatsapp.png" width="40"
+        /></a>
+      </div>
+    </div>
+  </div>
+  <br /><br />
+</div>

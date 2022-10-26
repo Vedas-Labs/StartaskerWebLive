@@ -1,0 +1,238 @@
+*{
+  font-family: "proxy reg", sans-serif ;
+}
+
+/* Swper Styles */
+.swiper-container {
+  width: 100%;
+}
+
+.swiper-button-prev:after, .swiper-container-rtl .swiper-button-next:after , 
+.swiper-button-next:after, .swiper-container-rtl .swiper-button-prev:after{
+  font-size: small !important;
+}
+.swiper-slide {
+  text-align: center;
+  font-size: 18px;
+  background: #fff;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  display: flex;
+  -webkit-box-pack: center;
+  -ms-flex-pack: center;
+  -webkit-justify-content: center;
+  justify-content: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+}
+.swiper-pagination {
+  display: none;
+}
+  /* Centered text */
+/* .centered {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  } */
+
+/* New Design css */
+.background{
+  background: white url("../../../assets/background_new.png") no-repeat ;
+  background-size: cover;
+  height: 400px
+}
+.example-full-width {
+  width: 100%;
+}
+.example-form {
+  width: 100%;
+}
+.coupon-container{
+  max-width: 25rem;
+  margin: auto
+}
+.code-button{
+  max-width: 9rem;
+  margin: auto;
+  padding: 0.2rem 1.5rem;
+  background-color: silver;
+  font-weight: 500;
+}
+.social-buttons{
+  position: absolute;
+  bottom: 0;
+  width: 90%;
+  
+  -webkit-box-shadow: 0px -4px 3px rgba(50, 50, 50, 0.75);
+  -moz-box-shadow: 0px -4px 3px rgba(50, 50, 50, 0.75);
+  box-shadow: 0px -4px 3px rgba(50, 50, 50, 0.75);
+  left: 5%;
+  border-radius: 12px 12px 0 0;
+  height: 0;
+  overflow: hidden;
+  transition: all ease-in 0.5s;
+}
+.show-socialbtn{
+  height: 5rem;
+}
+.share-btn{
+  width: 2.5rem;
+  height: 2.5rem;
+  line-height: 2.9rem;
+  margin-top: 1.5rem;
+  cursor: pointer;
+}
+.social-icon{
+  font-size: 1.6rem;
+}
+.fb{
+  background-color: #3b5998;
+}
+.twitter{
+  background-color: #1da1f2;
+}
+.linkedin{
+  background-color: #007bb5;
+}
+.pinterest{
+  background-color: #bd081c;
+}
+.mail{
+  background-color: #f04a43;
+}
+.invite-btn{
+  min-width: 10rem;
+}
+.search-services{
+  border-radius: 20px !important;
+  background-color: whitesmoke;
+  opacity: 0.7;
+}
+.country-border{
+  border: 1px solid black !important;
+}
+input[type="number"]:focus{
+  outline: none !important;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Firefox */
+input[type=number] {
+  -moz-appearance: textfield;
+}
+.card{
+  transition: all 0.5s;
+  font-weight: 500;
+}
+.showcolor:hover{
+  cursor: pointer;
+  color: white;
+  background: linear-gradient(to bottom,#FA0E0E,#D81515);
+}
+/* Font color */
+input.mat-input-element {
+  color: rgb(46, 39, 39);
+  font-size: 14px;
+}
+.main {
+  width: 50%;
+  margin: 50px auto;
+}
+/* Bootstrap 4 text input with search icon */
+.has-search .form-control {
+  padding-left: 2.375rem;
+}
+.has-search .fa-search:hover{
+  cursor: pointer !important;
+}
+.has-search .form-control-feedback {
+  position: absolute;
+  z-index: 2;
+  display: block;
+  width: 2.375rem;
+  height: 2.375rem;
+  line-height: 2.375rem;
+  text-align: center;
+  color: #aaa;
+  padding: 10px;
+  cursor: pointer;
+}
+.howitworks .col-md-3{
+  font-size: 19px !important;
+}
+.no_job_listings_found .col-md-2 .card{
+  height: 257px;
+}
+.top-heading{
+  font-size: 3rem !important;
+}
+@media screen and (max-width:767px){
+  .background{
+    background: white url("../../../assets/responsive/background_new1.png") no-repeat ;
+    background-size: cover;
+    height: auto;
+  } 
+  .howitworks .col-md-3{
+    display: flex;
+    flex: 1 1 auto;
+    font-size: 15px !important;
+    margin-bottom: 20px;
+  }
+  .howitworks div{
+    align-self: center;
+  }
+  .howitworks div img{
+    width: 150px;
+    height: 150px;
+  }
+  .howitworks br{
+    display: none;
+  }
+  .no_job_listings_found .col-md-2 .card{
+    height: 140px !important;
+    margin-bottom: 20px !important;
+  }
+  .no_job_listings_found .col-md-2 .card .card-body .my-3{
+    display: flex;
+    justify-content: space-around;
+  }
+  .no_job_listings_found .col-md-2 .card .card-body .my-3 span{
+    align-self: center;
+  }
+  .box-content{
+    flex-direction: column;
+    text-align: center;
+  }
+  input[type="number"]{
+    width: 45%;
+  }
+  .input-group-prepend img{
+    width: 50%;
+  }
+  .input-group-prepend{
+    width: 28%;
+  }
+  .input-group-append{
+    margin-left: 0 !important;
+  }
+  .input-group-append button{
+    margin-left: 0 !important;
+    height: 100%;
+  }
+  .hint-text{
+    margin-left: 0 !important;
+  }
+  .top-heading{
+    margin-top: 10px;
+    font-size: 2.1rem !important;
+    font-weight: 500;
+  }
+}

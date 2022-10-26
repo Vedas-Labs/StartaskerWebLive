@@ -1,0 +1,308 @@
+<div class="container-fluid border-top">
+  <div class="row">
+    <div class="col-md-12 p-0">
+      <div class="hide-arrow" [ngClass]="{ showDetails: !isSelected }">
+        <img
+          src="../../../assets/left-arrow.png"
+          (click)="navigateToBack()"
+          class="ml-2"
+          width="24"
+        />
+      </div>
+    </div>
+  </div>
+  <div class="row" style="background-color: #ffffff">
+    <div class="col-md-12">
+      <div class="container">
+        <div class="row">
+          <mat-tab-group
+            class="col-md-4"
+            [selectedIndex]="selectedTab"
+            [ngClass]="{ showDetails: isSelected }"
+          >
+            <mat-tab label="As Poster">
+              <div
+                *ngIf="posterJobs && posterJobs.length"
+                class="scroll"
+                style="overflow-y: scroll; max-height: 75vh"
+              >
+                <div class="list-group mr-3 pt-1">
+                  <a
+                    class="list-group-item hover list-group-item-action mb-2"
+                    (click)="viewDetails(jobs)"
+                    style="border-radius: 20px; background-color: #f8f8f8"
+                    *ngFor="let jobs of posterJobs; let i = index"
+                  >
+                    <h6 class="mb-1 px-3">{{ jobs.taskTitle }}</h6>
+                    <div class="d-flex px-2 justify-content-start">
+                      <div class="px-3 border-right">
+                        <img
+                          [routerLink]="['/profile', jobs.userID]"
+                          *ngIf="jobs.customerProfilePic != ''"
+                          src="{{
+                            'https://liveapi.startasker.com/' +
+                              jobs.customerProfilePic
+                          }}"
+                          width="40"
+                          height="40"
+                          style="border-radius: 50%"
+                        />
+                        <img
+                          [routerLink]="['/profile', jobs.userID]"
+                          *ngIf="jobs.customerProfilePic == ''"
+                          src="{{ image }}"
+                          width="40"
+                          height="40"
+                          style="border-radius: 50%"
+                        /><br />
+                        <span class="font-weight-bold text-nowrap small"
+                          >RM {{ jobs.taskTotalBudget }}</span
+                        >
+                      </div>
+                      <div class="pl-1">
+                        <ul class="list-unstyled">
+                          <li class="d-flex justify-content-start">
+                            <span>
+                              <img
+                                src="../../../assets/Icon-material-location-on.png"
+                                class="d-inline-block"
+                                width="13"
+                              />
+                            </span>
+                            <span
+                              class="text-justify address"
+                              style="
+                                font-weight: 500;
+                                width: 150px !important;
+                                overflow: hidden;
+                                text-overflow: ellipsis;
+                                white-space: nowrap;
+                              "
+                            >
+                              <small>{{ jobs.location }}</small>
+                            </span>
+                          </li>
+                          <li class="d-flex">
+                            <span>
+                              <img
+                                src="../../../assets/calendar.png"
+                                width="13"
+                              />
+                            </span>
+                            <span class="m-0 p-0">
+                              <small
+                                *ngFor="let dates of jobs.taskDate"
+                                class="m-0"
+                                >{{ dates | date }},</small
+                              >
+                            </span>
+                          </li>
+                          <li class="d-flex">
+                            <span>
+                              <img src="../../../assets/clock.png" width="13" />
+                            </span>
+                            <span>
+                              <small
+                                *ngIf="
+                                  jobs.convenientTimings.length == 0 ||
+                                  jobs.convenientTimings.length == 4
+                                "
+                                >Any Time
+                              </small>
+                              <span
+                                style="margin: 0 !important"
+                                *ngIf="
+                                  jobs &&
+                                  jobs.convenientTimings.length &&
+                                  jobs.convenientTimings.length <= 3
+                                "
+                              >
+                                <small
+                                  *ngFor="let timings of jobs.convenientTimings"
+                                  >{{ timings }},
+                                </small>
+                              </span>
+                            </span>
+                          </li>
+                        </ul>
+                        <!-- <div class="small pl-1 d-flex justify-content-around" style="font-weight: 500;">
+                                                <span [ngStyle]="{'color': jobs.post_Status == 'Assigned' ? 'green' : '#Fa0e0e'}">{{jobs.post_Status}}</span> <span class="text-success">Offers({{jobs.offers.length}})</span>
+                                            </div> -->
+                      </div>
+                    </div>
+                    <div class="border-top mx-2">
+                      <span class="f-14"
+                        >Payment Status : {{ jobs.paymentStatus }}</span
+                      >
+                    </div>
+                  </a>
+                </div>
+              </div>
+              <div
+                *ngIf="posterJobs.length == 0"
+                class="p-0 d-flex justify-content-center bg-light"
+                style="min-height: 50vh"
+              >
+                <h5 class="align-self-center">{{ jobsFetching }}</h5>
+              </div>
+            </mat-tab>
+            <mat-tab label="As Tasker">
+              <div class="scroll" style="overflow-y: scroll; max-height: 70vh">
+                <div
+                  *ngIf="taskerJobs && taskerJobs.length"
+                  [ngClass]="{ showDetails: isSelected }"
+                >
+                  <div class="list-group mr-3 pt-1">
+                    <a
+                      class="list-group-item hover list-group-item-action mb-2"
+                      (click)="viewDetails(jobs)"
+                      style="border-radius: 20px; background-color: #f8f8f8"
+                      *ngFor="let jobs of taskerJobs; let i = index"
+                    >
+                      <h6 class="mb-1 px-3">{{ jobs.taskTitle }}</h6>
+                      <div class="d-flex px-2 justify-content-start">
+                        <div class="px-3 border-right">
+                          <img
+                            [routerLink]="['/profile', jobs.userID]"
+                            *ngIf="jobs.customerProfilePic != ''"
+                            src="{{
+                              'https://liveapi.startasker.com/' +
+                                jobs.customerProfilePic
+                            }}"
+                            width="40"
+                            height="40"
+                            style="border-radius: 50%"
+                          />
+                          <img
+                            [routerLink]="['/profile', jobs.userID]"
+                            *ngIf="jobs.customerProfilePic == ''"
+                            src="{{ image }}"
+                            width="40"
+                            height="40"
+                            style="border-radius: 50%"
+                          /><br />
+                          <span class="font-weight-bold text-nowrap small"
+                            >RM {{ jobs.taskTotalBudget }}</span
+                          >
+                        </div>
+                        <div class="pl-1">
+                          <ul class="list-unstyled">
+                            <li class="d-flex justify-content-start">
+                              <span>
+                                <img
+                                  src="../../../assets/Icon-material-location-on.png"
+                                  class="d-inline-block"
+                                  width="13"
+                                />
+                              </span>
+                              <span
+                                class="text-justify address"
+                                style="
+                                  font-weight: 500;
+                                  width: 150px !important;
+                                  overflow: hidden;
+                                  text-overflow: ellipsis;
+                                  white-space: nowrap;
+                                "
+                              >
+                                <small>{{ jobs.location }}</small>
+                              </span>
+                            </li>
+                            <li class="d-flex">
+                              <span>
+                                <img
+                                  src="../../../assets/calendar.png"
+                                  width="13"
+                                />
+                              </span>
+                              <span class="m-0 p-0">
+                                <small
+                                  *ngFor="let dates of jobs.taskDate"
+                                  class="m-0"
+                                  >{{ +dates | date }},</small
+                                >
+                              </span>
+                            </li>
+                            <li class="d-flex">
+                              <span>
+                                <img
+                                  src="../../../assets/clock.png"
+                                  width="13"
+                                />
+                              </span>
+                              <span>
+                                <small
+                                  *ngIf="
+                                    jobs.convenientTimings.length == 0 ||
+                                    jobs.convenientTimings.length == 4
+                                  "
+                                  >Any Time
+                                </small>
+                                <span
+                                  style="margin: 0 !important"
+                                  *ngIf="
+                                    jobs &&
+                                    jobs.convenientTimings.length &&
+                                    jobs.convenientTimings.length <= 3
+                                  "
+                                >
+                                  <small
+                                    *ngFor="
+                                      let timings of jobs.convenientTimings
+                                    "
+                                    >{{ timings }},
+                                  </small>
+                                </span>
+                              </span>
+                            </li>
+                          </ul>
+                          <!-- <div class="small pl-1 d-flex justify-content-around" style="font-weight: 500;">
+                                                <span [ngStyle]="{'color': jobs.post_Status == 'Assigned' ? 'green' : '#Fa0e0e'}">{{jobs.post_Status}}</span> <span class="text-success">Offers({{jobs.offers.length}})</span>
+                                            </div> -->
+                        </div>
+                      </div>
+                      <div class="border-top mx-2">
+                        <span class="f-14"
+                          >Payment Status : {{ jobs.paymentStatus }}</span
+                        >
+                      </div>
+                    </a>
+                  </div>
+                </div>
+                <div
+                  *ngIf="taskerJobs.length == 0"
+                  class="p-0 d-flex justify-content-center bg-light"
+                  style="min-height: 50vh"
+                >
+                  <h5 class="align-self-center">{{ jobsFetching }}</h5>
+                </div>
+              </div>
+            </mat-tab>
+          </mat-tab-group>
+
+          <div
+            class="col-md-8 bg-white scroll"
+            [ngClass]="{ showDetails: !isSelected }"
+            style="overflow-y: scroll; max-height: 75vh; min-height: 50vh"
+          >
+            <div *ngIf="!showDetails">
+              <iframe
+                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d16300243.318149967!2d100.5588515947959!3d4.111215970346351!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3034d3975f6730af%3A0x745969328211cd8!2sMalaysia!5e0!3m2!1sen!2sin!4v1587729840283!5m2!1sen!2sin"
+                width="600"
+                height="450"
+                frameborder="0"
+                style="border: 0"
+                allowfullscreen=""
+                aria-hidden="false"
+                tabindex="0"
+              ></iframe>
+            </div>
+            <div *ngIf="showDetails">
+              <router-outlet></router-outlet>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

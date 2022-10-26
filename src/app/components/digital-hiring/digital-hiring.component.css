@@ -1,0 +1,96 @@
+::ng-deep .mat-dialog-container {
+    padding: 0 !important;
+  }
+  .wraper{
+      height: 80vh;
+      overflow-y: auto;
+  }
+  .wraper .hiring-background{
+      height: 25rem;
+      position: relative;
+  }
+  .wraper .hiring-background img{
+      height: 25rem;
+      width: 100%;
+  }
+   .btn-container{
+      display: flex;
+      align-items: center;
+      min-height: 10rem;
+      justify-content: center;
+      flex-direction: column;
+  }
+  .experiance-box{
+    border: 1px solid #0e0e0e;
+    margin-bottom: 1rem;
+      font-size: 1.2rem;
+      font-weight: 600;
+      border-radius: 2px;
+  }
+  .experiance-box .cat-name{
+      padding: 0.3rem;
+  }
+  .experiance-box:hover .cat-name{
+    background-color: #fa0e0e;
+    color: #ffffff;
+    border: none;
+  }
+  .experiance-box .exp{
+      display: flex;
+  } 
+  .experiance-box .exp .exp-child-two{
+    flex-grow: 1;
+}
+.experiance-box .exp .exp-child-two input[type="number"]{
+    background-color: #E2E2E2;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 0.3rem;
+    text-align: center;
+}
+  .experiance-box .exp .exp-child-one{
+      flex-grow: 3;
+      font-size: 13px;
+      text-align: center;
+      padding: 0.3rem;
+  }
+  .custom-border{
+    border: 1px solid #0e0e0e;
+  }
+  .cust-btn{
+      min-width: 8rem;
+      margin-bottom: 1rem;
+      border: 1px solid #0e0e0e;
+      font-size: 1.2rem;
+      font-weight: 600;
+  }
+
+  .cust-btn:hover , .active{
+      background-color: #fa0e0e;
+      color: #ffffff;
+      border: none;
+  }
+  .hiring-background .terms-box{
+      position: absolute;
+      width: 90%;
+      top: 50%;
+    left: 50%;
+    transform: translateY(-50%) translateX(-50%);
+  }
+  .wraper .qns{
+      text-align: center;
+      margin-top: 2rem;
+  }
+   .next-container{
+    display: flex;
+    justify-content: space-between;
+    font-size: 1.1rem;
+    font-weight: 600;
+    padding: 1.5rem 0.8rem;
+  }
+  @media screen and (max-width:768px){
+    .wraper .hiring-background img{
+        height: 20rem;
+        width: 100%;
+    }
+  }

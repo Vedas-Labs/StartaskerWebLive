@@ -1,0 +1,60 @@
+<div class="text-center bg-light p-3">
+    <span class="float-left hover text-right" (click)="isContactsShowing = !isContactsShowing">
+        <img width="40" style="border-radius: 50%; padding: 10px;" src="../../../assets/left-arrow.png"
+            *ngIf="!isContactsShowing">
+    </span>
+    <h5 class="">
+        Emergency Contacts <span class="float-right hover text-right" (click)="closeTab()">
+            <img width="40" style="border-radius: 50%; padding: 10px;" src="../../../assets/Iconmetro-cancel.png">
+        </span></h5>
+</div>
+<div class="container-fluid scroll" *ngIf="isContactsShowing" style="min-height: 60vh;overflow-y: auto;">
+    <div class="row p-2 ">
+       <div class="reedems" >
+        <div  class="position-relative w-100">
+            <img src="../../../../assets/emergency_contacts@2x.png"  
+                class="img-fluid col-md-5 contact-img p-0 align-self-center">
+            <h6 class="pl-2 align-self-center contact-text col-md-7 f-14" style="line-height: 1.2rem;">
+                Up to 3 emergency contacts who will be notified via SMS anytime you require an emergency assistance .
+            </h6>
+        </div>
+       </div>
+    </div>
+   <ng-container *ngIf="emergencyContacts && emergencyContacts.length">
+    <div class="border d-flex  p-2 mb-2" *ngFor="let contact of emergencyContacts; let i = index;">
+        <div class="f-14 px-2 hover" style="line-height: 1rem;" (click)="editNumber(contact)">
+            <span class="f-14 ml-1 text-red">{{contact.NameoftheContactPerson}}</span><br>
+            <span class="f-14">{{contact.contact.phoneNumber}}</span>
+        </div>
+        <span (click)="editNumber(contact)" class="hover" style="display: flex; flex: 1 1 auto;"></span>
+        <span class="px-2 hover" (click)="deleteContact(contact._id,i)">
+            <img src="../../../../assets/criss_cross.png" width="18">
+        </span>
+    </div>
+   </ng-container>
+</div>
+<div class="container-fluid" *ngIf="!isContactsShowing" style="min-height: 60vh;overflow-y: auto;">
+    <section>
+        <form [formGroup]="emergencyContactsForm">
+            <div class="form-group f-14">
+                <label for="exampleFormControlInput1">Name of contact person*</label>
+                <input type="email" class="form-control" formControlName="NameoftheContactPerson" >
+                <small class="text-red" *ngIf="emergencyContactsForm.get('NameoftheContactPerson').touched && emergencyContactsForm.get('NameoftheContactPerson').hasError('required')">Contact Name Required*</small>
+              </div>
+              <label>Mobile Number</label>
+              <div class="form-group border" formGroupName="contact">
+                <input ng2TelInput class="form-control d-block border-0  f-14" inputmode="numeric"
+                 (countryChange)="onCountryChange($event)"  
+                 [ng2TelInputOptions]="countryCode"    formControlName="phoneNumber" placeholder="Phone Number">
+              </div>
+              <small class="text-red" *ngIf="emergencyContactsForm.get('contact.phoneNumber').touched && emergencyContactsForm.get('contact.phoneNumber').hasError('required')">Mobile Number Required*</small>
+                <small class="text-red"  *ngIf="(emergencyContactsForm.get('contact.phoneNumber').touched || emergencyContactsForm.get('contact.phoneNumber').dirty) && emergencyContactsForm.get('contact.phoneNumber').hasError('pattern')">Only Numbers Allowed*</small>
+        </form>
+    </section>
+</div>
+<div class="d-flex justify-content-center mb-3" *ngIf="isContactsShowing">
+    <button mat-raised-button class="rounded-pill btn-gradiant" [disabled]="loading"  *ngIf="!(emergencyContacts.length >= 3)" (click)="isContactsShowing = false">Add Contact</button>
+</div>
+<div class="d-flex justify-content-center mb-3" *ngIf="!isContactsShowing">
+    <button mat-raised-button class="rounded-pill btn-gradiant" (click)="sendContactNumbers()">Submit Contact</button>
+</div>
